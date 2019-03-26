@@ -23,10 +23,15 @@
     "lib": "lib",
     "test": "test"
   },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "6.3.0"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:watch": "webpack --watch --mode=development"
+    "build:watch": "webpack --watch --mode=development",
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
