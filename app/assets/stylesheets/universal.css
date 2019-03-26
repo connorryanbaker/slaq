@@ -4,6 +4,11 @@
 .btn-purple {
   background-color: #611f69;
   border: 2px solid #611f69;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  transition: all 420ms;
 }
 .btn-purple:hover {
   background-color: #4a154b;

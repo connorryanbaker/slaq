@@ -1,9 +1,3 @@
-.workspaces-btn {
-  padding: 10px;
-  border-radius: 4px;
-  color: #fff;
-  transition: all 420ms;
-}
 
 .logo-main {
   width: 75px;
@@ -42,5 +36,23 @@
 }
 
 .nav-right {
-  .display: flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+.splash-header {
+  font-size: 4em;
+  text-align: center;
+}
+
+.splash-container {
+  width: 85%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.splash-form-container {
+  width: 37.5%;
+  display: flex;
+  flex-direction: column;
 }

@@ -1,10 +1,13 @@
+/* form */
 .session-form {
   border-radius: 5px;
-  padding: 20px;
+  width: 80%;
+  margin: none;
+  height: 60%;
 }
 
 .session-form-fieldset {
-  padding: 5px;
+  padding: 1%;
   border: none;
   display: flex;
   flex-direction: row;
@@ -12,12 +15,62 @@
 }
 
 .session-form-container {
-  border: 1px solid black;
+  border: 1px solid rgb(221,221,221);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2% auto 0 auto;
+  width: 45%;
+  min-width: 375px;
+  max-height: 400px;
+  background-color: white;
 }
 
 .session-button {
   background-color: #007a5a;
+  border: 2px solid #007a5a;
   color: white;
   border-radius: 4px;
-  padding: 10px; 
+  padding: 2%; 
+  margin: 0 auto 2% auto;
+  width: 53%;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 75ms ease-in-out;
+}
+
+.session-button:hover {
+  box-shadow: 0 1px 4px rgba(29,28,29,.3);
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.session-input {
+  width: 50%;
+  border: 1px solid rgb(221,221,221);
+  border-radius: 5px;
+  box-shadow: none;
+  margin: 0 auto;
+  padding: 4%;
+}
+
+.session-input:focus {
+  outline: none;
+}
+
+.formh1 {
+  text-align: center;
+  margin: 2% 0 0 0;
+}
+
+/* signup / login pages */
+
+.signup-main {
+  border-top: 1px solid rgb(221,221,221);
+  background-color: #f8f8f8;
+  height: 100vh;
 }

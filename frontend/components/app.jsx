@@ -1,16 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { logout } from '../actions/session_actions';
-import SignupFormContainer from './session/SignupFormContainer';
-import LoginFormContainer from './session/LoginFormContainer';
+import SessionPage from './session/SessionPage';
 import LandingPage from './landing_page/LandingPage';
 
 const App = (props) => (
   <div>
     <Route exact path='/' component={LandingPage}/>
-    <Route path='/signup' component={SignupFormContainer}/>
-    <Route path='/login' component={LoginFormContainer}/>
+    <Route path='/signup' render={(props) => <SessionPage cpt={"signup"} />}/>
+    <Route path='/login' render={(props) => <SessionPage cpt={"login"} />}/>
   </div>
 )
 

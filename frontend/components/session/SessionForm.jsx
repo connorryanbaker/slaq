@@ -35,28 +35,43 @@ class SessionForm extends React.Component {
     } else {
       errors = <li>{this.props.errors}</li>;
     }
+    const name = this.props.formType === 'signup' ? <span><b>name</b>, </span> : "";
+    const header = this.props.formType === 'signup' ? <h1 className="formh1">Sign Up</h1> : <h1 className="formh1">Sign In</h1>;
+   
+   
     return (
       <div className="session-form-container">
         {errors.props.children.length > 0 ? <ul>{errors}</ul> : ""}
-        {this.props.formtype === 'signup' ? <h1>Sign Up</h1> : <h1>Sign In</h1>}
+        <div className="form-heading">
+          {header}
+          {<p>Enter your {name}<b>email</b> and <b>password</b>.</p>}
+        </div>
         <form onSubmit={this.handleSubmit} className="session-form">
           {this.props.formType === "signup" ? 
           <fieldset className='session-form-fieldset'>
               <input type="text"
+                     className="session-input"
                      onChange={this.update("name")}
+                     placeholder='Name'
                      value={this.state.name}/>
           </fieldset> : "" }
           <fieldset className='session-form-fieldset'>
               <input type="text"
+                className="session-input"
                 onChange={this.update("email")}
+                placeholder='Email address'
                 value={this.state.email} />
           </fieldset>
           <fieldset className='session-form-fieldset'>
               <input type="password"
+                className="session-input"
                 onChange={this.update("password")}
+                placeholder='Password'
                 value={this.state.password} />
           </fieldset>
-          <input className="session-button" type="submit" value={this.props.formType === "signup" ? "Create Account" : "Sign In"}/>
+          <div className='button-wrapper'>
+            <input className="session-button" type="submit" value={this.props.formType === "signup" ? "Create Account" : "Sign In"}/>
+          </div>
         </form>
       </div>
     )
