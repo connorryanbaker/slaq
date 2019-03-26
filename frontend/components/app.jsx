@@ -1,12 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import { logout } from '../actions/session_actions';
 import SignupFormContainer from './session/SignupFormContainer';
 import LoginFormContainer from './session/LoginFormContainer';
 
 const MainComponent = (props) => {
   const user = props.currentUser;
-  return (<div><h1>Hello, {user}!</h1></div>)
+  const btn = props.currentUser == "there" ? '' : <button onClick={props.logout}>Log Out!</button>;
+  return (<div>
+            <h1>Hello, {user}!</h1>
+            {btn}
+          </div>)
 };
 
 const msp = state => {
@@ -21,7 +26,11 @@ const msp = state => {
   }
 };
 
-const MainComponentConnect = connect(msp, null)(MainComponent);
+const mdp = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+const MainComponentConnect = connect(msp, mdp)(MainComponent);
 
 // const SignupFormContainer = (props) => (
 //   <div>Signup mate!</div>
