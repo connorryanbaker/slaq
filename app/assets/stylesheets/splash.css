@@ -1,4 +1,6 @@
-
+.workspaces-btn {
+  padding: 10px;
+}
 .logo-main {
   width: 75px;
 }
@@ -43,16 +45,91 @@
 .splash-header {
   font-size: 4em;
   text-align: center;
+  position: absolute;
+  top: 0%;
+  left: 29%;
+  z-index: 2;
 }
 
 .splash-container {
-  width: 85%;
+  width: 80%;
   margin: 0 auto;
   position: relative;
+  height: 100vh;
 }
 
 .splash-form-container {
   width: 37.5%;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: 25%;
+  right: 0%;
+}
+
+.splash-email-input-container {
+  display: flex;
+  flex: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.splash-paragraph {
+  line-height: 1.5em;
+}
+
+.splash-btn {
+  margin-left: 4%;
+  padding: 10% 15% 10% 15%;
+  width: 125%;
+  height: 100%;
+  letter-spacing: 2px;
+}
+
+.splash-input {
+  width: 50%;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: none;
+  margin: 0;
+  padding: 4%;
+  min-width: 100px;
+}
+
+.splash-signin-link {
+  color: #1264a3
+}
+
+.splash-signin-link:visited {
+  color: #1264a3
+}
+
+.splash-img-left, .splash-img-right {
+  width: 22%;
+  min-width: 100px;
+  filter: grayscale(100%);
+  position: absolute;
+}
+
+.splash-img-left {
+  top: 16%;
+  left: 12%;
+}
+
+.splash-img-center {
+  position: absolute;
+  width: 30%;
+  min-width: 200px;
+  top: 22%;
+  left: 30%;
+}
+
+.splash-img-right {
+  bottom: 22%;
+  right: 16%;
+}
+
+.splash-img {
+  transition: ease-in 750ms;
 }

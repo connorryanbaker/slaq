@@ -25,8 +25,8 @@ class Splash extends React.Component {
         <div className="splash-form-container">
           <p className="splash-paragraph">slaq is a collaboration hub for work, no matter what work you do. It’s a place where conversations happen, decisions are made, and information is always at your fingertips. With slaq, your team is better connected.</p>
           <div className="splash-email-input-container">
-            <input className="session-input" type="text" placeholder="Email address" onChange={this.update("input")} />
-            <Link to='/signup'><button className='btn-purple'>Get Started</button></Link>
+            <input className="splash-input" type="text" placeholder="Email address" onChange={this.update("input")} />
+            <Link to='/signup'><button className='btn-purple splash-btn'>GET STARTED</button></Link>
           </div>
           <p className="splash-footnote">Already using slaq? <Link className="splash-signin-link" to='/login'>Sign In.</Link></p>
         </div>
