@@ -1,0 +1,12 @@
+* {
+  font-family: 'Lato', sans-serif;
+}
+.btn-purple {
+  background-color: #611f69;
+  border: 2px solid #611f69;
+}
+.btn-purple:hover {
+  background-color: #4a154b;
+  border: 2px solid #4a154b;
+  cursor: pointer;
+}

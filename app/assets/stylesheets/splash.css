@@ -1,0 +1,46 @@
+.workspaces-btn {
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  transition: all 420ms;
+}
+
+.logo-main {
+  width: 75px;
+}
+
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-left-1 {
+  display: flex;
+  align-items: center;
+  margin-right: 12%;
+}
+
+.nav-left-2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-left-2 > p {
+  margin: 6px;
+  color: #708090;
+}
+
+.nav-left-2 > p:hover {
+  color: #000;
+}
+
+.nav-right {
+  .display: flex;
+}

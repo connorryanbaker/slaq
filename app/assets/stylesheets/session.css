@@ -1,0 +1,23 @@
+.session-form {
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.session-form-fieldset {
+  padding: 5px;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.session-form-container {
+  border: 1px solid black;
+}
+
+.session-button {
+  background-color: #007a5a;
+  color: white;
+  border-radius: 4px;
+  padding: 10px; 
+}

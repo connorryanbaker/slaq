@@ -21,8 +21,9 @@ class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.action(this.state);
-    this.props.history.push('/');
+    this.props.action(this.state).then(() => this.props.history.push('/')).catch(e => this.props.history.push(`/${this.props.formType}`));
+  
+    // if (this.props.errors.length === 0) this.props.history.push('/');
   }
 
   render() {
@@ -37,33 +38,25 @@ class SessionForm extends React.Component {
     return (
       <div className="session-form-container">
         {errors.props.children.length > 0 ? <ul>{errors}</ul> : ""}
-        <form onSubmit={this.handleSubmit}>
+        {this.props.formtype === 'signup' ? <h1>Sign Up</h1> : <h1>Sign In</h1>}
+        <form onSubmit={this.handleSubmit} className="session-form">
           {this.props.formType === "signup" ? 
-          <fieldset>
-            <label>
-              Name: 
+          <fieldset className='session-form-fieldset'>
               <input type="text"
                      onChange={this.update("name")}
                      value={this.state.name}/>
-            </label>
           </fieldset> : "" }
-          <fieldset>
-            <label>
-              Email:
+          <fieldset className='session-form-fieldset'>
               <input type="text"
                 onChange={this.update("email")}
                 value={this.state.email} />
-            </label>
           </fieldset>
-          <fieldset>
-            <label>
-              Password:
+          <fieldset className='session-form-fieldset'>
               <input type="password"
                 onChange={this.update("password")}
                 value={this.state.password} />
-            </label>
           </fieldset>
-          <input type="submit" value={this.props.formType === "signup" ? "Create Account" : "Sign In"}/>
+          <input className="session-button" type="submit" value={this.props.formType === "signup" ? "Create Account" : "Sign In"}/>
         </form>
       </div>
     )
