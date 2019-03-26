@@ -131,5 +131,9 @@
 }
 
 .splash-img {
-  transition: ease-in 750ms;
+  transition: ease-in-out 750ms;
+}
+
+.splash-img:hover {
+  transform: scale(0) scale(1);
 }
