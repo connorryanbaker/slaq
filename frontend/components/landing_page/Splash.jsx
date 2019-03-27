@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { receiveErrors, clearErrors } from '../../actions/session_actions';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import SplashEmailForm from './SplashEmailForm';
 
 class Splash extends React.Component {
@@ -15,13 +14,11 @@ class Splash extends React.Component {
         "assets/slaq_landing3-5e61062ed1fa1ee54ad6099bbcb90d6e86e8f9e43f85d6974adab9938f5a7cfb.jpg"],
       imgCaptions: ["Away transforms creativity and customer support with slaq", "Molly Moon creates a recipe for success with slaq", "Auto Desk fosters open communication with slaq"]
     }
-    
+  }
+
+  componentDidMount() {
     setInterval(() => {
       const imgs = Array.from(document.getElementsByClassName('splash-img'));
-      imgs.forEach((e) => {
-        e.classList.add('fade');
-        e.classList.remove('appear');
-      });
       let newImgs = this.state.imgs;
       newImgs.push(newImgs.shift());
       let newCaptions = this.state.imgCaptions;
@@ -33,29 +30,16 @@ class Splash extends React.Component {
     }, 4000);
   }
 
-  componentDidMount() {
-    const imgs = Array.from(document.getElementsByClassName('splash-img'));
-    imgs.forEach((e) => { 
-      e.classList.remove('fade'); 
-    });
-  }
-
   componentDidUpdate() {
     const imgs = Array.from(document.getElementsByClassName('splash-img'));
-    imgs.forEach(e => { 
-      if (Array.from(e.classList).includes('fade')) e.classList.add('fade');
-    });
     setTimeout(() => {
-      imgs.forEach(e => e.classList.remove('fade'));
-    }, 500);
+      imgs.forEach(e => e.classList.add('fade'));
+      setTimeout(() => {
+        imgs.forEach(e => e.classList.remove('fade'));
+      },350);
+    }, 50);
   }
 
-  componentWillUnmount() {
-    const imgs = Array.from(document.getElementsByClassName('splash-img'));
-    imgs.forEach((e) => {
-      e.classList.remove('fade');
-    });
-  }
 
   render() {
     const errors = this.props.errors.length > 0 ? <div class="splash-errors">{this.props.errors[0]}</div> : ""
