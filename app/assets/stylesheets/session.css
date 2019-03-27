@@ -89,6 +89,15 @@
   width: 50%;
 }
 
+.red-left {
+  border-left: 4px solid;
+  border-left-color: #e01e5a;
+}
+
 .warning {
-  fill: red;
+  fill: #e01e5a;;
+}
+
+.session-error-list {
+  list-style-type: none;
 }
