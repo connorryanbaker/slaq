@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { receiveErrors, clearErrors } from '../../actions/session_actions';
 import { Redirect, withRouter } from 'react-router-dom';
+import SplashEmailForm from './SplashEmailForm';
 
 class Splash extends React.Component {
   constructor(props) {
@@ -14,8 +15,7 @@ class Splash extends React.Component {
         "assets/slaq_landing3-5e61062ed1fa1ee54ad6099bbcb90d6e86e8f9e43f85d6974adab9938f5a7cfb.jpg"],
       imgCaptions: ["Away transforms creativity and customer support with slaq", "Molly Moon creates a recipe for success with slaq", "Auto Desk fosters open communication with slaq"]
     }
-    this.update = this.update.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    
     setInterval(() => {
       const imgs = Array.from(document.getElementsByClassName('splash-img'));
       imgs.forEach((e) => {
@@ -31,24 +31,6 @@ class Splash extends React.Component {
         imgCaptions: newCaptions
       });
     }, 4000);
-  }
-
-  update(field) {
-    return (e) => {
-      if (this.props.errors.length > 0) this.props.clearErrors();
-      this.setState({
-        [field]: e.target.value
-      });
-    }
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    if (this.state.input.length === 0) {
-      this.props.receiveErrors(["Please fill out your email address!"])
-    } else {
-      return this.props.history.push({pathname: '/signup', state: { email: this.state.input } });
-    }
   }
 
   componentDidMount() {
@@ -75,9 +57,10 @@ class Splash extends React.Component {
         <h1 className="splash-header">Imagine what you'll<br/> accomplish together</h1>
         <p className="splash-paragraph">slaq is a collaboration hub for work, no matter what work you do. It’s a place where conversations happen, decisions are made, and information is always at your fingertips. With slaq, your team is better connected.</p>
         {errors}
-        <input className="splash-input" type="text" placeholder="Email address" onChange={this.update("input")} />
+        <SplashEmailForm />
+        {/* <input className="splash-input" type="text" placeholder="Email address" onChange={this.update("input")} />
         <Link to='/signup' className='splash-link'><button onClick={this.handleSubmit} className='btn-purple splash-btn'>GET STARTED</button></Link>
-        <p className="splash-footnote">Already using slaq? <Link className="splash-signin-link" to='/login'>Sign In.</Link></p>
+        <p className="splash-footnote">Already using slaq? <Link className="splash-signin-link" to='/login'>Sign In.</Link></p> */}
         <img className="splash-img-left splash-img" src={this.state.imgs[0]}/>
         <img className="splash-img-center splash-img" src={this.state.imgs[1]}/>
         <figcaption className="splash-caption splash-img">{this.state.imgCaptions[0]}</figcaption>
