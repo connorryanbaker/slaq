@@ -50,6 +50,8 @@
   grid-column-start: 3;
   grid-column-end: 7;
   grid-row: 1;
+  max-height: 100px;
+  overflow: none;
 }
 
 .splash-container {
@@ -180,4 +182,29 @@
   opacity: 0.1;
   transform: scale(0.1);
   transform-origin: bottom;
+}
+
+@media only screen and (max-width: 1550px) {
+  .splash-header {
+    font-size: 3.5em;
+    grid-column-end: 8;
+  }
+
+  .splash-paragraph {
+    font-size: 1em;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .splash-header {
+    font-size: 2em;
+  }
+  
+  .splash-paragraph {
+    font-size: .8em;
+    grid-row: 2;
+  }
+}
+ 
+@media only screen and (max-width: 750px) {
 }
