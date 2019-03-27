@@ -45,6 +45,13 @@ export const login = user => dispatch => {
     });
 }
 
+export const loginGuest = guest => dispatch => {
+  return SessionApiUtil.createSession(guest)
+    .then((user) => {
+      dispatch(receiveCurrentUser(user));
+    });
+}
+
 export const logout = () => dispatch => {
   return SessionApiUtil.destroySession()
     .then(() => dispatch(logoutUser()))

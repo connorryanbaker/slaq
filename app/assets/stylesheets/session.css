@@ -23,7 +23,6 @@
   margin: 2% auto 0 auto;
   width: 45%;
   min-width: 375px;
-  max-height: 400px;
   background-color: white;
 }
 
@@ -79,4 +78,17 @@
 .session-error {
   background-color: #fce9ef;
   border: 1px solid #e01e5a;
+}
+
+.guest {
+  margin-bottom: 2%;
+  display: inline-flex;
+  align-items: center;
+  padding: 1%;
+  justify-content: center;
+  width: 50%;
+}
+
+.warning {
+  fill: red;
 }

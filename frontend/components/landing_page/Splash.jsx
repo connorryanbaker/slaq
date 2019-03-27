@@ -17,7 +17,7 @@ class Splash extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       const imgs = Array.from(document.getElementsByClassName('splash-img'));
       let newImgs = this.state.imgs;
       newImgs.push(newImgs.shift());
@@ -40,6 +40,9 @@ class Splash extends React.Component {
     }, 50);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   render() {
     const errors = this.props.errors.length > 0 ? <div class="splash-errors">{this.props.errors[0]}</div> : ""
