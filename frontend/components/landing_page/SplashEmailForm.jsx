@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import { receiveErrors, clearErrors } from '../../actions/session_actions';
 
 class SplashEmailForm extends React.Component {
   constructor(props) {
@@ -31,12 +32,11 @@ class SplashEmailForm extends React.Component {
   }
 
   render() {
-    const errors = this.props.errors.length > 0 ? <div class="splash-errors">{this.props.errors[0]}</div> : ""
+    const errors = this.props.errors.length > 0 ? <div className="splash-errors">{this.props.errors[0]}</div> : ""
 
     return (
       <div className="splash-email-wrapper">
         <div className="splash-email-form">
-          {errors}
           <div className="splash-email">
             <input className="splash-input" type="text" placeholder="Email address" onChange={this.update("input")} />
             <Link to='/signup' className='splash-link'><button onClick={this.handleSubmit} className='btn-purple splash-btn'>GET STARTED</button></Link>
@@ -52,4 +52,9 @@ const msp = state => ({
   errors: state.errors.session
 });
 
-export default withRouter(connect(msp, null)(SplashEmailForm));
+const mdp = dispatch => ({
+  clearErrors: () => dispatch(clearErrors()),
+  receiveErrors: errors => dispatch(receiveErrors(errors))
+});
+
+export default withRouter(connect(msp, mdp)(SplashEmailForm));
