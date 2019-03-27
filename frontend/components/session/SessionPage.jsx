@@ -9,7 +9,7 @@ class SignupPage extends React.Component {
   }
 
   render() {
-    const cpt = this.props.cpt === "signup" ? <SignupFormContainer /> : <LoginFormContainer />
+    const cpt = this.props.match.path === "/signup" ? <SignupFormContainer /> : <LoginFormContainer />
     return (
       <div className="signup-page-container">
         <LandingNav />

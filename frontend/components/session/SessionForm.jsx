@@ -3,10 +3,8 @@ import React from 'react';
 class SessionForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = this.props.formType === "login" ? { email: "", password: "" } : { name: "", email: "", password: "" };
 
-    const loginState = { email: "", password: "" };
-    const signupState = { name: "", email: "", password: "" };
-    this.state = this.props.formType === "login" ? loginState : signupState;
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -24,14 +22,16 @@ class SessionForm extends React.Component {
     e.preventDefault();
     const errorFn = this.props.history.push;
     const formType = this.props.formType;
+
+
     this.props.action(this.state).then(() => {
       this.props.history.push('/messages')
-    },(e) => {
+    }, (e) => {
       errorFn(formType);
     });
   }
-  
- 
+
+
 
   componentDidMount() {
     if (this.props.errors.length === 0) this.props.clearErrors();
@@ -53,6 +53,7 @@ class SessionForm extends React.Component {
     const passwordErrors = errClasses.includes("Password") ? "session-error" : ""
     const signInErr = errClasses.includes("Invalid") ? "session-error" : ""
 
+   
     return (
       <div className="session-form-container">
         <div className="form-heading">
