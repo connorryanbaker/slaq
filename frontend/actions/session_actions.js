@@ -25,18 +25,21 @@ export const logoutUser = () => ({
 
 export const signUp = user => dispatch => {
   return SessionApiUtil.createUser(user)
-    .then(user => dispatch(receiveCurrentUser(user)))
-    .catch(e => {
-      return dispatch(receiveErrors(e.responseJSON))
+    .then((user) => {
+      dispatch(receiveCurrentUser(user));
+    },(e) => {
+      dispatch(receiveErrors(e.responseJSON));
+      throw err;
     });
 }
 
 export const login = user => dispatch => {
   return SessionApiUtil.createSession(user)
-    .then(user => dispatch(receiveCurrentUser(user)))
-    .catch(e => {
-      console.log(e);
-      return dispatch(receiveErrors([e.responseText]))
+    .then((user) => {
+      dispatch(receiveCurrentUser(user));
+    }, (e) => {
+      dispatch(receiveErrors(e.responseText))
+      throw err;
     });
 }
 

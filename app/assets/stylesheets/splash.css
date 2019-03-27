@@ -114,6 +114,7 @@
   min-width: 100px;
   filter: grayscale(100%);
   position: absolute;
+  opacity: 0.8;
 }
 
 .splash-img-left {
@@ -123,21 +124,17 @@
 
 .splash-img-center {
   position: absolute;
-  width: 30%;
+  width: 35%;
   min-width: 200px;
-  top: 22%;
-  left: 30%;
+  top: 25%;
+  left: 25%;
 }
 
 .splash-img-right {
-  bottom: 18%;
+  bottom: 13%;
   right: 16%;
 }
 
 .splash-img {
   transition: ease-in-out 750ms;
-}
-
-.splash-img:hover {
-  transform: scale(0) scale(1);
 }

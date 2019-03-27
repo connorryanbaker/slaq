@@ -22,12 +22,22 @@ class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.action(this.state).then(() => this.props.history.push('/messages')).catch(e => this.props.history.push(`/${this.props.formType}`));
+    const errorFn = this.props.history.push;
+    const formType = this.props.formType;
+    debugger;
+    this.props.action(this.state).then(() => {
+      debugger
+      this.props.history.push('/messages')
+    },(e) => {
+      debugger
+      errorFn(formType);
+    });
   }
+  
+ 
 
   componentDidMount() {
-    if (this.props.er)
-    this.props.clearErrors();
+    if (this.props.errors.length === 0) this.props.clearErrors();
     if (this.props.location.state) {
       this.setState({
         email: this.props.location.state.email
