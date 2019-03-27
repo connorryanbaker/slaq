@@ -50,6 +50,13 @@ class Splash extends React.Component {
     }, 500);
   }
 
+  componentWillUnmount() {
+    const imgs = Array.from(document.getElementsByClassName('splash-img'));
+    imgs.forEach((e) => {
+      e.classList.remove('fade');
+    });
+  }
+
   render() {
     const errors = this.props.errors.length > 0 ? <div class="splash-errors">{this.props.errors[0]}</div> : ""
     return (
@@ -58,9 +65,6 @@ class Splash extends React.Component {
         <p className="splash-paragraph">slaq is a collaboration hub for work, no matter what work you do. It’s a place where conversations happen, decisions are made, and information is always at your fingertips. With slaq, your team is better connected.</p>
         {errors}
         <SplashEmailForm />
-        {/* <input className="splash-input" type="text" placeholder="Email address" onChange={this.update("input")} />
-        <Link to='/signup' className='splash-link'><button onClick={this.handleSubmit} className='btn-purple splash-btn'>GET STARTED</button></Link>
-        <p className="splash-footnote">Already using slaq? <Link className="splash-signin-link" to='/login'>Sign In.</Link></p> */}
         <img className="splash-img-left splash-img" src={this.state.imgs[0]}/>
         <img className="splash-img-center splash-img" src={this.state.imgs[1]}/>
         <figcaption className="splash-caption splash-img">{this.state.imgCaptions[0]}</figcaption>
