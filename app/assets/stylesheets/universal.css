@@ -1,5 +1,6 @@
 * {
   font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
 }
 .btn-purple {
   background-color: #611f69;
