@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { login, clearErrors } from '../../actions/session_actions';
 import SessionForm from './SessionForm';
 
@@ -13,4 +14,4 @@ const mdp = dispatch => ({
 });
 
 
-export default connect(msp, mdp)(SessionForm);
+export default withRouter(connect(msp, mdp)(SessionForm));

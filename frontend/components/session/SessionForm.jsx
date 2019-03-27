@@ -13,7 +13,7 @@ class SessionForm extends React.Component {
 
   update(field) {
     return (e) => {
-      if (this.props.errors) this.props.clearErrors();
+      if (this.props.errors.length > 0) this.props.clearErrors();
       this.setState({
         [field]: e.target.value
       });
@@ -22,10 +22,11 @@ class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.action(this.state).then(() => this.props.history.push('/')).catch(e => this.props.history.push(`/${this.props.formType}`));
+    this.props.action(this.state).then(() => this.props.history.push('/messages')).catch(e => this.props.history.push(`/${this.props.formType}`));
   }
 
   componentDidMount() {
+    if (this.props.er)
     this.props.clearErrors();
     if (this.props.location.state) {
       this.setState({
