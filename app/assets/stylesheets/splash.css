@@ -60,7 +60,7 @@
   display: grid;
   grid-template-columns: 10% 15% 30% 5% 2.5% 20% 17.5%;
   grid-template-rows: 15% 10% 14% 10% 6% 4% 26% 10% 5%;
-  height: 800px;
+  height: 80vh;
 }
 
 .splash-paragraph {

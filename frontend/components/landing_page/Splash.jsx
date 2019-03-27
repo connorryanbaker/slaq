@@ -30,14 +30,16 @@ class Splash extends React.Component {
     }, 4000);
   }
 
-  componentDidUpdate() {
-    const imgs = Array.from(document.getElementsByClassName('splash-img'));
-    setTimeout(() => {
-      imgs.forEach(e => e.classList.add('fade'));
+  componentDidUpdate(prevProps) {
+    if (this.props.errors === prevProps.errors) {
+      const imgs = Array.from(document.getElementsByClassName('splash-img'));
       setTimeout(() => {
-        imgs.forEach(e => e.classList.remove('fade'));
-      },350);
-    }, 50);
+        imgs.forEach(e => e.classList.add('fade'));
+        setTimeout(() => {
+          imgs.forEach(e => e.classList.remove('fade'));
+        },350);
+      }, 15);
+    }
   }
 
   componentWillUnmount() {
