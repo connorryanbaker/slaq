@@ -75,3 +75,8 @@
   background-color: #f8f8f8;
   height: 100vh;
 }
+
+.session-error {
+  background-color: #fce9ef;
+  border: 1px solid #e01e5a;
+}

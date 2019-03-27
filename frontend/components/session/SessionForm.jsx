@@ -24,12 +24,9 @@ class SessionForm extends React.Component {
     e.preventDefault();
     const errorFn = this.props.history.push;
     const formType = this.props.formType;
-    debugger;
     this.props.action(this.state).then(() => {
-      debugger
       this.props.history.push('/messages')
     },(e) => {
-      debugger
       errorFn(formType);
     });
   }
@@ -46,21 +43,18 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    let errors;
-    if (Array.isArray(this.props.errors)) {
-      errors = this.props.errors.map((e, i) => {
-        return <li key={i}>{e}</li>
-      });
-    } else {
-      errors = <li>{this.props.errors}</li>;
-    }
     const name = this.props.formType === 'signup' ? <span><b>name</b>, </span> : "";
     const header = this.props.formType === 'signup' ? <h1 className="formh1">Sign Up</h1> : <h1 className="formh1">Sign In</h1>;
 
+    let errClasses = this.props.errors.map((e) => e.split(" ")[0]);
+
+    const nameErrors = errClasses.includes("Name") ? "session-error" : ""
+    const emailErrors = errClasses.includes("Email") ? "session-error" : ""
+    const passwordErrors = errClasses.includes("Password") ? "session-error" : ""
+    const signInErr = errClasses.includes("Invalid") ? "session-error" : ""
 
     return (
       <div className="session-form-container">
-        <ul>{errors}</ul>
         <div className="form-heading">
           {header}
           {<p>Enter your {name}<b>email</b> and <b>password</b>.</p>}
@@ -69,21 +63,21 @@ class SessionForm extends React.Component {
           {this.props.formType === "signup" ?
             <fieldset className='session-form-fieldset'>
               <input type="text"
-                className="session-input"
+                className={`session-input ${nameErrors} ${signInErr}`}
                 onChange={this.update("name")}
                 placeholder='Name'
                 value={this.state.name} />
             </fieldset> : ""}
           <fieldset className='session-form-fieldset'>
             <input type="text"
-              className="session-input"
+              className={`session-input ${emailErrors} ${signInErr}`}
               onChange={this.update("email")}
               placeholder='Email address'
               value={this.state.email} />
           </fieldset>
           <fieldset className='session-form-fieldset'>
             <input type="password"
-              className="session-input"
+              className={`session-input ${passwordErrors} ${signInErr}`}
               onChange={this.update("password")}
               placeholder='Password'
               value={this.state.password} />

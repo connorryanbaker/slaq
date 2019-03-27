@@ -44,7 +44,7 @@
 }
 /* splash */
 .splash-header {
-  font-size: 4em;
+  font-size: 400%;
   grid-column-start: 3;
   grid-column-end: 7;
   grid-row: 1;
@@ -111,6 +111,19 @@
   color: #1264a3
 }
 
+.splash-errors {
+  grid-column: 6;
+  grid-row: 3;
+  background-color: #fdf8f8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150%;
+  height: 50%;
+  align-self: end;
+  z-index: 2;
+}
+
 .splash-img-left, .splash-img-right {
   filter: grayscale(100%);
   opacity: 0.8;
@@ -128,6 +141,7 @@
   grid-column-end: 5;
   justify-self: end;
   z-index: 2;
+  width: 80%;
 }
 
 .splash-img-right {

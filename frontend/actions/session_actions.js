@@ -38,7 +38,7 @@ export const login = user => dispatch => {
     .then((user) => {
       dispatch(receiveCurrentUser(user));
     }, (e) => {
-      dispatch(receiveErrors(e.responseText))
+      dispatch(receiveErrors([e.responseText]))
       throw err;
     });
 }
