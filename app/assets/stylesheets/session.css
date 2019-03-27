@@ -42,6 +42,7 @@
 
 .session-button:hover {
   box-shadow: 0 1px 4px rgba(29,28,29,.3);
+  cursor: pointer;
 }
 
 .button-wrapper {

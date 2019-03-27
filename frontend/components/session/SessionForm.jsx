@@ -13,6 +13,7 @@ class SessionForm extends React.Component {
 
   update(field) {
     return (e) => {
+      if (this.props.errors) this.props.clearErrors();
       this.setState({
         [field]: e.target.value
       });
@@ -22,14 +23,21 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.action(this.state).then(() => this.props.history.push('/')).catch(e => this.props.history.push(`/${this.props.formType}`));
-  
-    // if (this.props.errors.length === 0) this.props.history.push('/');
+  }
+
+  componentDidMount() {
+    this.props.clearErrors();
+    if (this.props.location.state) {
+      this.setState({
+        email: this.props.location.state.email
+      });
+    }
   }
 
   render() {
     let errors;
-    if (Array.isArray(errors)) {
-      errors = this.props.errors.map((e,i) => {
+    if (Array.isArray(this.props.errors)) {
+      errors = this.props.errors.map((e, i) => {
         return <li key={i}>{e}</li>
       });
     } else {
@@ -37,40 +45,40 @@ class SessionForm extends React.Component {
     }
     const name = this.props.formType === 'signup' ? <span><b>name</b>, </span> : "";
     const header = this.props.formType === 'signup' ? <h1 className="formh1">Sign Up</h1> : <h1 className="formh1">Sign In</h1>;
-   
-   
+
+
     return (
       <div className="session-form-container">
-        {errors.props.children.length > 0 ? <ul>{errors}</ul> : ""}
+        <ul>{errors}</ul>
         <div className="form-heading">
           {header}
           {<p>Enter your {name}<b>email</b> and <b>password</b>.</p>}
         </div>
         <form onSubmit={this.handleSubmit} className="session-form">
-          {this.props.formType === "signup" ? 
-          <fieldset className='session-form-fieldset'>
-              <input type="text"
-                     className="session-input"
-                     onChange={this.update("name")}
-                     placeholder='Name'
-                     value={this.state.name}/>
-          </fieldset> : "" }
-          <fieldset className='session-form-fieldset'>
+          {this.props.formType === "signup" ?
+            <fieldset className='session-form-fieldset'>
               <input type="text"
                 className="session-input"
-                onChange={this.update("email")}
-                placeholder='Email address'
-                value={this.state.email} />
+                onChange={this.update("name")}
+                placeholder='Name'
+                value={this.state.name} />
+            </fieldset> : ""}
+          <fieldset className='session-form-fieldset'>
+            <input type="text"
+              className="session-input"
+              onChange={this.update("email")}
+              placeholder='Email address'
+              value={this.state.email} />
           </fieldset>
           <fieldset className='session-form-fieldset'>
-              <input type="password"
-                className="session-input"
-                onChange={this.update("password")}
-                placeholder='Password'
-                value={this.state.password} />
+            <input type="password"
+              className="session-input"
+              onChange={this.update("password")}
+              placeholder='Password'
+              value={this.state.password} />
           </fieldset>
           <div className='button-wrapper'>
-            <input className="session-button" type="submit" value={this.props.formType === "signup" ? "Create Account" : "Sign In"}/>
+            <input className="session-button" type="submit" value={this.props.formType === "signup" ? "Create Account" : "Sign In"} />
           </div>
         </form>
       </div>

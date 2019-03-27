@@ -97,6 +97,10 @@
   min-width: 100px;
 }
 
+.splash-input:focus {
+  outline: 0;
+}
+
 .splash-signin-link {
   color: #1264a3
 }

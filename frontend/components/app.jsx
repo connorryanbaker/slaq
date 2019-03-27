@@ -7,7 +7,7 @@ import { AuthRoute } from '../util/route_util';
 const App = (props) => (
   <div>
     <Route exact path='/' component={LandingPage}/>
-    <AuthRoute path='/signup' render={(props) => <SessionPage cpt={"signup"} />}/>
+    <AuthRoute path='/signup' render={(props) => <SessionPage match={props.match} cpt={"signup"} />}/>
     <AuthRoute path='/login' render={(props) => <SessionPage cpt={"login"} />}/>
   </div>
 )
