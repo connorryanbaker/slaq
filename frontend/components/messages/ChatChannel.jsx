@@ -1,5 +1,10 @@
 import React from 'react';
 import MessageForm from './MessageForm';
+import Message from './Message';
+import { connect } from 'react-redux';
+import { fetchUsers } from '../../actions/session_actions';
+
+
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
@@ -8,6 +13,7 @@ class ChatChannel extends React.Component {
   }
   
   componentDidMount() {
+    this.props.fetchUsers();
     App.cable.subscriptions.create(
       { channel: 'ChatChannel' },
       {
@@ -41,9 +47,10 @@ class ChatChannel extends React.Component {
 
   render() {
     const msgs = this.state.messages.map((msg, i) => {
-      return <li key={i}>{msg.user_id} : {msg.content} </li>;
+      return <Message message={msg} user_id={msg.user_id} key={i} />
+      // console.log(msg);
+      // return <li key={i}>{msg.user_id} : {msg.content} </li>;
     });
-
     return (
       <div>
         <ul>
@@ -55,4 +62,8 @@ class ChatChannel extends React.Component {
   }
 }
 
-export default ChatChannel;
+const mdp = dispatch => ({
+  fetchUsers: () => dispatch(fetchUsers())
+});
+
+export default connect(null, mdp)(ChatChannel);
