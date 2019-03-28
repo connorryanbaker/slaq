@@ -5,9 +5,8 @@ class ChatChannel extends React.Component {
     super(props);
     this.state = { messages: [] }
     this.bottom = React.createRef();
-    this.load = this.load.bind(this);
   }
-
+  
   componentDidMount() {
     App.cable.subscriptions.create(
       { channel: 'ChatChannel' },
@@ -38,10 +37,7 @@ class ChatChannel extends React.Component {
     )
   }
 
-  load(e) {
-    e.preventDefault();
-    return App.cable.subscriptions.subscriptions[0].load();
-  }
+
 
   render() {
     const msgs = this.state.messages.map((msg, i) => {

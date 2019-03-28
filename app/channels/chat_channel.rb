@@ -1,6 +1,7 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
     stream_for 'chat_channel'
+    load
   end
 
   def unsubscribed
@@ -18,9 +19,7 @@ class ChatChannel < ApplicationCable::Channel
 
   def load 
     messages = Message.all 
-    p "loading!!!" 
     data = {type: 'msgs', messages: messages}
-    p data
     ChatChannel.broadcast_to('chat_channel', {type: 'msgs', messages: messages})
   end
 end
