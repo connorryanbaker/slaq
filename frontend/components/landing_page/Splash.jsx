@@ -37,7 +37,7 @@ class Splash extends React.Component {
         imgs.forEach(e => e.classList.add('fade'));
         setTimeout(() => {
           imgs.forEach(e => e.classList.remove('fade'));
-        },350);
+        },300);
       }, 15);
     }
   }

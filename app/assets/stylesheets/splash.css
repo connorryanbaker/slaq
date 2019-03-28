@@ -71,6 +71,7 @@
   grid-column-end: 8;
   color: #454545;
   max-width: 48rem;
+  line-height: 1.4;
 }
 
 .splash-link {
@@ -186,12 +187,12 @@
 }
 
 .splash-img {
-  transition: ease-in-out 400ms;
+  transition: ease-out 250ms;
 }
 
 .fade {
-  opacity: 0.1;
-  transform: scale(0.1);
+  opacity: 0;
+  transform: scale(0);
   transform-origin: bottom;
 }
 
@@ -206,14 +207,13 @@
   }
 }
 
- @media only screen and (max-width: 1050px) {
+ @media only screen and (max-width: 1060px) {
   .splash-header {
     font-size: 2.5em;
   }
   
   .splash-paragraph {
     font-size: .8em;
-    /* grid-row: 2; */
   }
 } 
  
@@ -223,6 +223,13 @@
   }
   .nav-left-2 {
     display: none;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .splash-paragraph {
+    grid-row: 2;
   }
 }
 
