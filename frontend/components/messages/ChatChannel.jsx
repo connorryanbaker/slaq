@@ -49,7 +49,6 @@ class ChatChannel extends React.Component {
         <ul>
           {msgs}
         </ul>
-        <button onClick={this.load}>load</button>
         <MessageForm />
       </div>
     );
