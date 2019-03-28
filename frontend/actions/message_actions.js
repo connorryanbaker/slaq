@@ -1,3 +1,5 @@
+import * as MessageApiUtil from '../util/message_util';
+
 export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 
@@ -11,3 +13,7 @@ export const receiveMessage = message => ({
   message
 });
 
+export const fetchMessages = () => dispatch => {
+  return MessageApiUtil.fetchMessages()
+    .then(msgs => dispatch(receiveMessages(msgs)));
+}

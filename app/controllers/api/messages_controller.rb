@@ -7,4 +7,9 @@ class Api::MessagesController < ApplicationController
 
   def destroy
   end
+
+  def index
+    @messages = Message.all 
+    render :index 
+  end
 end

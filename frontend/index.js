@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import { signUp, login, logout} from './actions/session_actions';
 import Root from './components/root';
+import moment from 'moment';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.signUp = signUp;
   window.login = login;
   window.logout = logout;
+  window.moment = moment;
 
 
   ReactDOM.render(<Root store={store}/>,root);

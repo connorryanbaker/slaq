@@ -18,8 +18,14 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def load 
-    messages = Message.all 
+    messages = Message.all
     data = {type: 'msgs', messages: messages}
     ChatChannel.broadcast_to('chat_channel', {type: 'msgs', messages: messages})
   end
+  
+  private 
+  def render_messages(msgs)
+    ApplicationController.renderer.render(template: '/api/messages/index', locals: { messages: msgs }) 
+  end
+
 end

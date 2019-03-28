@@ -3,7 +3,7 @@ import MessageForm from './MessageForm';
 import Message from './Message';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../../actions/session_actions';
-import { receiveMessages, receiveMessage } from '../../actions/message_actions';
+import { receiveMessages, receiveMessage, fetchMessages } from '../../actions/message_actions';
 
 
 class ChatChannel extends React.Component {
@@ -15,6 +15,7 @@ class ChatChannel extends React.Component {
   
   componentDidMount() {
     this.props.fetchUsers();
+    this.props.fetchMessages();
     App.cable.subscriptions.create(
       { channel: 'ChatChannel' },
       {
@@ -69,7 +70,8 @@ class ChatChannel extends React.Component {
 const mdp = dispatch => ({
   fetchUsers: () => dispatch(fetchUsers()),
   receiveMessage: msg => dispatch(receiveMessage(msg)),
-  receiveMessages: msgs => dispatch(receiveMessages(msgs))
+  receiveMessages: msgs => dispatch(receiveMessages(msgs)),
+  fetchMessages: () => dispatch(fetchMessages())
 });
 
 export default connect(null, mdp)(ChatChannel);
