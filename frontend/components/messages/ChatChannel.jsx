@@ -51,13 +51,14 @@ class ChatChannel extends React.Component {
 
   render() {
     const msgs = this.state.messages.map((msg, i) => {
-      return (<div>
-              <Message message={msg} user_id={msg.user_id} key={i} />
+      let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id
+      return (<div key={i}>
+              <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
             </div>);
     });
     return (
       <div>
-        <ul>
+        <ul className="messages-list">
           {msgs}
         </ul>
         <MessageForm />
