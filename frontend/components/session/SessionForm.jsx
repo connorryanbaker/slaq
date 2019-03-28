@@ -21,6 +21,7 @@ class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    
     const errorFn = this.props.history.push;
     const formType = this.props.formType;
 

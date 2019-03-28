@@ -31,7 +31,7 @@ export const signUp = user => dispatch => {
       dispatch(receiveCurrentUser(user));
     },(e) => {
       dispatch(receiveErrors(e.responseJSON));
-      throw err;
+      throw 'err';
     });
 }
 
@@ -41,7 +41,7 @@ export const login = user => dispatch => {
       dispatch(receiveCurrentUser(user));
     }, (e) => {
       dispatch(receiveErrors([e.responseText]))
-      throw err;
+      throw 'err';
     });
 }
 
