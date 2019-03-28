@@ -55,8 +55,10 @@ class Splash extends React.Component {
         {errors}
         <SplashEmailForm />
         <img className="splash-img-left splash-img" src={this.state.imgs[0]}/>
-        <img className="splash-img-center splash-img" src={this.state.imgs[1]}/>
-        <figcaption className="splash-caption splash-img">{this.state.imgCaptions[0]}</figcaption>
+        <div className="splash-img-center splash-img">
+          <img className="main-img splash-img" src={this.state.imgs[1]}/>
+          <figcaption className="splash-caption splash-img">{this.state.imgCaptions[0]}</figcaption>
+        </div>
         <img className="splash-img-right splash-img" src={this.state.imgs[2]}/>
       </div>
     );
