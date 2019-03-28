@@ -47,7 +47,7 @@ class Splash extends React.Component {
   }
 
   render() {
-    const errors = this.props.errors.length > 0 ? <div class="splash-errors">{this.props.errors[0]}</div> : ""
+    const errors = this.props.errors.length > 0 ? <div className="splash-errors">{this.props.errors[0]}</div> : ""
     return (
       <div className="splash-container">
         <h1 className="splash-header">Imagine what you'll<br/> accomplish together</h1>
