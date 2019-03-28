@@ -18,7 +18,8 @@ class ChatChannel < ApplicationCable::Channel
 
   def load 
     messages = Message.all 
-    data = { messages: messages }
+    p "loading!!!" 
+    data = {type: 'msgs', messages: messages}
     p data
     ChatChannel.broadcast_to('chat_channel', {type: 'msgs', messages: messages})
   end

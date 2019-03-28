@@ -5,6 +5,7 @@ class ChatChannel extends React.Component {
     super(props);
     this.state = { messages: [] }
     this.bottom = React.createRef();
+    this.load = this.load.bind(this);
   }
 
   componentDidMount() {
@@ -12,7 +13,6 @@ class ChatChannel extends React.Component {
       { channel: 'ChatChannel' },
       {
         received: data => {
-          // console.log(data);
           switch(data.type) {
             case "msg": 
               const { user_id, content, updated_at } = data.message;
@@ -22,7 +22,6 @@ class ChatChannel extends React.Component {
               });
               break
             case "msgs": 
-            console.log(data);
               this.setState({
                 messages: data.messages
               });
@@ -39,15 +38,12 @@ class ChatChannel extends React.Component {
     )
   }
 
-  componentDidUpdate() {
-    // this.bottom.current.scrollIntoView();
-    if (this.state.messages.length === 0) {
-      App.cable.subscriptions.subscriptions[0].load();
-    }
+  load(e) {
+    e.preventDefault();
+    return App.cable.subscriptions.subscriptions[0].load();
   }
 
   render() {
-    // console.log(this.state.messages);
     const msgs = this.state.messages.map((msg, i) => {
       return <li key={i}>{msg.user_id} : {msg.content} </li>;
     });
@@ -57,6 +53,7 @@ class ChatChannel extends React.Component {
         <ul>
           {msgs}
         </ul>
+        <button onClick={this.load}>load</button>
         <MessageForm />
       </div>
     );
