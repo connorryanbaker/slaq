@@ -13,6 +13,13 @@ class ChatChannel < ApplicationCable::Channel
     # call ChatChannel.broadcast_to('chat_channel', message)
     msg = Message.create(data['message'])
     # this next line will eventually be transformed into just calling a partial renderer
-    ChatChannel.broadcast_to('chat_channel', msg)
+    ChatChannel.broadcast_to('chat_channel', {type: 'msg', message: msg})
+  end
+
+  def load 
+    messages = Message.all 
+    data = { messages: messages }
+    p data
+    ChatChannel.broadcast_to('chat_channel', {type: 'msgs', messages: messages})
   end
 end
