@@ -14,27 +14,24 @@ class ChatChannel extends React.Component {
   }
   
   componentDidMount() {
-    this.props.fetchUsers();
-    this.props.fetchMessages();
     App.cable.subscriptions.create(
       { channel: 'ChatChannel' },
       {
         received: data => {
           switch(data.type) {
             case "msg": 
-              const { user_id, content, updated_at } = data.message;
-              const msg = { user_id, content, updated_at };
-              this.setState({
-                messages: this.state.messages.concat(msg)
-              });
-              this.props.receiveMessage(data.message);
-              break
-            case "msgs": 
-              this.setState({
-                messages: data.messages
-              });
-              this.props.receiveMessages(data.messages);
-              break
+            const { user_id, content, updated_at } = data.message;
+            const msg = { user_id, content, updated_at };
+            this.setState({
+              messages: this.state.messages.concat(msg)
+            });
+            this.props.receiveMessage(data.message);
+            break
+            // case "msgs": 
+            // this.setState({
+            //   messages: data.messages
+            // });
+            // break
           }
         },
         speak: function(data) {
@@ -44,12 +41,23 @@ class ChatChannel extends React.Component {
           return this.perform("load")
         }
       }
-    )
+      )
+      this.props.fetchUsers();
+      this.props.fetchMessages();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps != this.props) {
+      this.setState({
+        messages: Object.values(this.props.messages)
+      });
+    }
   }
 
 
-
   render() {
+    console.log(this.props);
+    if (!this.props.messages) return null;
     const msgs = this.state.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id
       return (<div key={i}>
@@ -68,6 +76,10 @@ class ChatChannel extends React.Component {
   }
 }
 
+const msp = state => ({
+  messages: state.entities.messages
+});
+
 const mdp = dispatch => ({
   fetchUsers: () => dispatch(fetchUsers()),
   receiveMessage: msg => dispatch(receiveMessage(msg)),
@@ -75,4 +87,4 @@ const mdp = dispatch => ({
   fetchMessages: () => dispatch(fetchMessages())
 });
 
-export default connect(null, mdp)(ChatChannel);
+export default connect(msp, mdp)(ChatChannel);
