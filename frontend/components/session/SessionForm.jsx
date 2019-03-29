@@ -54,7 +54,6 @@ class SessionForm extends React.Component {
   render() {
     const name = this.props.formType === 'signup' ? <span><b>name</b>, </span> : "";
     const header = this.props.formType === 'signup' ? <h1 className="formh1">Sign Up</h1> : <h1 className="formh1">Sign In</h1>;
-
     let errClasses = this.props.errors.map((e) => e.split(" ")[0]);
 
     const nameErrors = errClasses.includes("Name") ? "session-error" : ""
@@ -68,7 +67,7 @@ class SessionForm extends React.Component {
     });
     const heading = (<p>Enter your {name}<b>email</b> and <b>password</b>.</p>)
     const errClassname = this.props.errors.length > 0 ? "session-form-container red-left" : ""
-
+ 
 
     return (
       <div>
