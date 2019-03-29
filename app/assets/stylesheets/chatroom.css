@@ -10,12 +10,21 @@
 
 .message-list-item {
   min-height: 40px;
-  padding-left: 70px;
   width: 100%;
 }
 
-.message-list-item:hover {
+.message-user-img-row {
+  display: flex;
+  height: 40px;
+  padding-left: 15px;
+}
+
+.msg-content:hover {
   background-color: #f8f8f8;
+}
+
+.msg-content {
+  padding: 5px 0px 5px 70px;
 }
 
 .msg-user-time {
@@ -47,6 +56,16 @@
 
 .avatar-img {
   width: 36px;
+  height: 36px;
+  border-radius: 3px;
+}
+
+.avatar-img:hover {
+  cursor: pointer;
+}
+
+.msg-username:hover {
+  text-decoration: underline;
 }
 
 .dummy-greeting {
