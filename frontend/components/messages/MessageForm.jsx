@@ -22,18 +22,23 @@ class MessageForm extends React.Component {
   
   handleSubmit(e) {
     e.preventDefault();
-    App.cable.subscriptions.subscriptions[0].speak({ message: this.state });
-    this.setState({ content: "" });
+    if (this.state.content.length > 0) {
+      App.cable.subscriptions.subscriptions[0].speak({ message: this.state });
+      this.setState({ content: "" });
+    }
   }
 
   render() {
     return (
     <form onSubmit={this.handleSubmit} className="msg-input-form">
-      <input type="text"
-             value={this.state.content}
-             onChange={this.update("content")}
-             className="msg-bar" />
-      <input type="submit" value="send!" className="msg-form-submit"/>
+      <div className="msg-bar-wrapper">
+        <button className="msg-plus-icon">+</button>
+        <input type="text"
+              value={this.state.content}
+              onChange={this.update("content")}
+              className="msg-bar"
+              placeholder="Enter your message..." />
+      </div>
     </form>
     );
   }

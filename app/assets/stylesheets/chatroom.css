@@ -5,6 +5,7 @@
   flex-grow: 1;
   position: relative;
   margin-left: 200px;
+  margin-bottom: 100px;
 }
 
 .message-list-item {
@@ -62,13 +63,55 @@
 }
 
 .msg-input-form {
-  position: absolute;
-  width: 100%;
-  border-radius: 4px;
+  position: fixed;
+  bottom: 0px;
+  background-color: white;
+  margin-left: 250px;
+}
+
+.msg-bar-wrapper {
+  height: 50px;
+  width: calc(90vw - 225px);
+  margin-bottom: 10px;
+  border: 2px solid rgb(97,96,97);
+  border-radius: 5px;
+  box-shadow: none;
+  font-size: 15px;
+  line-height: 1.2rem;
+  color: #1d1c1d;
+  display: flex;
+}
+
+
+.msg-plus-icon {
+  width: 50px;
+  min-width: 50px;
+  border-right: 2px solid rgb(97,96,97);
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  background-color: white;
+  font-size: 36px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.msg-plus-icon:hover {
+  background: #56b68b;
+  color: #fff;
+  border-color: #007a5a
 }
 
 .msg-bar {
-  margin-left: 310px;
-  width: 80%;
-  max-width: 800px;
+  margin: 0 0 40px 0;
+  padding: 0 0 0 1%;
+  width: 90%;
+  height: 100%;
+  border: none;
+  line-height: 1.5;
+  font-size: 1.25em;
+}
+
+.msg-bar:focus {
+  outline: 0;
 }
