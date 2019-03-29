@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 const Message = (props) => {
-  console.log(props);
   return <li key={props.key} className="message-list-item">
     {props.lastUserId === props.message.user_id ? "" : <div className="msg-user-container"><img className="avatar-img" src={props.img_url} /><div className="name-time"><b>{props.username}</b> <span className="msg-user-time">{props.message.time}</span></div></div>}
           <div className="msg-content">{props.message.content}</div>
