@@ -115,7 +115,7 @@
   bottom: 0;
   width: 220px;
   height: 100%;
-  background-color: #3f0e40;
+  background-color: #4a154b;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -128,9 +128,17 @@
   flex-direction: column;
 }
 
-.sidebar-channelName-wrapper {
-  display: flex;
-  flex-direction: column;
+.sidebar-sign-out {
+  font-size: .8em;
+  font-weight: 300;
+  color: rgb(197,183,198);
+  transition: 300ms;
+}
+
+.sidebar-sign-out:hover {
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
 }
 
 .sidebar-main-header {
@@ -141,16 +149,45 @@
 
 .sidebar-current-user {
   font-size: 1em;
-  color: white;
+  color: rgb(197,183,198);
 }
 
-.sidebar-channels-wrapper, .sidebar-dms-wrapper {
+.sidebar-channelName-wrapper, .sidebar-channels-wrapper, .sidebar-dms-wrapper {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
 }
 
 .sidebar-channels-header, .sidebar-dms-header {
-  color: white;
+  color: rgb(197,183,198);
   font-size: 1.3em;
+  transition: 300ms;
+  padding: 3px;
+}
+
+.sidebar-channels-header:hover, .sidebar-dms-header:hover,
+.sidebar-current-user:hover {
+  color: white;
+}
+
+.sidebar-channelName-wrapper:hover, .sidebar-channels-wrapper:hover, 
+.sidebar-dms-wrapper:hover {
+  background-color: #3f0e40;
+}
+
+.sidebar-channel-name {
+  color: rgb(197,183,198);
+  font-size: 1em;
+  transition: 300ms;
+  padding: 3px;
+}
+
+.sidebar-channel-name:hover {
+  color: white;
+
+}
+
+.current-channel {
+  background-color: #1264a3;
+  color: white;
 }
