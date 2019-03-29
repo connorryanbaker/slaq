@@ -39,8 +39,8 @@ class ChatChannel extends React.Component {
         }
       }
       )
-      this.props.fetchUsers();
-      this.props.fetchMessages();
+      this.props.fetchUsers()
+        .then(() => this.props.fetchMessages());
       this.scrollToBottom();
   }
 
