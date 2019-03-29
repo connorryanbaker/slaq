@@ -12,7 +12,7 @@ class SideBar extends React.Component {
       <div className="sidebar-container">
         <div className="sidebar-channelName-wrapper">
           <div className="sidebar-main-header">slaqq<img src="https://img.icons8.com/small/16/000000/expand-arrow.png"></img></div>
-          <div class="sidebar-subtitle">
+          <div className="sidebar-subtitle">
             <div className="sidebar-current-user">{this.props.currentUser.name}</div>
             <div onClick={this.props.logout} className="sidebar-sign-out">Sign Out</div>
           </div>

@@ -18,6 +18,11 @@
   display: flex;
   height: 40px;
   padding-left: 15px;
+  align-items: center;
+}
+
+.message-list-item:hover {
+  background-color: #f8f8f8;
 }
 
 .msg-content:hover {
@@ -26,7 +31,22 @@
 
 .msg-content {
   padding: 5px 0px 5px 70px;
+  display: flex;
+  justify-content: space-between;
 }
+.edit-message {
+  margin-right: 50px;
+  border: 1px solid #616061;
+  border-radius: 4px;
+  width: 100px;
+  background-color: white;
+  text-align: center;
+}
+
+.edit-message:hover {
+  border: 1px solid #1d1c1d;
+}
+
 
 .msg-user-time {
   font-size: .75em;

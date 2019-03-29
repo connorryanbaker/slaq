@@ -1,27 +1,57 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import { updateMessage } from '../../actions/message_actions';
+import MessageHeader from './MessageHeader';
+import EditButton from './EditButton';
 
-const Message = (props) => {
-  return <li key={props.key} className="message-list-item">
-    {props.lastUserId === props.message.user_id ? "" : (<div className="message-user-img-row">
-      <img className="avatar-img" src={props.img_url} />
-      <div className="msg-user-container">
-        <div className="name-time"><b className="msg-username">{props.username}</b>
-          <span className="msg-user-time">{props.message.time}</span>
-        </div>
+class Message extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: this.props.message,
+      hover: false
+    }
+    this.hover = this.hover.bind(this);
+    this.noHover = this.noHover.bind(this);
+
+  }
+
+  hover() {
+    if (this.props.user_id !== this.props.currentUserId) return null;
+    this.setState({
+      hover: true
+    });
+  }
+
+  noHover() {
+    this.setState({
+      hover: false
+    })
+  }
+
+  render() {
+    return <li key={this.props.key} className="message-list-item" onMouseOver={this.hover} onMouseLeave={this.noHover}>
+      {this.props.lastUserId === this.props.message.user_id ? "" : <MessageHeader img_url={this.props.img_url} 
+                                                                        message={this.props.message} 
+                                                                        username={this.props.username} />}
+      <div className="msg-content" >
+        {this.state.message.content}
+        {this.state.hover ? <EditButton klass={"edit-message"} /> : ""}
       </div>
-    </div>)}
-    <div className="msg-content">{props.message.content}</div>
-  </li>
+    </li>
+  }
 }
-
 
 const msp = (state, ownProps) => {
   return {
     username: state.entities.users[ownProps.user_id].name,
-    img_url: state.entities.users[ownProps.user_id].avatar_url
+    img_url: state.entities.users[ownProps.user_id].avatar_url,
+    currentUserId: state.session.currentUserId
   }
 };
 
-export default connect(msp, null)(Message);
+const mdp = dispatch => ({
+  updateMessage: msg => dispatch(updateMessage(msg))
+});
+
+export default connect(msp, mdp)(Message);

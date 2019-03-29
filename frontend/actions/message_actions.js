@@ -17,3 +17,8 @@ export const fetchMessages = () => dispatch => {
   return MessageApiUtil.fetchMessages()
     .then(msgs => dispatch(receiveMessages(msgs)));
 }
+
+export const updateMessage = msg => dispatch => {
+  return MessageApiUtil.updateMessage(msg)
+    .then(msg => dispatch(receiveMessage(msg)));
+}
