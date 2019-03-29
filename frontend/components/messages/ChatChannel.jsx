@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchUsers } from '../../actions/session_actions';
 import { receiveMessages, receiveMessage, fetchMessages } from '../../actions/message_actions';
 import SideBar from './SideBar';
+import TopNavBar from './TopNavBar';
 
 
 class ChatChannel extends React.Component {
@@ -67,6 +68,7 @@ class ChatChannel extends React.Component {
     return (
       <div>
         <SideBar />
+        <TopNavBar />
         <ul className="messages-list">
           {msgs}
           <div ref={(e) => { this.bottom = e }} />

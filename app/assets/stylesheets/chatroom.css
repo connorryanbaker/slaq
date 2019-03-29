@@ -6,6 +6,7 @@
   position: relative;
   margin-left: 200px;
   margin-bottom: 100px;
+  margin-top: 65px;
 }
 
 .message-list-item {
@@ -126,6 +127,36 @@
   outline: 0;
 }
 
+.top-nav-wrapper {
+  position: fixed;
+  top: 0;
+  margin-left: 212px;
+  background-color: white;
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid rgb(197,183,198);
+  z-index: 2;
+  display: flex;
+}
+
+.top-nav-left {
+  width: 50%;
+  margin: 0 2%;
+}
+
+.main-top-nav-header {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #1d1c1d;
+}
+
+.top-nav-memberlist {
+  display: flex;
+}
+#star-icon {
+  padding-right: 10px;
+}
+
 /* sidebar */
 
 .sidebar-container {
@@ -164,11 +195,20 @@
   font-size: 1.5em;
   font-weight: 700;
   color: white;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.sidebar-subtitle {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
 }
 
 .sidebar-current-user {
   font-size: 1em;
   color: rgb(197,183,198);
+  padding: 0 15px;
 }
 
 .sidebar-channelName-wrapper, .sidebar-channels-wrapper, .sidebar-dms-wrapper {
@@ -179,9 +219,9 @@
 
 .sidebar-channels-header, .sidebar-dms-header {
   color: rgb(197,183,198);
-  font-size: 1.3em;
+  font-size: 1.1em;
   transition: 300ms;
-  padding: 3px;
+  padding-left: 15px;
 }
 
 .sidebar-channels-header:hover, .sidebar-dms-header:hover,
@@ -209,4 +249,5 @@
 .current-channel {
   background-color: #1264a3;
   color: white;
+  padding-left: 25px;
 }
