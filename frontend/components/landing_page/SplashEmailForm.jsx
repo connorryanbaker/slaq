@@ -11,6 +11,7 @@ class SplashEmailForm extends React.Component {
     }
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   update(field) {
@@ -31,11 +32,17 @@ class SplashEmailForm extends React.Component {
     }
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.handleSubmit(e);
+    }
+  }
+
   render() {
     const errors = this.props.errors.length > 0 ? <div className="splash-errors">{this.props.errors[0]}</div> : ""
 
     return (
-      <div className="splash-email-wrapper">
+      <div className="splash-email-wrapper" onKeyPress={this.handleKeyPress}>
         <div className="splash-email-form">
           <div className="splash-email">
             <input className="splash-input" type="text" placeholder="Email address" onChange={this.update("input")} />
