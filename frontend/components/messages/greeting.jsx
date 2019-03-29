@@ -7,8 +7,10 @@ import { logout } from '../../actions/session_actions'
 const greeting = (props) => {
   return (
     <div>
-      <h1>Hello, {props.currentUser}! You are logged in!</h1>
-      <button onClick={props.logout}>Log Out!</button>
+      <div className="dummy-greeting">
+        <h1>Hello, {props.currentUser}! You are logged in!</h1>
+        <button onClick={props.logout}>Log Out!</button>
+      </div>
       <ChatChannel />
     </div>
   );

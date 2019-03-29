@@ -1,10 +1,16 @@
 import React from 'react';
 import MessageForm from './MessageForm';
+import Message from './Message';
+import { connect } from 'react-redux';
+import { fetchUsers } from '../../actions/session_actions';
+import { receiveMessages, receiveMessage, fetchMessages } from '../../actions/message_actions';
+
+
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = { messages: [] }
-    this.bottom = React.createRef();
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
   
   componentDidMount() {
@@ -14,17 +20,13 @@ class ChatChannel extends React.Component {
         received: data => {
           switch(data.type) {
             case "msg": 
-              const { user_id, content, updated_at } = data.message;
-              const msg = { user_id, content, updated_at };
-              this.setState({
-                messages: this.state.messages.concat(msg)
-              });
-              break
-            case "msgs": 
-              this.setState({
-                messages: data.messages
-              });
-              break
+            const { user_id, content, updated_at } = data.message;
+            const msg = { user_id, content, updated_at };
+            this.setState({
+              messages: this.state.messages.concat(msg)
+            });
+            this.props.receiveMessage(data.message);
+            break
           }
         },
         speak: function(data) {
@@ -34,25 +36,57 @@ class ChatChannel extends React.Component {
           return this.perform("load")
         }
       }
-    )
+      )
+      this.props.fetchUsers();
+      this.props.fetchMessages();
+      this.scrollToBottom();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps != this.props) {
+      this.setState({
+        messages: Object.values(this.props.messages)
+      });
+    }
+    this.scrollToBottom();
+  }
 
+  scrollToBottom() {
+    this.bottom.scrollIntoView({ behavior: "smooth" });
+  }
 
   render() {
+    if (!this.props.messages) return null;
     const msgs = this.state.messages.map((msg, i) => {
-      return <li key={i}>{msg.user_id} : {msg.content} </li>;
+      let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
+      return (<div key={i} >
+              <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
+            </div>);
     });
-
     return (
       <div>
-        <ul>
+        <div className="sidebar-container">
+        </div>
+        <ul className="messages-list">
           {msgs}
+          <div ref={(e) => { this.bottom = e }} />
         </ul>
         <MessageForm />
+        <div ref={this.bottom}/>
       </div>
     );
   }
 }
 
-export default ChatChannel;
+const msp = state => ({
+  messages: state.entities.messages
+});
+
+const mdp = dispatch => ({
+  fetchUsers: () => dispatch(fetchUsers()),
+  receiveMessage: msg => dispatch(receiveMessage(msg)),
+  receiveMessages: msgs => dispatch(receiveMessages(msgs)),
+  fetchMessages: () => dispatch(fetchMessages())
+});
+
+export default connect(msp, mdp)(ChatChannel);
