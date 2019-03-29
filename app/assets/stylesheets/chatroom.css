@@ -30,15 +30,6 @@
   width: 100%;
 }
 
-.sidebar-container {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 220px;
-  height: 100%;
-  background-color: #3f0e40;
-  overflow-x: hidden;
-}
 
 .msg-user-container {
   display: flex;
@@ -86,7 +77,7 @@
 .msg-plus-icon {
   width: 50px;
   min-width: 50px;
-  border-right: 2px solid rgb(97,96,97);
+  border-right: 2px solid #616061;
   border-top: none;
   border-bottom: none;
   border-left: none;
@@ -114,4 +105,16 @@
 
 .msg-bar:focus {
   outline: 0;
+}
+
+.sidebar-container {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  height: 100%;
+  background-color: #3f0e40;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
