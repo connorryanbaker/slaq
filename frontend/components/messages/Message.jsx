@@ -44,6 +44,8 @@ class Message extends React.Component {
 
 const msp = (state, ownProps) => {
   debugger
+  console.log(state.entities.users[ownProps.user_id])
+  console.log(state.entities.users[ownProps.user_id].name)
   return {
     username: state.entities.users[ownProps.user_id].name,
     img_url: state.entities.users[ownProps.user_id].avatar_url,
