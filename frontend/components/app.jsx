@@ -7,7 +7,7 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 const App = (props) => (
   <div>
-    <Route exact path='/' component={LandingPage}/>
+    <AuthRoute exact path='/' component={LandingPage}/>
     <AuthRoute path='/signup' component={SessionPage}/>
     <AuthRoute path='/login' component={SessionPage}/>
     <ProtectedRoute path='/messages' component={Greeting}/>

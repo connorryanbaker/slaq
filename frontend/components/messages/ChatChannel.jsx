@@ -10,7 +10,7 @@ class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = { messages: [] }
-    this.bottom = React.createRef();
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
   
   componentDidMount() {
@@ -27,11 +27,6 @@ class ChatChannel extends React.Component {
             });
             this.props.receiveMessage(data.message);
             break
-            // case "msgs": 
-            // this.setState({
-            //   messages: data.messages
-            // });
-            // break
           }
         },
         speak: function(data) {
@@ -44,6 +39,7 @@ class ChatChannel extends React.Component {
       )
       this.props.fetchUsers();
       this.props.fetchMessages();
+      this.scrollToBottom();
   }
 
   componentDidUpdate(prevProps) {
@@ -52,22 +48,28 @@ class ChatChannel extends React.Component {
         messages: Object.values(this.props.messages)
       });
     }
+    this.scrollToBottom();
   }
 
+  scrollToBottom() {
+    this.bottom.scrollIntoView({ behavior: "smooth" });
+  }
 
   render() {
-    console.log(this.props);
     if (!this.props.messages) return null;
     const msgs = this.state.messages.map((msg, i) => {
-      let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id
-      return (<div key={i}>
+      let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
+      return (<div key={i} >
               <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
             </div>);
     });
     return (
       <div>
+        <div className="sidebar-container">
+        </div>
         <ul className="messages-list">
           {msgs}
+          <div ref={(e) => { this.bottom = e }} />
         </ul>
         <MessageForm />
         <div ref={this.bottom}/>
