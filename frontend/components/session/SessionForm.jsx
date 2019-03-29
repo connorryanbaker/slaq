@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -116,4 +117,8 @@ class SessionForm extends React.Component {
   }
 }
 
-export default SessionForm;
+const msp = state => ({
+  errors: state.errors.session
+});
+
+export default connect(msp, null)(SessionForm);

@@ -20,10 +20,12 @@ export const receiveUsers = users => {
   }
 };
 
-export const receiveErrors = errors => ({
+export const receiveErrors = errors => {
+  return {
   type: RECEIVE_ERRORS,
   errors: errors
-});
+  }
+};
 
 export const clearErrors = () => ({
   type: CLEAR_SESSION_ERRORS
@@ -43,6 +45,7 @@ export const signUp = user => dispatch => {
     .then((user) => {
       dispatch(receiveCurrentUser(user));
     },(e) => {
+      debugger
       dispatch(receiveErrors(e.responseJSON));
       throw 'err';
     });

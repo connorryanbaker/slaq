@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.avatar_url = AVATARS.sample
+    @user.avatar_url = AVATARS
     if @user.save
       login!(@user)
       render :show

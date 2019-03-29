@@ -41,6 +41,7 @@
   width: 100px;
   background-color: white;
   text-align: center;
+  transition: 300ms
 }
 
 .edit-message:hover {
