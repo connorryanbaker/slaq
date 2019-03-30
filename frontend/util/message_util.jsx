@@ -7,7 +7,7 @@ export const fetchMessages = () => {
 
 export const updateMessage = message => {
   return $.ajax({
-    url: `api/messages/`,
+    url: `api/messages/${message.message.id}`,
     method: 'PATCH',
     data: message
   });
