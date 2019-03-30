@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 class LandingNav extends React.Component {
 
   render() {
-    const welcomeText = this.props.currentUser ? `Welcome, ${this.props.currentUser.name}!` : ""
-    const logoutBtn = this.props.currentUser ? <button className="btn-purple workspaces-btn" onClick={this.props.logout}>Sign Out</button> : ""
     return (
       <nav className='landing-nav'>
         <div className='nav-left'>
@@ -19,11 +17,11 @@ class LandingNav extends React.Component {
             <p>Solutions</p>
             <p>Pricing</p>
             <p>Resources</p>
-            <p>{welcomeText}</p>
           </div>
         </div>
         <div className='nav-right'>
-          <button className="btn-purple workspaces-btn">Your Workspaces</button>
+          <Link to={'/login'} className='nav-signin-link'>Sign in</Link>
+          <Link to={'/signup'}><button className="btn-purple nav-btn">GET STARTED</button></Link>
         </div>
       </nav>
     );

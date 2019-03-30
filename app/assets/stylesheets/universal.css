@@ -15,3 +15,7 @@
   border: 2px solid #4a154b;
   cursor: pointer;
 }
+
+.btn-purple:active {
+  outline: 0;
+}

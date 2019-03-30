@@ -1,7 +1,23 @@
 /* nav */
-.workspaces-btn {
+.nav-btn {
   padding: 10px;
+  letter-spacing: .2em;
+  margin: 15px;
 }
+
+.nav-signin-link {
+  text-decoration: none;
+  color: #454545;
+}
+
+.nav-signin-link:visited {
+  color: #454545;
+}
+
+.nav-signin-link:hover {
+  color: #000;
+}
+
 .logo-main {
   width: 65px;
 }
@@ -33,7 +49,7 @@
 
 .nav-left-2 > p {
   margin: 15px;
-  color: #708090;
+  color: #454545;
 }
 
 .nav-left-2 > p:hover {
@@ -43,7 +59,10 @@
 .nav-right {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
 }
+
+
 /* splash */
 .splash-header {
   font-size: 4em;
@@ -81,10 +100,12 @@
 
 .splash-btn {
   width: 120%;
-  letter-spacing: 2px; 
+  letter-spacing: .1em; 
   height: 50px;
   margin-left: 10px;
+  padding
 }
+
 
 .splash-email-wrapper {
   grid-row: 6;
