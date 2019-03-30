@@ -207,7 +207,7 @@
 }
 
 .splash-img {
-  transition: ease-out 250ms;
+  transition: ease-in-out 450ms;
 }
 
 .fade {

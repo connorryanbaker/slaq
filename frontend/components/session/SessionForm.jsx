@@ -43,7 +43,7 @@ class SessionForm extends React.Component {
 
 
   componentDidMount() {
-    if (this.props.errors.length === 0) this.props.clearErrors();
+    if (this.props.errors.length > 0) this.props.clearErrors();
     if (this.props.location.state) {
       this.setState({
         email: this.props.location.state.email
