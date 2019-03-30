@@ -48,7 +48,7 @@ class Message extends React.Component {
   }
 
   render() {
-    return <li key={this.props.key} className="message-list-item" onMouseOver={this.hover} onMouseLeave={this.noHover}>
+    return <li key={this.props.key} className={this.state.edit ? "message-list-item edit-msg" : "message-list-item"} onMouseOver={this.hover} onMouseLeave={this.noHover}>
       {this.props.lastUserId === this.props.message.user_id ? "" : <MessageHeader img_url={this.props.img_url} 
                                                                         message={this.props.message} 
                                                                         username={this.props.username} />}

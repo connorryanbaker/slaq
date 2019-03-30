@@ -21,7 +21,10 @@ class EditMessage extends React.Component {
   render() {
     return (
       <div className="edit-message-container">
-        <input type="text" value={this.state.content} onChange={this.update("content")} />
+        <input type="text" 
+               className="edit-message-bar"
+               value={this.state.content} 
+               onChange={this.update("content")} />
         <div className="edit-message-buttons-container">
           <button onClick={this.props.updateEdit} className="cancel-edit-message">
             Cancel
