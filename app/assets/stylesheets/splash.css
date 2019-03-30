@@ -78,8 +78,8 @@
   width: 65%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 10% 7.5% 37.5% 5% 2.5% 20% 17.5%;
-  grid-template-rows: 15% 5% 4% 14% 2% 10% 2% 4% 4% 6% auto;
+  grid-template-columns: 5% 12.5% 37.5% 5% 2.5% 20% 17.5%;
+  grid-template-rows: 15% 8% 4% 7% 7% 2% 10% 2% 4% 4% 6% auto;
   height: 80vh;
   min-height: 800px;
 }
@@ -103,7 +103,6 @@
   letter-spacing: .1em; 
   height: 50px;
   margin-left: 10px;
-  padding
 }
 
 
@@ -184,9 +183,9 @@
   grid-column-end: 5;
   grid-row-start: 4;
   grid-row-end: 7;
-  justify-self: start;
+  justify-self: end;
   z-index: 2;
-  width: 100%;
+  width: 85%;
 }
 
 .splash-caption {
@@ -235,6 +234,10 @@
   
   .splash-paragraph {
     font-size: .8em;
+  }
+
+  .nav-left-2 {
+    display: none;
   }
 } 
  
