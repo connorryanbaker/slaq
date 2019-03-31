@@ -28,7 +28,7 @@ class SessionForm extends React.Component {
 
 
     this.props.action(this.state).then(() => {
-      this.props.history.push('/messages')
+      this.props.history.push('/messages/1')
     }, (e) => {
       errorFn(formType);
     });
@@ -37,7 +37,9 @@ class SessionForm extends React.Component {
   guestLogIn() {
     this.props.loginGuest({ 
       "email": "guest@gmail.com", "password": "youguessedit"
-    });
+    }).then(() => {
+      this.props.history.push('/messages/1')
+    })
   }
 
 
