@@ -39,10 +39,14 @@ class SplashEmailForm extends React.Component {
   }
 
   render() {
-    const errors = this.props.errors.length > 0 ? <div className="splash-errors">{this.props.errors[0]}</div> : ""
+    const errors = this.props.errors.length > 0 ? <div className="splash-errors">
+                                                    <div>{this.props.errors[0]}</div>
+                                                    <div className="errors-arrow"></div>
+                                                  </div> : ""
 
     return (
       <div className="splash-email-wrapper" onKeyPress={this.handleKeyPress}>
+        {errors}
         <div className="splash-email-form">
           <div className="splash-email">
             <input className="splash-input" type="text" placeholder="Email address" onChange={this.update("input")} />

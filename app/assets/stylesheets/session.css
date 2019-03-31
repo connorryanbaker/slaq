@@ -33,10 +33,18 @@
   border-radius: 4px;
   padding: 2%; 
   margin: 0 auto 2% auto;
-  width: 53%;
+  width: 200px;
   font-weight: bold;
   font-size: 1.1em;
   transition: all 75ms ease-in-out;
+}
+
+.guest {
+  margin-bottom: 2%;
+  display: inline-flex;
+  align-items: center;
+  padding: 1%;
+  justify-content: center;
 }
 
 .session-button:hover {
@@ -80,14 +88,6 @@
   border: 1px solid #e01e5a;
 }
 
-.guest {
-  margin-bottom: 2%;
-  display: inline-flex;
-  align-items: center;
-  padding: 1%;
-  justify-content: center;
-  width: 50%;
-}
 
 .red-left {
   border-left: 4px solid;
@@ -95,7 +95,8 @@
 }
 
 .warning {
-  fill: #e01e5a;;
+  fill: #e01e5a;
+  margin-right: 12px;
 }
 
 .session-error-list {

@@ -53,12 +53,10 @@ class Splash extends React.Component {
   }
 
   render() {
-    const errors = this.props.errors.length > 0 ? <div className="splash-errors">{this.props.errors[0]}</div> : ""
     return (
       <div className="splash-container">
         <h1 className="splash-header">Imagine what you'll<br/> accomplish together</h1>
         <p className="splash-paragraph">slaq is a collaboration hub for work, no matter what work you do. It’s a place where conversations happen, decisions are made, and information is always at your fingertips. With slaq, your team is better connected.</p>
-        {errors}
         <SplashEmailForm />
         <img className="splash-img-left splash-img" src={this.state.imgs[0]}/>
         <div className="splash-img-center splash-img">
