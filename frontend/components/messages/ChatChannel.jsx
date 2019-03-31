@@ -17,7 +17,7 @@ class ChatChannel extends React.Component {
   
   componentDidMount() {
     App.cable.subscriptions.create(
-      { channel: 'ChatChannel' },
+      { channel: 'ChatChannel', id: 1 },
       {
         received: data => {
           switch(data.type) {

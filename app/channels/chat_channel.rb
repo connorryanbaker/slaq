@@ -1,5 +1,6 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
+    p "PARAMS #{params}"
     stream_for 'chat_channel'
     load
   end
@@ -12,6 +13,7 @@ class ChatChannel < ApplicationCable::Channel
     # call Message.create and save it to a variable
     # should render_message(message) be a private method that returns a json partial?
     # call ChatChannel.broadcast_to('chat_channel', message)
+    p "PARAMS #{params}"
     msg = Message.create(data['message'])
     # this next line will eventually be transformed into just calling a partial renderer
     ChatChannel.broadcast_to('chat_channel', {type: 'msg', message: msg})
