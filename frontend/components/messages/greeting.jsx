@@ -7,13 +7,14 @@ import { logout } from '../../actions/session_actions'
 const greeting = (props) => {
   return (
     <div>
-      <ChatChannel />
+      <ChatChannel room_id={props.room_id} />
     </div>
   );
 }
 
-const msp = state => ({
-  currentUser: state.entities.users[state.session.currentUserId].name
+const msp = (state,ownProps) => ({
+  currentUser: state.entities.users[state.session.currentUserId].name,
+  room_id: ownProps.match.params.id
 });
 
 const mdp = dispatch => ({

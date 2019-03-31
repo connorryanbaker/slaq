@@ -17,7 +17,7 @@ class ChatChannel extends React.Component {
   
   componentDidMount() {
     App.cable.subscriptions.create(
-      { channel: 'ChatChannel', id: 1 },
+      { channel: 'ChatChannel', id: this.props.room_id },
       {
         received: data => {
           switch(data.type) {
@@ -42,6 +42,7 @@ class ChatChannel extends React.Component {
       this.props.fetchUsers()
         .then(() => this.props.fetchMessages());
       this.scrollToBottom();
+      console.log(this.props);
   }
 
   componentDidUpdate(prevProps) {

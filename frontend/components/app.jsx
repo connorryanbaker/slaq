@@ -10,7 +10,7 @@ const App = (props) => (
     <AuthRoute exact path='/' component={LandingPage}/>
     <AuthRoute path='/signup' component={SessionPage}/>
     <AuthRoute path='/login' component={SessionPage}/>
-    <ProtectedRoute path='/messages' component={Greeting}/>
+    <ProtectedRoute path='/messages/:id' component={Greeting}/>
   </div>
 )
 
