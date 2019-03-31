@@ -2,8 +2,10 @@ import React from 'react';
 import MessageForm from './MessageForm';
 import Message from './Message';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { fetchUsers } from '../../actions/session_actions';
 import { receiveMessages, receiveMessage, fetchMessages } from '../../actions/message_actions';
+import { fetchChannels, filterMessagesByChannel } from '../../actions/channel_actions';
 import SideBar from './SideBar';
 import TopNavBar from './TopNavBar';
 
@@ -40,18 +42,18 @@ class ChatChannel extends React.Component {
       }
       )
       this.props.fetchUsers()
-        .then(() => this.props.fetchMessages());
+        .then(() => this.props.fetchChannels());
+      this.scrollToBottom();
+    }
+    
+    componentDidUpdate(prevProps) {
+      if (prevProps != this.props) {
+        this.setState({
+          messages: Object.values(this.props.messages)
+        });
+      }
       this.scrollToBottom();
       console.log(this.props);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps != this.props) {
-      this.setState({
-        messages: Object.values(this.props.messages)
-      });
-    }
-    this.scrollToBottom();
   }
 
   scrollToBottom() {
@@ -59,6 +61,7 @@ class ChatChannel extends React.Component {
   }
 
   render() {
+    debugger
     if (!this.props.messages) return null;
     const msgs = this.state.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
@@ -81,15 +84,17 @@ class ChatChannel extends React.Component {
   }
 }
 
-const msp = state => ({
-  messages: state.entities.messages
+const msp = (state, ownProps) => ({
+  messages: filterMessagesByChannel(ownProps.match.params.id, state.entities.messages),
+  currentChannel: ownProps.match.params.id
 });
 
 const mdp = dispatch => ({
   fetchUsers: () => dispatch(fetchUsers()),
   receiveMessage: msg => dispatch(receiveMessage(msg)),
   receiveMessages: msgs => dispatch(receiveMessages(msgs)),
-  fetchMessages: () => dispatch(fetchMessages())
+  fetchMessages: () => dispatch(fetchMessages()),
+  fetchChannels: () => dispatch(fetchChannels())
 });
 
-export default connect(msp, mdp)(ChatChannel);
+export default withRouter(connect(msp, mdp)(ChatChannel));
