@@ -12,3 +12,10 @@ export const updateMessage = message => {
     data: message
   });
 }
+
+export const deleteMessage = id => {
+  return $.ajax({
+    url: `api/messages/${id}`,
+    method: 'DELETE',
+  });
+}

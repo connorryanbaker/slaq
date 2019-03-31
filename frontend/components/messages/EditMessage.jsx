@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { deleteMessage } from '../../actions/message_actions';
 
 class EditMessage extends React.Component {
   constructor(props) {
@@ -7,7 +9,13 @@ class EditMessage extends React.Component {
       content: this.props.message.content,
       id: this.props.message.id
     }
+    this.delete = this.delete.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  delete() {
+    this.props.updateEdit();
+    this.props.deleteMessage(this.state.id);
   }
 
   update(field) {
@@ -32,10 +40,17 @@ class EditMessage extends React.Component {
           <button onClick={this.props.makeUpdate(this.state)} className="edit-message-button">
             Save Changes
           </button>
+          <button onClick={this.delete} className="delete-message-button">
+            Delete Message
+          </button>
         </div>
       </div>
     )
   }
 }
 
-export default EditMessage;
+const mdp = dispatch => ({
+  deleteMessage: id => dispatch(deleteMessage(id))
+});
+
+export default connect(null, mdp)(EditMessage);

@@ -320,4 +320,12 @@
   border: none;
   border-radius: 4px;
   color: white;
+  margin-right: 8px;
+}
+
+.delete-message-button {
+  background-color: #e01e5a;
+  border: none;
+  border-radius: 4px;
+  color: white;
 }

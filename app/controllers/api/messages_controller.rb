@@ -12,6 +12,9 @@ class Api::MessagesController < ApplicationController
   end
 
   def destroy
+    @message = Message.find(params[:id])
+    @message.destroy 
+    render :show
   end
 
   def index
