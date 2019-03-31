@@ -39,11 +39,13 @@ class Message extends React.Component {
   }
 
   makeUpdate(msg) {
-    return () => {
-      const updated = { message: msg };
-      this.props.updateMessage(updated).then(() => {
-        this.updateEdit();
-      });
+    if (msg.content.length > 0) {
+      return () => {
+        const updated = { message: msg };
+        this.props.updateMessage(updated).then(() => {
+          this.updateEdit();
+        });
+      }
     }
   }
 
