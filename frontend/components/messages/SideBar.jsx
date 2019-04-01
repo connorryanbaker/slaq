@@ -44,7 +44,7 @@ class SideBar extends React.Component {
 }
 
 const msp = state => ({
-  currentUser: state.entities.users[state.session.currentUserId],
+  currentUser: state.entities.users[state.session.currentUserId] ? state.entities.users[state.session.currentUserId] : "",
   channels: Object.values(state.entities.channels)
 })
 

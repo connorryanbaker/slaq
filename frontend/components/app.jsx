@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import SessionPage from './session/SessionPage';
 import LandingPage from './landing_page/LandingPage';
 import ChatChannel from './messages/ChatChannel';
-import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import { AuthRoute, ProtectedRoute } from '../util/route_util.js';
 
 const App = (props) => (
   <div>

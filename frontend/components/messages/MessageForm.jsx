@@ -44,8 +44,4 @@ class MessageForm extends React.Component {
   }
 }
 
-const msp = state => ({
-  user: state.entities.users[state.session.currentUserId].id
-});
-
-export default connect(msp, null)(MessageForm);
+export default MessageForm;

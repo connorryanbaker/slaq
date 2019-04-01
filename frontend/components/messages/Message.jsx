@@ -69,7 +69,7 @@ const msp = (state, ownProps) => {
   return {
     username: state.entities.users[ownProps.user_id] ? state.entities.users[ownProps.user_id].name : "",
     img_url: state.entities.users[ownProps.user_id] ? state.entities.users[ownProps.user_id].avatar_url : "",
-    currentUserId: state.session.currentUserId
+    currentUserId: state.session.currentUserId 
   }
 };
 
