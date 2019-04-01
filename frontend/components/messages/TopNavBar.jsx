@@ -16,7 +16,10 @@ class TopNavBar extends React.Component {
           </div>
           <div className="top-nav-memberlist">
             <div id="star-icon">*</div>
-            <div className="top-nav-memberCount">Users: {this.props.userCount}</div>
+            <div className="top-nav-memberCount">
+              <i class="fa fa-user"></i>
+              {this.props.userCount}
+            </div>
           </div>
         </div>
         <div className="top-nav-right"></div>
