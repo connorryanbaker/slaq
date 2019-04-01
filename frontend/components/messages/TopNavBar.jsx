@@ -8,13 +8,11 @@ class TopNavBar extends React.Component {
   }
 
   render() {
-    if (!this.props.channels || Object.values(this.props.channels).length == 0) return null;
-    debugger
     return (
       <div className="top-nav-wrapper">
         <div className="top-nav-left">
           <div className="main-top-nav-header">
-            {this.props.channels[this.props.match.params.id].name}
+            {this.props.currentChannel.name}
           </div>
           <div className="top-nav-memberlist">
             <div id="star-icon">*</div>
@@ -29,8 +27,7 @@ class TopNavBar extends React.Component {
 
 const msp = (state, ownProps) => {
   return {
-  userCount: Object.values(state.entities.users).length,
-  channels: state.entities.channels
+  userCount: Object.values(state.entities.users).length ? Object.values(state.entities.users).length : 0,
   }
 };
 

@@ -4,8 +4,7 @@ import Message from './Message';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchUsers } from '../../actions/session_actions';
-import { receiveMessages, receiveMessage, fetchMessages, clearMessages } from '../../actions/message_actions';
-import { clearUsers } from '../../actions/user_actions';
+import { receiveMessages, receiveMessage, fetchMessages } from '../../actions/message_actions';
 import { fetchChannels } from '../../actions/channel_actions';
 import SideBar from './SideBar';
 import TopNavBar from './TopNavBar';
@@ -14,14 +13,12 @@ import TopNavBar from './TopNavBar';
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { messages: null, loaded: false }
-    this.bottom = React.createRef();
+    this.state = { messages: [], loaded: false }
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.fetchChannelData = this.fetchChannelData.bind(this);
   }
   
   componentDidMount() {
-    this.state.messages = null;
     App.cable.subscriptions.create(
       { channel: 'ChatChannel', id: this.props.channelId },
       {
@@ -53,12 +50,8 @@ class ChatChannel extends React.Component {
       return null;
     }
     if (prevProps.match.params.id != this.props.match.params.id) {
-      this.state.messages = null;
       this.state.transition = true;
-      this.props.clearMessages();
-      this.props.clearUsers(this.props.currentUser);
       this.fetchChannelData();
-     ;
     } else if (prevProps != this.props && this.props.messages) {
       this.setState({
         messages: Object.values(this.props.messages)
@@ -76,18 +69,16 @@ class ChatChannel extends React.Component {
         this.setState({
         messages: Object.values(this.props.messages),
         loaded: true})
-      }, () => this.scrollToBottom());
+      }, () => {
+        return this.scrollToBottom()
+      });
   }
 
   scrollToBottom() {
-    if (this.state.loaded) {
-      this.bottom.scrollIntoView({ behavior: "smooth" });
-    }
+    this.bottom.scrollIntoView({ behavior: "smooth" });
   }
 
   render() {
-    if (!this.state.messages) return null;
-    if (!this.state.loaded) return <h1>HOLA CUNAO!</h1>
     const msgs = this.state.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
       return (<div key={i} >
@@ -97,7 +88,7 @@ class ChatChannel extends React.Component {
     return (
       <div>
         <SideBar currentUser={this.props.currentUser} />
-        <TopNavBar />
+        <TopNavBar currentChannel={this.props.currentChannel}/>
         <ul className="messages-list">
           {msgs}
           <div ref={(e) => { this.bottom = e }} />
@@ -111,9 +102,10 @@ class ChatChannel extends React.Component {
 
 const msp = (state, ownProps) => {
   return {
-  channelId: ownProps.match.params.id,
-  messages: state.entities.messages,
-  currentUser: state.entities.users[state.session.currentUserId]
+    channelId: ownProps.match.params.id,
+    messages: state.entities.messages,
+    currentUser: state.entities.users[state.session.currentUserId] ? state.entities.users[state.session.currentUserId] : {name: "", id: 0},
+    currentChannel: state.entities.channels[ownProps.match.params.id] ? state.entities.channels[ownProps.match.params.id] : {name: ""}
   }
 };
 
@@ -122,8 +114,6 @@ const mdp = dispatch => ({
   receiveMessage: msg => dispatch(receiveMessage(msg)),
   receiveMessages: msgs => dispatch(receiveMessages(msgs)),
   fetchMessages: channelId => dispatch(fetchMessages(channelId)),
-  clearMessages: () => dispatch(clearMessages()),
-  clearUsers: currentUser => dispatch(clearUsers(currentUser)),
   fetchChannels: () => dispatch(fetchChannels())
 });
 

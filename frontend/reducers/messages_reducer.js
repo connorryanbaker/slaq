@@ -1,4 +1,4 @@
-import { RECEIVE_MESSAGES, RECEIVE_MESSAGE, REMOVE_MESSAGE, CLEAR_MESSAGES } from '../actions/message_actions';
+import { RECEIVE_MESSAGES, RECEIVE_MESSAGE, REMOVE_MESSAGE } from '../actions/message_actions';
 
 const messagesReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -14,8 +14,6 @@ const messagesReducer = (state = {}, action) => {
       newState = Object.assign({}, state);
       delete newState[action.message.id];
       return newState;
-    case CLEAR_MESSAGES:
-      return null;
     default:
       return state;
   }
