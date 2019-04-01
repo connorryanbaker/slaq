@@ -12,12 +12,20 @@ class Api::ChannelsController < ApplicationController
 
   def create
     @channel = Channel.new(channel_params)
+    @channel.creator = current_user
     @channel.users << current_user
     if @channel.save 
       render :show 
     else  
       render json: @channel.errors.full_messages, status: 422
     end
+  end
+
+  def destroy
+    @channel = Channel.find(params[:id])
+    return nil unless @channel.creator.id == current_user.id
+    @channel.destroy 
+    render :show
   end
 
 

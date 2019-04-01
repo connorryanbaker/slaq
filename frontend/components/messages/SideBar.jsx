@@ -23,7 +23,7 @@ class SideBar extends React.Component {
           </div>
         </div>
         <div className="sidebar-chats-wrapper">
-          <Channels channels={this.props.channels} />
+          <Channels channels={this.props.channels} currentUser={this.props.currentUser} />
           <div className="sidebar-dms-wrapper">
             <div className="sidebar-dms-header">
               Direct Messages

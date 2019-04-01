@@ -12,3 +12,10 @@ export const createChannel = name => {
     data: { channel: { name } }
   })
 }
+
+export const deleteChannel = id => {
+  return $.ajax({
+    url: `api/channels/${id}`,
+    method: 'DELETE'
+  });
+}
