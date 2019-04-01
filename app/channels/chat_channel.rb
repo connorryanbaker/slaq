@@ -1,8 +1,7 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
-    stream_for current_channel
-
-    load
+    stream_for Channel.find(params[:id])
+    load(params[:id])
   end
 
   def unsubscribed
@@ -10,24 +9,18 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def speak(data) 
-    msg = current_channel.messages.create(data['message'])
-    ChatChannel.broadcast_to(current_channel, {type: 'msg', message: msg})
+    id = data["message"]["messageable_id"]
+    channel = Channel.find(id)
+    msg = channel.messages.create(data['message'])
+    ChatChannel.broadcast_to(channel, {type: 'msg', message: msg})
   end
 
-  def load 
-    messages = current_channel.messages
-    current_channel.users << current_user unless current_channel.users.include?(current_user)
+  def load(id) 
+    channel = Channel.find(id)
+    messages = channel.messages
+    channel.users << current_user unless channel.users.include?(current_user)
     data = {type: 'msgs', messages: messages}
-    ChatChannel.broadcast_to(current_channel, {type: 'msgs', messages: messages})
+    ChatChannel.broadcast_to(channel, {type: 'msgs', messages: messages})
   end
-  
-  private 
-    def current_channel 
-      Channel.find(params[:id]) 
-    end
-
-    def render_messages(msgs)
-      ApplicationController.renderer.render(template: '/api/messages/index', locals: { messages: msgs }) 
-    end
 
 end

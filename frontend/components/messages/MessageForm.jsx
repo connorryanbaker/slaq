@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class MessageForm extends React.Component {
@@ -6,7 +7,8 @@ class MessageForm extends React.Component {
     super(props);
     this.state = {
       content: "",
-      user_id: this.props.user_id
+      user_id: this.props.user_id,
+      messageable_id: this.props.messageable_id
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
@@ -28,6 +30,14 @@ class MessageForm extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.setState({
+        messageable_id: this.props.match.params.id
+      });
+    }
+  }
+
   render() {
     return (
     <form onSubmit={this.handleSubmit} className="msg-input-form">
@@ -43,5 +53,7 @@ class MessageForm extends React.Component {
     );
   }
 }
-
-export default MessageForm;
+const msp = (state, ownProps) => ({
+  messageable_id: ownProps.match.params.id
+});
+export default withRouter(connect(msp, null)(MessageForm));

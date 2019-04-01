@@ -27,20 +27,29 @@ class ChatChannel extends React.Component {
         received: data => {
           switch(data.type) {
             case "msg": 
-            const { user_id, content, updated_at } = data.message;
-            const msg = { user_id, content, updated_at };
-            this.setState({
-              messages: this.state.messages.concat(msg)
-            });
-            this.props.receiveMessage(data.message);
-            break
+              const { user_id, content, updated_at } = data.message;
+              const msg = { user_id, content, updated_at };
+              this.setState({
+                messages: this.state.messages.concat(msg)
+              });
+              this.props.receiveMessage(data.message);
+              break
+            case "msgs":
+              this.props.receiveMessages(data.messages);
+              break
           }
         },
         speak: function(data) {
           return this.perform("speak", data);
         },
         load: function() {
-          return this.perform("load")
+          return this.perform("load", data.messageable_id)
+        },
+        unsubscribed: function() {
+          return this.perform("unsubscribed")
+        },
+        subscribed: function() {
+          return this.perform("subscribed")
         }
       });
   }
@@ -52,8 +61,13 @@ class ChatChannel extends React.Component {
     
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id != this.props.match.params.id) {
-      this.configureChannelSubscription();
-      this.fetchChannelData();
+      this.fetchChannelData()
+        .then(() => {
+          // App.cable.subscriptions.subscriptions[0].unsubscribed();
+          this.configureChannelSubscription();
+          // App.cable.subscriptions.subscriptions[0].subscribed();
+
+        });
     } else if (prevProps != this.props && this.props.messages) {
       this.setState({
         messages: Object.values(this.props.messages)
