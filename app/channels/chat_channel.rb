@@ -1,6 +1,8 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
-    stream_for Channel.find(params[:id])
+    channel = Channel.find(params[:id])
+    load_user_into_channel(channel)
+    stream_for channel
     load(params[:id])
   end
 
@@ -11,17 +13,22 @@ class ChatChannel < ApplicationCable::Channel
   def speak(data) 
     id = data["message"]["messageable_id"]
     channel = Channel.find(id)
-    channel.users << current_user unless channel.users.include?(current_user)
     msg = channel.messages.create(data['message'])
+
+    load_user_into_channel(channel)
+
     ChatChannel.broadcast_to(channel, {type: 'msg', message: msg})
   end
 
   def load(id) 
     channel = Channel.find(id)
     messages = channel.messages
-    channel.users << current_user unless channel.users.include?(current_user)
     data = {type: 'msgs', messages: messages}
+    load_user_into_channel(channel)
     ChatChannel.broadcast_to(channel, {type: 'msgs', messages: messages})
   end
 
+  def load_user_into_channel(channel)
+    channel.users << current_user unless channel.users.include?(current_user)
+  end
 end
