@@ -19,3 +19,7 @@ export const fetchChannels = () => dispatch => {
     .then(channels => dispatch(receiveChannels(channels)));
 }
 
+export const createChannel = name => dispatch => {
+  return ChannelApiUtil.createChannel(name)
+    .then(channel => dispatch(receiveChannel(channel)));
+}
