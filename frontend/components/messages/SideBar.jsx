@@ -16,17 +16,19 @@ class SideBar extends React.Component {
     return(
       <div className="sidebar-container">
         <div className="sidebar-channelName-wrapper">
-          <div className="sidebar-main-header">slaqq<img src="https://img.icons8.com/small/16/000000/expand-arrow.png"></img></div>
+          <div className="sidebar-main-header">slaqq<i class="fas fa-chevron-down"></i><i class="far fa-bell"></i></div>
           <div className="sidebar-subtitle">
             <div className="sidebar-current-user">{this.props.currentUser.name}</div>
             <div onClick={this.props.logout} className="sidebar-sign-out">Sign Out</div>
           </div>
         </div>
+        <div><i class="fas fa-search"></i>Jump To</div>
+        <div><i class="far fa-comments"></i>All Threads</div>
         <div className="sidebar-chats-wrapper">
           <Channels channels={this.props.channels} currentUser={this.props.currentUser} />
           <div className="sidebar-dms-wrapper">
             <div className="sidebar-dms-header">
-              Direct Messages
+              Direct Messages <i class="fas fa-plus-circle"></i>
             </div>
           </div>
         </div>
