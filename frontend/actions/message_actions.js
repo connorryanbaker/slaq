@@ -25,10 +25,8 @@ export const clearMessages = () => ({
 })
 
 export const fetchMessages = (channelId) => dispatch => {
-  debugger
   return MessageApiUtil.fetchMessages(channelId)
     .then(msgs => {
-      debugger
       return dispatch(receiveMessages(msgs))
     });
 }

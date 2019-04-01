@@ -15,7 +15,6 @@ class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = { messages: null, loaded: false }
-    debugger
     this.bottom = React.createRef();
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.fetchChannelData = this.fetchChannelData.bind(this);
@@ -54,12 +53,10 @@ class ChatChannel extends React.Component {
       return null;
     }
     if (prevProps.match.params.id != this.props.match.params.id) {
-      debugger
       this.state.messages = null;
       this.state.transition = true;
       this.props.clearMessages();
       this.props.clearUsers(this.props.currentUser);
-      debugger
       this.fetchChannelData();
      ;
     } else if (prevProps != this.props && this.props.messages) {
@@ -70,16 +67,12 @@ class ChatChannel extends React.Component {
   }
 
   fetchChannelData() {
-    debugger
     return this.props.fetchUsers(this.props.channelId)
       .then(() => {
-        debugger 
         this.props.fetchMessages(this.props.channelId);
       }).then(() => {
-        debugger
         this.props.fetchChannels()
       }).then(() => {
-        debugger
         this.setState({
         messages: Object.values(this.props.messages),
         loaded: true})
@@ -94,14 +87,13 @@ class ChatChannel extends React.Component {
 
   render() {
     if (!this.state.messages) return null;
-    if (!this.state.loaded) return null;
+    if (!this.state.loaded) return <h1>HOLA CUNAO!</h1>
     const msgs = this.state.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
       return (<div key={i} >
               <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
             </div>);
     });
-    debugger
     return (
       <div>
         <SideBar currentUser={this.props.currentUser} />
@@ -118,7 +110,6 @@ class ChatChannel extends React.Component {
 }
 
 const msp = (state, ownProps) => {
-  debugger
   return {
   channelId: ownProps.match.params.id,
   messages: state.entities.messages,

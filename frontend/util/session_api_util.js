@@ -22,7 +22,6 @@ export const destroySession = () => {
 }
 
 export const fetchUsers = (channelId) => {
-  debugger
   return $.ajax({
     method: 'GET',
     url: `api/channels/${channelId}/users`

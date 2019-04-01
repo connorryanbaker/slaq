@@ -14,7 +14,6 @@ export const receiveCurrentUser = currentUser => {
 };
 
 export const receiveUsers = users => {
-  debugger
   return {
     type: RECEIVE_USERS,
     users
@@ -37,7 +36,6 @@ export const logoutUser = () => ({
 });
 
 export const fetchUsers = (channelId) => dispatch => {
-  debugger
   return SessionApiUtil.fetchUsers(channelId)
     .then((users => dispatch(receiveUsers(users))));
 }

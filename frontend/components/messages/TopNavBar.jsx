@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class TopNavBar extends React.Component {
   constructor(props) {
@@ -7,12 +8,13 @@ class TopNavBar extends React.Component {
   }
 
   render() {
+    if (!this.props.channels || Object.values(this.props.channels).length == 0) return null;
+    debugger
     return (
       <div className="top-nav-wrapper">
         <div className="top-nav-left">
-          {/* {this.props.channelName} */}
           <div className="main-top-nav-header">
-            main
+            {this.props.channels[this.props.match.params.id].name}
           </div>
           <div className="top-nav-memberlist">
             <div id="star-icon">*</div>
@@ -25,8 +27,11 @@ class TopNavBar extends React.Component {
   }
 }
 
-const msp = state => ({
-  userCount: Object.values(state.entities.users).length
-});
+const msp = (state, ownProps) => {
+  return {
+  userCount: Object.values(state.entities.users).length,
+  channels: state.entities.channels
+  }
+};
 
-export default connect(msp, null)(TopNavBar);
+export default withRouter(connect(msp, null)(TopNavBar));

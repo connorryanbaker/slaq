@@ -10,7 +10,7 @@ class SideBar extends React.Component {
 
   render() {
     const channels = this.props.channels.map((el, i) => {
-      return <li key={i}><Link to={`/${el.id}`}>{el.name}</Link></li>
+      return <li key={i}><Link to={`/messages/${el.id}`}>{el.name}</Link></li>
     })
     return(
       <div className="sidebar-container">

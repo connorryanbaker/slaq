@@ -4,7 +4,6 @@ const messagesReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_MESSAGES:
-      debugger
       let newState = {};
       return action.messages;
     case RECEIVE_MESSAGE:
