@@ -11,6 +11,7 @@ class ChatChannel < ApplicationCable::Channel
   def speak(data) 
     id = data["message"]["messageable_id"]
     channel = Channel.find(id)
+    channel.users << current_user unless channel.users.include?(current_user)
     msg = channel.messages.create(data['message'])
     ChatChannel.broadcast_to(channel, {type: 'msg', message: msg})
   end
