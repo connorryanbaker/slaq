@@ -32,8 +32,8 @@ class ChannelsContainer extends React.Component {
 
   render() {
     const channelLis = this.props.channels.map((el, i) => {
-      return (<li key={i} className={this.props.match.params.id == el.id ? "current-channel" : ""}>
-                <Link to={`/messages/${el.id}`}>
+      return (<li key={i} className={this.props.match.params.id == el.id ? "current-channel channel-li" : "channel-li"}>
+        <Link to={`/messages/${el.id}`} className={this.props.match.params.id == el.id ? "channel-link selected-link" : "channel-link"}>
                   {el.name}
                 </Link>
                 {el.creator_id == this.props.currentUser.id ? 
@@ -48,7 +48,7 @@ class ChannelsContainer extends React.Component {
           Channels
           </div>
         <div className="sidebar-channel-name">
-          <ul>
+          <ul className="channels-list">
             {channelLis}
           </ul>
           <div>

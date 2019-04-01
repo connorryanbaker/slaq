@@ -237,7 +237,6 @@
 .sidebar-channelName-wrapper, .sidebar-channels-wrapper, .sidebar-dms-wrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
 }
 
 .sidebar-channels-header, .sidebar-dms-header {
@@ -252,9 +251,12 @@
   color: white;
 }
 
-.sidebar-channelName-wrapper:hover, .sidebar-channels-wrapper:hover, 
-.sidebar-dms-wrapper:hover {
+.sidebar-channelName-wrapper:hover,  
+.sidebar-dms-wrapper:hover, .channel-li:hover {
   background-color: #3f0e40;
+}
+.current-channel:hover {
+  background-color: #1264a3; 
 }
 
 .sidebar-channel-name {
@@ -267,12 +269,6 @@
 .sidebar-channel-name:hover {
   color: white;
 
-}
-
-.current-channel {
-  background-color: #1264a3;
-  color: white;
-  padding-left: 25px;
 }
 
 .edit-message-container {
@@ -327,5 +323,51 @@
   background-color: #e01e5a;
   border: none;
   border-radius: 4px;
+  color: white;
+}
+
+/* advanced sidebar */
+
+.sidebar-jumpto-container {
+  display: flex;
+  justify-content: flex-start;
+  background-color: rgb(38,0,39);
+  color: rgb(197,183,198);
+  padding: 5px;
+  width: 80%;
+  border-radius: 4px;
+  margin: 0 10px;
+}
+
+.all-threads {
+  color: rgb(197,183,198);
+  margin-left: 10px;
+  padding: 3px;
+  transition: 300ms;
+}
+
+.all-threads:hover {
+  background-color: #3f0e40;
+  color: white;
+}
+
+.channels-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.channel-link {
+  color: rgb(197,183,198);
+  text-decoration: none;
+  padding-left: 10px;
+}
+
+.current-channel {
+  background-color: #1264a3;
+  padding-left: 0px;
+}
+
+.selected-link {
+  font-weight: 800;
   color: white;
 }

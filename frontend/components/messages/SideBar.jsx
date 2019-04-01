@@ -22,8 +22,11 @@ class SideBar extends React.Component {
             <div onClick={this.props.logout} className="sidebar-sign-out">Sign Out</div>
           </div>
         </div>
-        <div><i class="fas fa-search"></i>Jump To</div>
-        <div><i class="far fa-comments"></i>All Threads</div>
+        <div className='sidebar-jumpto-container'>
+          <i class="fas fa-search"></i>
+          Jump To
+        </div>
+        <div className="all-threads"><i class="far fa-comments"></i>All Threads</div>
         <div className="sidebar-chats-wrapper">
           <Channels channels={this.props.channels} currentUser={this.props.currentUser} />
           <div className="sidebar-dms-wrapper">

@@ -15,14 +15,19 @@ class TopNavBar extends React.Component {
             # {this.props.currentChannel.name}
           </div>
           <div className="top-nav-memberlist">
-            <div id="star-icon"><i class="far fa-star"></i></div>
-            <div className="top-nav-memberCount"><i class="far fa-user"></i> {this.props.userCount}</div>
+            <div id="star-icon"><i class="far fa-star"></i> | <i class="far fa-user"></i></div>
+            <div className="top-nav-memberCount"> {this.props.userCount}</div>
           </div>
         </div>
         <div className="top-nav-right">
           <i class="fas fa-phone"></i>
           <i class="fas fa-info-circle"></i>
           <i class="fas fa-cog"></i>
+          <div>
+            <input type="text"></input>
+          </div>
+          <i class="fas fa-at"></i>
+          <i class="far fa-star"></i>
         </div>
       </div>
     )
