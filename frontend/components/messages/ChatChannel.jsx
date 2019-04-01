@@ -14,11 +14,13 @@ class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = { messages: [], loaded: false }
+    this.bottom = React.createRef();
+    this.configureChannelSubscription = this.configureChannelSubscription.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.fetchChannelData = this.fetchChannelData.bind(this);
   }
-  
-  componentDidMount() {
+
+  configureChannelSubscription() {
     App.cable.subscriptions.create(
       { channel: 'ChatChannel', id: this.props.channelId },
       {
@@ -40,21 +42,23 @@ class ChatChannel extends React.Component {
         load: function() {
           return this.perform("load")
         }
-      }
-      )
+      });
+  }
+  
+  componentDidMount() {
+    this.configureChannelSubscription();
     return this.fetchChannelData();
   }
     
   componentDidUpdate(prevProps) {
-    if (!this.state.loaded) {
-      return null;
-    }
     if (prevProps.match.params.id != this.props.match.params.id) {
-      this.state.transition = true;
+      this.configureChannelSubscription();
       this.fetchChannelData();
     } else if (prevProps != this.props && this.props.messages) {
       this.setState({
         messages: Object.values(this.props.messages)
+      }, () => {
+        this.scrollToBottom();
       });
     }
   }
@@ -69,8 +73,6 @@ class ChatChannel extends React.Component {
         this.setState({
         messages: Object.values(this.props.messages),
         loaded: true})
-      }, () => {
-        return this.scrollToBottom()
       });
   }
 
