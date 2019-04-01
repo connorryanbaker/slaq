@@ -19,9 +19,3 @@ export const fetchChannels = () => dispatch => {
     .then(channels => dispatch(receiveChannels(channels)));
 }
 
-export const filterMessagesByChannel = (channelId,messages) => {
-  const filteredMessages = {};
-  Object.values(messages).filter(msg => msg.channel_id = channelId)
-    .forEach(msg => filteredMessages[msg.id] = msg);
-  return filteredMessages;
-}

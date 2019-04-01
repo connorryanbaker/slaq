@@ -17,8 +17,8 @@ class Api::UsersController < ApplicationController
   def index
     # eventually this will take a channel as an argument and grab the channel users
     # for now we get them all
-    @users = User.all 
-    render :index
+    @users = Channel.find(params[:channel_id]).users
+    render template: 'api/users/index'
   end
 
   private

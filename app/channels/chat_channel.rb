@@ -1,6 +1,7 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
     stream_for current_channel
+
     load
   end
 
@@ -14,9 +15,8 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def load 
-    p current_channel
-    p current_channel.messages.length
     messages = current_channel.messages
+    current_channel.users << current_user unless current_channel.users.include?(current_user)
     data = {type: 'msgs', messages: messages}
     ChatChannel.broadcast_to(current_channel, {type: 'msgs', messages: messages})
   end

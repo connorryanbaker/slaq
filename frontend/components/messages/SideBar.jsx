@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { logout } from '../../actions/session_actions'
 
 class SideBar extends React.Component {
@@ -8,6 +9,9 @@ class SideBar extends React.Component {
   }
 
   render() {
+    const channels = this.props.channels.map((el, i) => {
+      return <li key={i}><Link to={`/${el.id}`}>{el.name}</Link></li>
+    })
     return(
       <div className="sidebar-container">
         <div className="sidebar-channelName-wrapper">
@@ -22,7 +26,11 @@ class SideBar extends React.Component {
             <div className="sidebar-channels-header">
               Channels
             </div>
-            <div className="sidebar-channel-name current-channel"># main</div>
+            <div className="sidebar-channel-name current-channel">
+              <ul>
+                {channels}
+              </ul>
+            </div>
           </div>
           <div className="sidebar-dms-wrapper">
             <div className="sidebar-dms-header">
@@ -36,7 +44,8 @@ class SideBar extends React.Component {
 }
 
 const msp = state => ({
-  currentUser: state.entities.users[state.session.currentUserId]
+  currentUser: state.entities.users[state.session.currentUserId],
+  channels: Object.values(state.entities.channels)
 })
 
 const mdp = dispatch => ({

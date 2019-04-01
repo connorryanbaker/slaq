@@ -4,8 +4,9 @@ import Message from './Message';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchUsers } from '../../actions/session_actions';
-import { receiveMessages, receiveMessage, fetchMessages } from '../../actions/message_actions';
-import { fetchChannels, filterMessagesByChannel } from '../../actions/channel_actions';
+import { receiveMessages, receiveMessage, fetchMessages, clearMessages } from '../../actions/message_actions';
+import { clearUsers } from '../../actions/user_actions';
+import { fetchChannels } from '../../actions/channel_actions';
 import SideBar from './SideBar';
 import TopNavBar from './TopNavBar';
 
@@ -13,13 +14,17 @@ import TopNavBar from './TopNavBar';
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [] }
+    this.state = { messages: null, loaded: false }
+    debugger
+    this.bottom = React.createRef();
     this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.fetchChannelData = this.fetchChannelData.bind(this);
   }
   
   componentDidMount() {
+    this.state.messages = null;
     App.cable.subscriptions.create(
-      { channel: 'ChatChannel', id: this.props.room_id },
+      { channel: 'ChatChannel', id: this.props.channelId },
       {
         received: data => {
           switch(data.type) {
@@ -41,59 +46,93 @@ class ChatChannel extends React.Component {
         }
       }
       )
-      this.props.fetchUsers()
-        .then(() => this.props.fetchChannels());
-      this.scrollToBottom();
-    }
+    return this.fetchChannelData();
+  }
     
-    componentDidUpdate(prevProps) {
-      if (prevProps != this.props) {
+  componentDidUpdate(prevProps) {
+    if (!this.state.loaded) {
+      return null;
+    }
+    if (prevProps.match.params.id != this.props.match.params.id) {
+      debugger
+      this.state.messages = null;
+      this.state.transition = true;
+      this.props.clearMessages();
+      this.props.clearUsers(this.props.currentUser);
+      debugger
+      this.fetchChannelData();
+     ;
+    } else if (prevProps != this.props && this.props.messages) {
+      this.setState({
+        messages: Object.values(this.props.messages)
+      });
+    }
+  }
+
+  fetchChannelData() {
+    debugger
+    return this.props.fetchUsers(this.props.channelId)
+      .then(() => {
+        debugger 
+        this.props.fetchMessages(this.props.channelId);
+      }).then(() => {
+        debugger
+        this.props.fetchChannels()
+      }).then(() => {
+        debugger
         this.setState({
-          messages: Object.values(this.props.messages)
-        });
-      }
-      this.scrollToBottom();
-      console.log(this.props);
+        messages: Object.values(this.props.messages),
+        loaded: true})
+      }, () => this.scrollToBottom());
   }
 
   scrollToBottom() {
-    this.bottom.scrollIntoView({ behavior: "smooth" });
+    if (this.state.loaded) {
+      this.bottom.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   render() {
-    debugger
-    if (!this.props.messages) return null;
+    if (!this.state.messages) return null;
+    if (!this.state.loaded) return null;
     const msgs = this.state.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
       return (<div key={i} >
               <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
             </div>);
     });
+    debugger
     return (
       <div>
-        <SideBar />
+        <SideBar currentUser={this.props.currentUser} />
         <TopNavBar />
         <ul className="messages-list">
           {msgs}
           <div ref={(e) => { this.bottom = e }} />
         </ul>
-        <MessageForm />
+        <MessageForm user_id={this.props.currentUser.id}/>
         <div ref={this.bottom}/>
       </div>
     );
   }
 }
 
-const msp = (state, ownProps) => ({
-  messages: filterMessagesByChannel(ownProps.match.params.id, state.entities.messages),
-  currentChannel: ownProps.match.params.id
-});
+const msp = (state, ownProps) => {
+  debugger
+  return {
+  channelId: ownProps.match.params.id,
+  messages: state.entities.messages,
+  currentUser: state.entities.users[state.session.currentUserId]
+  }
+};
 
 const mdp = dispatch => ({
-  fetchUsers: () => dispatch(fetchUsers()),
+  fetchUsers: channelId => dispatch(fetchUsers(channelId)),
   receiveMessage: msg => dispatch(receiveMessage(msg)),
   receiveMessages: msgs => dispatch(receiveMessages(msgs)),
-  fetchMessages: () => dispatch(fetchMessages()),
+  fetchMessages: channelId => dispatch(fetchMessages(channelId)),
+  clearMessages: () => dispatch(clearMessages()),
+  clearUsers: currentUser => dispatch(clearUsers(currentUser)),
   fetchChannels: () => dispatch(fetchChannels())
 });
 

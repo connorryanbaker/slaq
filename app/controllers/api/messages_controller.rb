@@ -18,8 +18,8 @@ class Api::MessagesController < ApplicationController
   end
 
   def index
-    @messages = Message.all 
-    render :index 
+    @messages = Message.where(messageable_id: params[:channel_id])
+    render template: 'api/messages/index'
   end
 
   private
