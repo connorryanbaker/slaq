@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../../actions/session_actions'
+import { logout } from '../../actions/session_actions';
+import Channels from './ChannelsContainer';
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -22,16 +23,7 @@ class SideBar extends React.Component {
           </div>
         </div>
         <div className="sidebar-chats-wrapper">
-          <div className="sidebar-channels-wrapper">
-            <div className="sidebar-channels-header">
-              Channels
-            </div>
-            <div className="sidebar-channel-name current-channel">
-              <ul>
-                {channels}
-              </ul>
-            </div>
-          </div>
+          <Channels channels={this.props.channels} />
           <div className="sidebar-dms-wrapper">
             <div className="sidebar-dms-header">
               Direct Messages
@@ -45,7 +37,7 @@ class SideBar extends React.Component {
 
 const msp = state => ({
   currentUser: state.entities.users[state.session.currentUserId] ? state.entities.users[state.session.currentUserId] : "",
-  channels: Object.values(state.entities.channels)
+  channels: state.entities.channels ? Object.values(state.entities.channels) : []
 })
 
 const mdp = dispatch => ({
