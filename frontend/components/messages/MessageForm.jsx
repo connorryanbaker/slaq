@@ -47,13 +47,14 @@ class MessageForm extends React.Component {
               value={this.state.content}
               onChange={this.update("content")}
               className="msg-bar"
-              placeholder="Enter your message..." />
+              placeholder={`Message #${this.props.channelName}`} />
       </div>
     </form>
     );
   }
 }
 const msp = (state, ownProps) => ({
+  channelName: state.entities.channels[ownProps.match.params.id] ? state.entities.channels[ownProps.match.params.id].name : "",
   messageable_id: ownProps.match.params.id
 });
 export default withRouter(connect(msp, null)(MessageForm));

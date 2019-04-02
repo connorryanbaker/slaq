@@ -106,7 +106,7 @@
 .msg-bar-wrapper {
   height: 50px;
   width: calc(90vw - 225px);
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   border: 2px solid rgb(221,221,221);
   border-radius: 5px;
   box-shadow: none;
@@ -156,15 +156,16 @@
   margin-left: 212px;
   background-color: white;
   height: 60px;
-  width: 100%;
+  width: 90vw;
   border-bottom: 1px solid rgb(197,183,198);
   z-index: 10;
   display: flex;
 }
 
 .top-nav-left {
-  width: 50%;
-  margin: 0 2%;
+  width: 25%;
+  margin: 0 15% 0 2%;
+  align-self: flex-start;
 }
 
 .main-top-nav-header {
@@ -400,8 +401,9 @@
 .top-nav-right {
   display: flex;
   align-items: center;
-  width: 40%;
-  margin-right: 10%;
+  justify-content: space-between;
+  width: 50%;
+  margin-right: 3%;
 }
 
 .top-nav-right-1 {
@@ -443,4 +445,13 @@
 
 .fa-phone {
   color: rgb(197,183,198);
+}
+
+.channel-btn {
+  padding: 3px;
+}
+
+.channel-edit-li {
+  display: flex;
+  justify-content: space-around;
 }
