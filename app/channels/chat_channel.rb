@@ -7,7 +7,12 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
+    p "UNSUB!!!!"
+    p "UNSUB!!!!"
+    p "UNSUB!!!!"
+    p "UNSUB!!!!"
+    p "UNSUB!!!!"
+    p "UNSUB!!!!"
   end
 
   def speak(data) 
@@ -27,7 +32,7 @@ class ChatChannel < ApplicationCable::Channel
     data = {type: 'msgs', messages: messages}
 
     load_user_into_channel(channel)
-    
+
     ChatChannel.broadcast_to(channel, {type: 'msgs', messages: messages})
   end
 

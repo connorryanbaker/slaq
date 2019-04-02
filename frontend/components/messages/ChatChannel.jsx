@@ -28,8 +28,6 @@ class ChatChannel extends React.Component {
           debugger
           switch(data.type) {
             case "msg": 
-              const { user_id, content, updated_at } = data.message;
-              const msg = { user_id, content, updated_at };
               this.props.receiveMessage(data.message);
               break
             case "msgs":
@@ -41,7 +39,8 @@ class ChatChannel extends React.Component {
               break
             case "remove_msg":
               debugger 
-              this.props.removeMessage
+              this.props.removeMessage(data.message);
+              break
           }
         },
         speak: function(data) {
