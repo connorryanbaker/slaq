@@ -18,9 +18,9 @@ class SideBar extends React.Component {
         <div className="sidebar-channelName-wrapper">
           <div className="channelName-top">
             <div>
-              <div className="sidebar-main-header">slaqq<i class="fas fa-chevron-down"></i></div>
+              <div className="sidebar-main-header">slaqq<i className="fas fa-chevron-down"></i></div>
             </div>
-            <i class="far fa-bell"></i>
+            <i className="far fa-bell"></i>
           </div>
           <div className="sidebar-subtitle">
             <div className="sidebar-current-user">{this.props.currentUser.name}</div>
@@ -28,15 +28,15 @@ class SideBar extends React.Component {
           </div>
         </div>
         <div className='sidebar-jumpto-container'>
-          <i class="fas fa-search"></i>
+          <i className="fas fa-search"></i>
           Jump To...
         </div>
-        <div className="all-threads"><i class="far fa-comments"></i>All Threads</div>
+        <div className="all-threads"><i className="far fa-comments"></i>All Threads</div>
         <div className="sidebar-chats-wrapper">
           <Channels channels={this.props.channels} currentUser={this.props.currentUser} />
           <div className="sidebar-dms-wrapper">
             <div className="sidebar-dms-header">
-              Direct Messages <i class="fas fa-plus-circle"></i>
+              Direct Messages <i className="fas fa-plus-circle"></i>
             </div>
           </div>
         </div>

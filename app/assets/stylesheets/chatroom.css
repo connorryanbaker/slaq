@@ -455,3 +455,31 @@
   display: flex;
   justify-content: space-around;
 }
+
+.add-channel {
+  margin-bottom: 5%;
+  margin-left: 10px;
+}
+
+.add-channel-input {
+  margin: 0 0 5px 10px;
+  border-radius: 4px;
+  height: 35px;
+  border: 1px solid rgb(197,183,198);
+  outline: 0;
+  width: 90%;
+}
+
+.add-channel-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.fa-plus {
+  margin-right: 5px;
+}
+
+.fa-plus:hover {
+  cursor: pointer;
+}

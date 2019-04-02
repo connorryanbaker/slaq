@@ -33,12 +33,15 @@ class AddChannelForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="add-channel-form">
         <input type="text"
                onChange={this.update('input')}
                value={this.state.input}
-               className="" />
-        <input type="submit" value="Add Channel" className='edit-message-button'/>
+               className="add-channel-input"
+               placeholder="New channel name..." />
+        <div className="channel-edit-li">
+          <input type="submit" value="Add Channel" className='edit-message-button channel-btn'/><button className='cancel-edit-message channel-btn' onClick={this.props.updateEdit}>Cancel</button>
+        </div>
       </form>
     )
   }
