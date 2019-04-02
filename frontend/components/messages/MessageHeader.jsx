@@ -7,15 +7,13 @@ class MessageHeader extends React.Component {
   }
 
   parseTime(time) {
-    debugger
     const extractedTime = time.split("T")[1].slice(0, 5);
     let formattedTime;
     if (extractedTime[0] == "0") {
-      formattedTime = extractedTime.slice(1);
+      formattedTime = extractedTime.slice(1).concat(" AM");
     } else if (extractedTime[0] == "1") {
-      formattedTime = parseInt(extractedTime.slice(0, 2)) > 12 ? (parseInt(extractedTime.slice(0, 2) - 12).toString().concat(extractedTime.slice(2))) : extractedTime;
+      formattedTime = parseInt(extractedTime.slice(0, 2)) > 12 ? (parseInt(extractedTime.slice(0, 2) - 12).toString().concat(extractedTime.slice(2))).concat(" PM") : extractedTime.concat(" PM");
     }
-    debugger
     return formattedTime;
   }
 
