@@ -5,7 +5,9 @@ class Api::MessagesController < ApplicationController
   def update
     @message = Message.find(params[:id])
     if @message.update(message_params)
-      render :show 
+      channel = Channel.find(@message.messageable_id)
+      ChatChannel.broadcast_to(channel, {type: 'update_msg', message: @message})
+      render :show
     else  
       render json: @message.errors.full_messages
     end
@@ -14,6 +16,8 @@ class Api::MessagesController < ApplicationController
   def destroy
     @message = Message.find(params[:id])
     @message.destroy 
+    channel = Channel.find(@message.messageable_id)
+    ChatChannel.broadcast_to(channel, {type: 'remove_msg', message: @message})
     render :show
   end
 

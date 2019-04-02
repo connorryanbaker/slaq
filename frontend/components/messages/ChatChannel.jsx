@@ -4,7 +4,8 @@ import Message from './Message';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchUsers } from '../../actions/session_actions';
-import { receiveMessages, receiveMessage, fetchMessages } from '../../actions/message_actions';
+import { receiveMessages, receiveMessage, 
+         fetchMessages, updateReduxMessage, removeMessage } from '../../actions/message_actions';
 import { fetchChannels } from '../../actions/channel_actions';
 import SideBar from './SideBar';
 import TopNavBar from './TopNavBar';
@@ -13,7 +14,6 @@ import TopNavBar from './TopNavBar';
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = { messages: [], loaded: false }
     this.bottom = React.createRef();
     this.configureChannelSubscription = this.configureChannelSubscription.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
@@ -25,18 +25,23 @@ class ChatChannel extends React.Component {
       { channel: 'ChatChannel', id: this.props.channelId },
       {
         received: data => {
+          debugger
           switch(data.type) {
             case "msg": 
               const { user_id, content, updated_at } = data.message;
               const msg = { user_id, content, updated_at };
-              // this.setState({
-              //   messages: this.state.messages.concat(msg)
-              // });
               this.props.receiveMessage(data.message);
               break
             case "msgs":
               this.props.receiveMessages(data.messages);
               break
+            case "update_msg":
+              debugger
+              this.props.updateMessage(data.message);
+              break
+            case "remove_msg":
+              debugger 
+              this.props.removeMessage
           }
         },
         speak: function(data) {
@@ -63,10 +68,7 @@ class ChatChannel extends React.Component {
     if (prevProps.match.params.id != this.props.match.params.id) {
       this.fetchChannelData()
         .then(() => {
-          // App.cable.subscriptions.subscriptions[0].unsubscribed();
           this.configureChannelSubscription();
-          // App.cable.subscriptions.subscriptions[0].subscribed();
-
         });
     } else if (prevProps != this.props && this.props.messages) {
       this.setState({
@@ -95,12 +97,6 @@ class ChatChannel extends React.Component {
   }
 
   render() {
-    // const msgs = this.state.messages.map((msg, i) => {
-    //   let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
-    //   return (<div key={i} >
-    //           <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
-    //         </div>);
-    // });
     const msgs = this.props.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.props.messages[i - 1].user_id;
       return (<div key={i} >
@@ -136,7 +132,9 @@ const mdp = dispatch => ({
   receiveMessage: msg => dispatch(receiveMessage(msg)),
   receiveMessages: msgs => dispatch(receiveMessages(msgs)),
   fetchMessages: channelId => dispatch(fetchMessages(channelId)),
-  fetchChannels: () => dispatch(fetchChannels())
+  fetchChannels: () => dispatch(fetchChannels()),
+  updateMessage: message => dispatch(updateReduxMessage(message)),
+  removeMessage: message => dispatch(removeMessage(message)),
 });
 
 export default withRouter(connect(msp, mdp)(ChatChannel));

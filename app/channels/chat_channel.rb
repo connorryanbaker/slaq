@@ -15,7 +15,6 @@ class ChatChannel < ApplicationCable::Channel
     channel = Channel.find(id)
     msg = channel.messages.create(data['message'])
 
-    p msg
 
     load_user_into_channel(channel)
 
@@ -26,7 +25,9 @@ class ChatChannel < ApplicationCable::Channel
     channel = Channel.find(id)
     messages = channel.messages
     data = {type: 'msgs', messages: messages}
+
     load_user_into_channel(channel)
+    
     ChatChannel.broadcast_to(channel, {type: 'msgs', messages: messages})
   end
 

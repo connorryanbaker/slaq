@@ -2,7 +2,8 @@ import * as MessageApiUtil from '../util/message_util.js';
 
 export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
-export const REMOVE_MESSAGE = "REMOVE_MESSAGE"
+export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
+export const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 
 export const receiveMessages = messages => ({
   type: RECEIVE_MESSAGES,
@@ -15,6 +16,11 @@ export const receiveMessage = message => {
   message
   }
 };
+
+export const updateReduxMessage = message => ({
+  type: UPDATE_MESSAGE,
+  message
+});
 
 export const removeMessage = message => ({
   type: REMOVE_MESSAGE,
