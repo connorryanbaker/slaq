@@ -20,14 +20,19 @@ class TopNavBar extends React.Component {
           </div>
         </div>
         <div className="top-nav-right">
-          <i class="fas fa-phone"></i>
-          <i class="fas fa-info-circle"></i>
-          <i class="fas fa-cog"></i>
-          <div>
-            <input type="text"></input>
+          <div className="top-nav-right-1">
+            <i className="fas fa-phone"></i>
+            <i className="fas fa-info-circle"></i>
+            <i className="fas fa-cog"></i>
           </div>
-          <i class="fas fa-at"></i>
-          <i class="far fa-star"></i>
+          <div className="top-nav-right-2">
+            <i class="fas fa-search top-nav-search-icon"></i>
+            <input type="text" placeholder="Search"></input>
+          </div>
+          <div className="top-nav-right-3">
+            <i class="fas fa-at"></i>
+            <i class="far fa-star"></i>
+          </div>
         </div>
       </div>
     )

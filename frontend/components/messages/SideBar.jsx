@@ -16,7 +16,12 @@ class SideBar extends React.Component {
     return(
       <div className="sidebar-container">
         <div className="sidebar-channelName-wrapper">
-          <div className="sidebar-main-header">slaqq<i class="fas fa-chevron-down"></i><i class="far fa-bell"></i></div>
+          <div className="channelName-top">
+            <div>
+              <div className="sidebar-main-header">slaqq<i class="fas fa-chevron-down"></i></div>
+            </div>
+            <i class="far fa-bell"></i>
+          </div>
           <div className="sidebar-subtitle">
             <div className="sidebar-current-user">{this.props.currentUser.name}</div>
             <div onClick={this.props.logout} className="sidebar-sign-out">Sign Out</div>
@@ -24,7 +29,7 @@ class SideBar extends React.Component {
         </div>
         <div className='sidebar-jumpto-container'>
           <i class="fas fa-search"></i>
-          Jump To
+          Jump To...
         </div>
         <div className="all-threads"><i class="far fa-comments"></i>All Threads</div>
         <div className="sidebar-chats-wrapper">

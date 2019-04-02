@@ -34,7 +34,7 @@ class ChannelsContainer extends React.Component {
     const channelLis = this.props.channels.map((el, i) => {
       return (<li key={i} className={this.props.match.params.id == el.id ? "current-channel channel-li" : "channel-li"}>
         <Link to={`/messages/${el.id}`} className={this.props.match.params.id == el.id ? "channel-link selected-link" : "channel-link"}>
-                  {el.name}
+                  # {el.name}
                 </Link>
                 {el.creator_id == this.props.currentUser.id ? 
                   <button onClick={this.handleDelete(el.id)} className='delete-message-button'>Delete Channel</button>
