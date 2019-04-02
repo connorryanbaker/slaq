@@ -193,7 +193,10 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.sidebar-container > div {
+  margin-bottom: 8%;
 }
 
 .sidebar-chats-wrapper {
@@ -242,7 +245,7 @@
 
 .sidebar-channels-header, .sidebar-dms-header {
   color: rgb(197,183,198);
-  font-size: 1.1em;
+  font-size: 1.05em;
   transition: 300ms;
   padding-left: 15px;
 }
@@ -482,4 +485,8 @@
 
 .fa-plus:hover {
   cursor: pointer;
+}
+
+.fa-plus-circle {
+  margin-left: 25px;
 }
