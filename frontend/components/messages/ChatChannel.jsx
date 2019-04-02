@@ -77,7 +77,9 @@ class ChatChannel extends React.Component {
       this.fetchChannelData()
         .then(() => {
           this.configureChannelSubscription();
-        });
+        }).then(() => {
+          this.scrollToBottom();
+        })
     }
   }
 
