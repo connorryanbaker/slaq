@@ -9,10 +9,13 @@ export const receiveMessages = messages => ({
   messages
 });
 
-export const receiveMessage = message => ({
+export const receiveMessage = message => {
+  debugger
+  return {
   type: RECEIVE_MESSAGE,
   message
-});
+  }
+};
 
 export const removeMessage = message => ({
   type: REMOVE_MESSAGE,

@@ -13,7 +13,7 @@ import TopNavBar from './TopNavBar';
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [], loaded: false }
+    // this.state = { messages: [], loaded: false }
     this.bottom = React.createRef();
     this.configureChannelSubscription = this.configureChannelSubscription.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
@@ -29,9 +29,9 @@ class ChatChannel extends React.Component {
             case "msg": 
               const { user_id, content, updated_at } = data.message;
               const msg = { user_id, content, updated_at };
-              this.setState({
-                messages: this.state.messages.concat(msg)
-              });
+              // this.setState({
+              //   messages: this.state.messages.concat(msg)
+              // });
               this.props.receiveMessage(data.message);
               break
             case "msgs":
@@ -95,11 +95,17 @@ class ChatChannel extends React.Component {
   }
 
   render() {
-    const msgs = this.state.messages.map((msg, i) => {
-      let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
+    // const msgs = this.state.messages.map((msg, i) => {
+    //   let lastUserId = i === 0 ? null : this.state.messages[i - 1].user_id;
+    //   return (<div key={i} >
+    //           <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
+    //         </div>);
+    // });
+    const msgs = this.props.messages.map((msg, i) => {
+      let lastUserId = i === 0 ? null : this.props.messages[i - 1].user_id;
       return (<div key={i} >
-              <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
-            </div>);
+        <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
+      </div>);
     });
     return (
       <div>
@@ -119,7 +125,7 @@ class ChatChannel extends React.Component {
 const msp = (state, ownProps) => {
   return {
     channelId: ownProps.match.params.id,
-    messages: state.entities.messages,
+    messages: Object.values(state.entities.messages).length > 0 ? Object.values(state.entities.messages) : [],
     currentUser: state.entities.users[state.session.currentUserId] ? state.entities.users[state.session.currentUserId] : {name: "", id: 0},
     currentChannel: state.entities.channels[ownProps.match.params.id] ? state.entities.channels[ownProps.match.params.id] : {name: ""}
   }
