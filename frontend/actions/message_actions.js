@@ -4,6 +4,7 @@ export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
 export const UPDATE_MESSAGE = "UPDATE_MESSAGE";
+export const RECEIVE_NEXT_PAGE = "RECEIVE_NEXT_PAGE";
 
 export const receiveMessages = messages => ({
   type: RECEIVE_MESSAGES,
@@ -27,11 +28,24 @@ export const removeMessage = message => ({
   message 
 })
 
+export const receiveNextPage = messages => ({
+  type: RECEIVE_NEXT_PAGE,
+  messages
+});
 
 export const fetchMessages = (channelId) => dispatch => {
   return MessageApiUtil.fetchMessages(channelId)
     .then(msgs => {
       return dispatch(receiveMessages(msgs))
+    });
+}
+
+export const fetchPaginatedMessages = (channelId, page) => dispatch => {
+  debugger
+  return MessageApiUtil.fetchPaginatedMessages(channelId,page)
+    .then(msgs => {
+      debugger
+      return dispatch(receiveNextPage(msgs))
     });
 }
 

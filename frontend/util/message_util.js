@@ -21,6 +21,7 @@ export const deleteMessage = id => {
 }
 
 export const fetchPaginatedMessages = (channelId, page) => {
+  debugger
   return $.ajax({
     url: `api/channels/${channelId}/messages`,
     method: 'GET',

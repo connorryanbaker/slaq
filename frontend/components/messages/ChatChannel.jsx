@@ -1,11 +1,12 @@
 import React from 'react';
 import MessageForm from './MessageForm';
 import Message from './Message';
+import { Waypoint } from 'react-waypoint';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchUsers } from '../../actions/session_actions';
 import { receiveMessages, receiveMessage, 
-         fetchMessages, updateReduxMessage, removeMessage } from '../../actions/message_actions';
+         fetchMessages, updateReduxMessage, removeMessage, fetchPaginatedMessages } from '../../actions/message_actions';
 import { fetchChannels } from '../../actions/channel_actions';
 import SideBar from './SideBar';
 import TopNavBar from './TopNavBar';
@@ -14,10 +15,14 @@ import TopNavBar from './TopNavBar';
 class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      page: 1
+    };
     this.bottom = React.createRef();
     this.configureChannelSubscription = this.configureChannelSubscription.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.fetchChannelData = this.fetchChannelData.bind(this);
+    this.fetchNextPage = this.fetchNextPage.bind(this);
   }
 
   configureChannelSubscription() {
@@ -85,6 +90,15 @@ class ChatChannel extends React.Component {
       });
   }
 
+  fetchNextPage() {
+    this.setState({
+      page: this.state.page + 1
+    }, () => {
+      debugger
+      return this.props.fetchPaginatedMessages(this.props.channelId, this.state.page);
+    });
+  }
+
   scrollToBottom() {
     this.bottom.scrollIntoView({ behavior: "smooth" });
   }
@@ -101,6 +115,7 @@ class ChatChannel extends React.Component {
         <SideBar currentUser={this.props.currentUser} />
         <TopNavBar currentChannel={this.props.currentChannel}/>
         <ul className="messages-list">
+          <Waypoint onEnter={this.fetchNextPage} />
           {msgs}
           <div ref={(e) => { this.bottom = e }} />
         </ul>
@@ -128,6 +143,7 @@ const mdp = dispatch => ({
   fetchChannels: () => dispatch(fetchChannels()),
   updateMessage: message => dispatch(updateReduxMessage(message)),
   removeMessage: message => dispatch(removeMessage(message)),
+  fetchPaginatedMessages: (channelId, page) => dispatch(fetchPaginatedMessages(channelId,page)),
 });
 
 export default withRouter(connect(msp, mdp)(ChatChannel));
