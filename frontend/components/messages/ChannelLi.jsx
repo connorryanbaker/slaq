@@ -37,7 +37,7 @@ class ChannelLi extends React.Component {
                                           # {this.props.channel.name}
                                         </Link>
                                         {this.props.channel.creator_id == this.props.currentUser.id ?
-                                          <i class="fas fa-chevron-down" onClick={this.toggleEdit}></i>
+                                          <i className="fas fa-chevron-down" onClick={this.toggleEdit}></i>
                                           : ""}
                                       </li>);
     return markup;

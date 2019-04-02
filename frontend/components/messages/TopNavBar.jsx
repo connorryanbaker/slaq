@@ -15,7 +15,7 @@ class TopNavBar extends React.Component {
             # {this.props.currentChannel.name}
           </div>
           <div className="top-nav-memberlist">
-            <div id="star-icon"><i class="far fa-star"></i> | <i class="far fa-user"></i></div>
+            <div id="star-icon"><i className="far fa-star"></i> | <i className="far fa-user"></i></div>
             <div className="top-nav-memberCount"> {this.props.userCount}</div>
           </div>
         </div>
@@ -26,12 +26,12 @@ class TopNavBar extends React.Component {
             <i className="fas fa-cog"></i>
           </div>
           <div className="top-nav-right-2">
-            <i class="fas fa-search top-nav-search-icon"></i>
+            <i className="fas fa-search top-nav-search-icon"></i>
             <input type="text" placeholder="Search"></input>
           </div>
           <div className="top-nav-right-3">
-            <i class="fas fa-at"></i>
-            <i class="far fa-star"></i>
+            <i className="fas fa-at"></i>
+            <i className="far fa-star"></i>
           </div>
         </div>
       </div>

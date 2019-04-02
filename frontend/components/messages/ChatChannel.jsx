@@ -16,9 +16,11 @@ class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1
+      page: 0
     };
     this.bottom = React.createRef();
+    this.firstMessage = React.createRef();
+
     this.configureChannelSubscription = this.configureChannelSubscription.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.fetchChannelData = this.fetchChannelData.bind(this);
@@ -93,10 +95,11 @@ class ChatChannel extends React.Component {
   }
 
   fetchNextPage() {
-    this.setState({
-      page: this.state.page + 1
-    }, () => {
-      return this.props.fetchPaginatedMessages(this.props.channelId, this.state.page);
+    this.props.fetchPaginatedMessages(this.props.channelId, this.state.page)
+      .then(() => {
+        this.setState({
+          page: this.state.page + 1
+        })
     });
   }
 
@@ -105,9 +108,11 @@ class ChatChannel extends React.Component {
   }
 
   render() {
+    console.log(this.state.page);
     const msgs = this.props.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.props.messages[i - 1].user_id;
-      return (<div key={i} >
+      let id = i === 0 ? this.state.page : "";
+      return (<div key={i} id={id}>
         <Message message={msg} user_id={msg.user_id} key={i} lastUserId={lastUserId} />
       </div>);
     });
