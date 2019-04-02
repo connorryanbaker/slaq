@@ -32,15 +32,14 @@ class ChatChannel extends React.Component {
                 this.props.receiveMessage(data.message);
                 break
               case "msgs":
-                debugger
-                this.props.receiveMessages(data.messages);
+                if (data.current_user_id === this.props.currentUser.id) {
+                  this.props.receiveMessages(data.messages);
+                }
                 break
               case "update_msg":
-                debugger
                 this.props.updateMessage(data.message);
                 break
               case "remove_msg":
-                debugger 
                 this.props.removeMessage(data.message);
                 break
             }
