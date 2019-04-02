@@ -23,7 +23,7 @@ class ChatChannel < ApplicationCable::Channel
 
     load_user_into_channel(channel)
 
-    ChatChannel.broadcast_to(channel, {type: 'msg', message: msg})
+    ChatChannel.broadcast_to(channel, {type: 'msg', message: msg, channel_id: channel.id})
   end
 
   def load(id) 
@@ -33,7 +33,7 @@ class ChatChannel < ApplicationCable::Channel
 
     load_user_into_channel(channel)
 
-    ChatChannel.broadcast_to(channel, {type: 'msgs', messages: messages})
+    ChatChannel.broadcast_to(channel, {type: 'msgs', messages: messages, channel_id: channel.id})
   end
 
   def load_user_into_channel(channel)

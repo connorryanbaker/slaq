@@ -26,21 +26,24 @@ class ChatChannel extends React.Component {
       {
         received: data => {
           debugger
-          switch(data.type) {
-            case "msg": 
-              this.props.receiveMessage(data.message);
-              break
-            case "msgs":
-              this.props.receiveMessages(data.messages);
-              break
-            case "update_msg":
-              debugger
-              this.props.updateMessage(data.message);
-              break
-            case "remove_msg":
-              debugger 
-              this.props.removeMessage(data.message);
-              break
+          if (this.props.match.params.id == data.channel_id) {
+            switch(data.type) {
+              case "msg": 
+                this.props.receiveMessage(data.message);
+                break
+              case "msgs":
+                debugger
+                this.props.receiveMessages(data.messages);
+                break
+              case "update_msg":
+                debugger
+                this.props.updateMessage(data.message);
+                break
+              case "remove_msg":
+                debugger 
+                this.props.removeMessage(data.message);
+                break
+            }
           }
         },
         speak: function(data) {
