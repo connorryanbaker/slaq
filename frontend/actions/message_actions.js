@@ -41,10 +41,8 @@ export const fetchMessages = (channelId) => dispatch => {
 }
 
 export const fetchPaginatedMessages = (channelId, page) => dispatch => {
-  debugger
   return MessageApiUtil.fetchPaginatedMessages(channelId,page)
     .then(msgs => {
-      debugger
       return dispatch(receiveNextPage(msgs))
     });
 }

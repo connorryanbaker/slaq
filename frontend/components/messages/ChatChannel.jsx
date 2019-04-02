@@ -96,7 +96,6 @@ class ChatChannel extends React.Component {
     this.setState({
       page: this.state.page + 1
     }, () => {
-      debugger
       return this.props.fetchPaginatedMessages(this.props.channelId, this.state.page);
     });
   }

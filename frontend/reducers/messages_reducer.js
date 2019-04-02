@@ -8,7 +8,6 @@ const messagesReducer = (state = {}, action) => {
       let newState = {};
       return action.messages;
     case RECEIVE_NEXT_PAGE:
-      debugger
       return Object.assign({},state,action.messages);
     case RECEIVE_MESSAGE:
       newState = Object.assign({}, state);
@@ -21,7 +20,6 @@ const messagesReducer = (state = {}, action) => {
     case UPDATE_MESSAGE:
       newState = Object.assign({}, state);
       newState[action.message.id] = action.message;
-      debugger
       return newState;
     case REMOVE_CHANNEL:
       newState = Object.assign({}, state);
