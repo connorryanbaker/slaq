@@ -7,12 +7,6 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    p "UNSUB!!!!"
-    p "UNSUB!!!!"
-    p "UNSUB!!!!"
-    p "UNSUB!!!!"
-    p "UNSUB!!!!"
-    p "UNSUB!!!!"
   end
 
   def speak(data) 
@@ -28,7 +22,7 @@ class ChatChannel < ApplicationCable::Channel
 
   def load(id) 
     channel = Channel.find(id)
-    messages = channel.messages
+    messages = channel.messages.page(1)
     data = {type: 'msgs', messages: messages}
 
     load_user_into_channel(channel)

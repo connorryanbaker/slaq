@@ -6,7 +6,7 @@ class Api::ChannelsController < ApplicationController
   end
 
   def index
-    @channels = Channel.all 
+    @channels = Channel.all.includes(:messages).includes(:users)
     render :index
   end
 

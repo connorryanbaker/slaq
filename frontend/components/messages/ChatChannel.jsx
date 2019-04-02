@@ -25,7 +25,6 @@ class ChatChannel extends React.Component {
       { channel: 'ChatChannel', id: this.props.channelId },
       {
         received: data => {
-          debugger
           if (this.props.match.params.id == data.channel_id) {
             switch(data.type) {
               case "msg": 
@@ -62,7 +61,10 @@ class ChatChannel extends React.Component {
   
   componentDidMount() {
     this.configureChannelSubscription();
-    return this.fetchChannelData();
+    return this.fetchChannelData()
+      .then(() => {
+        this.scrollToBottom();
+      });
   }
     
   componentDidUpdate(prevProps) {
@@ -71,12 +73,6 @@ class ChatChannel extends React.Component {
         .then(() => {
           this.configureChannelSubscription();
         });
-    } else if (prevProps != this.props && this.props.messages) {
-      this.setState({
-        messages: Object.values(this.props.messages)
-      }, () => {
-        this.scrollToBottom();
-      });
     }
   }
 
@@ -86,10 +82,6 @@ class ChatChannel extends React.Component {
         this.props.fetchMessages(this.props.channelId);
       }).then(() => {
         this.props.fetchChannels()
-      }).then(() => {
-        this.setState({
-        messages: Object.values(this.props.messages),
-        loaded: true})
       });
   }
 

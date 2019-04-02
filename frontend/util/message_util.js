@@ -19,3 +19,11 @@ export const deleteMessage = id => {
     method: 'DELETE',
   });
 }
+
+export const fetchPaginatedMessages = (channelId, page) => {
+  return $.ajax({
+    url: `api/channels/${channelId}/messages`,
+    method: 'GET',
+    data: { page: page}
+  });
+}
