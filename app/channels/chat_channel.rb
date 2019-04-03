@@ -3,7 +3,6 @@ class ChatChannel < ApplicationCable::Channel
     channel = Channel.find(params[:id])
     load_user_into_channel(channel)
     stream_for channel
-    load(params[:id])
   end
 
   def unsubscribed
@@ -22,7 +21,7 @@ class ChatChannel < ApplicationCable::Channel
 
   def load(id) 
     channel = Channel.find(id)
-    messages = channel.messages.page(1)
+    messages = channel.messages
     data = {type: 'msgs', messages: messages}
 
     load_user_into_channel(channel)
