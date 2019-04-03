@@ -25,32 +25,42 @@ class DmChannel extends React.Component {
   }
 
   configureDmSubscription() {
-    App.cable.subscriptions.create(
-      { channel: 'DmChannel', id: this.props.dmId},
-      {
-        received: data => {
-          if (this.props.dmId == data.dm_id) {
-            switch(data.type) {
-              case "msg":
-               this.props.receiveMessage(data.message);
-               break 
-            }
-          }
-        },
-        speak: function(data) {
-          return this.perform("speak",data);
-        }
+    // const result = App.cable.subscriptions.subscriptions.find((el) => {
+    //   return el.iden
+    // })
+    let subscribed = false;
+    App.cable.subscriptions.subscriptions.forEach((e) => {
+      let identifier = JSON.parse(e.identifier);
+      if (identifier.channel == this.props.channelType && identifier.id == this.props.match.params.id) {
+        subscribed = true;
       }
-    )
+    });
+    if (!subscribed) {
+      App.cable.subscriptions.create(
+        { channel: this.props.channelType, id: this.props.dmId},
+        {
+          received: data => {
+            if (this.props.dmId == data.dm_id) {
+              switch(data.type) {
+                case "msg":
+                 this.props.receiveMessage(data.message);
+                 break 
+              }
+            }
+          },
+          speak: function(data) {
+            return this.perform("speak",data);
+          }
+        }
+      )
+    }
   }
   
   componentDidMount () {
-   
     this.configureDmSubscription();
     return this.fetchDmData()
       .then(() => {
         if (!Object.keys(this.props.dms).includes(this.props.match.params.id)) {
-          console.log("no!!");
           this.props.history.push('/messages/1');
         } else {
           this.scrollToBottom();
@@ -59,13 +69,14 @@ class DmChannel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!Object.keys(this.props.dms).includes(this.props.match.params.id)) {
-      return <Redirect to={`/messages/1`} />
-    }
     if (prevProps.match.params.id != this.props.match.params.id) {
       this.fetchDmData()
         .then(() => {
-          this.configureDmSubscription();
+          if (!Object.keys(this.props.dms).includes(this.props.match.params.id)) {
+            this.props.history.puhs('/messages/1');
+          } else {
+            this.configureDmSubscription();
+          }
         });
     } else {
       this.scrollToBottom();
@@ -125,6 +136,7 @@ class DmChannel extends React.Component {
 
 const msp = (state, ownProps) => {
   return {
+    channelType: 'DmChannel',
     dmId: ownProps.match.params.id,
     messages: Object.values(state.entities.messages).length > 0 ? Object.values(state.entities.messages) : [],
     currentUser: state.entities.users[state.session.currentUserId] ? state.entities.users[state.session.currentUserId] : { name: "", id: 0 },

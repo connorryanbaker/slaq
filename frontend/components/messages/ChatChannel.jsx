@@ -27,42 +27,42 @@ class ChatChannel extends React.Component {
   }
 
   configureChannelSubscription() {
-    App.cable.subscriptions.create(
-      { channel: 'ChatChannel', id: this.props.channelId },
-      {
-        received: data => {
-          if (this.props.match.params.id == data.channel_id) {
-            switch(data.type) {
-              case "msg": 
-                this.props.receiveMessage(data.message);
-                break
-              case "msgs":
-                if (data.current_user_id === this.props.currentUser.id) {
-                  this.props.receiveMessages(data.messages);
-                }
-                break
-              case "update_msg":
-                this.props.updateMessage(data.message);
-                break
-              case "remove_msg":
-                this.props.removeMessage(data.message);
-                break
+    let subscribed = false;
+    App.cable.subscriptions.subscriptions.forEach((e) => {
+      let identifier = JSON.parse(e.identifier);
+      if (identifier.channel == this.props.channelType && identifier.id == this.props.match.params.id) {
+        subscribed = true;
+      }
+    });
+    if (!subscribed) {
+      App.cable.subscriptions.create(
+        { channel: 'ChatChannel', id: this.props.channelId },
+        {
+          received: data => {
+            if (this.props.match.params.id == data.channel_id) {
+              switch(data.type) {
+                case "msg": 
+                  this.props.receiveMessage(data.message);
+                  break
+                case "msgs":
+                  if (data.current_user_id === this.props.currentUser.id) {
+                    this.props.receiveMessages(data.messages);
+                  }
+                  break
+                case "update_msg":
+                  this.props.updateMessage(data.message);
+                  break
+                case "remove_msg":
+                  this.props.removeMessage(data.message);
+                  break
+              }
             }
+          },
+          speak: function(data) {
+            return this.perform("speak", data);
           }
-        },
-        speak: function(data) {
-          return this.perform("speak", data);
-        },
-        load: function() {
-          return this.perform("load", data.messageable_id)
-        },
-        unsubscribed: function() {
-          return this.perform("unsubscribed")
-        },
-        subscribed: function() {
-          return this.perform("subscribed")
-        }
       });
+    }
   }
   
   componentDidMount() {
@@ -141,6 +141,7 @@ class ChatChannel extends React.Component {
 
 const msp = (state, ownProps) => {
   return {
+    channelType: 'ChatChannel',
     channelId: ownProps.match.params.id,
     messages: Object.values(state.entities.messages).length > 0 ? Object.values(state.entities.messages) : [],
     currentUser: state.entities.users[state.session.currentUserId] ? state.entities.users[state.session.currentUserId] : {name: "", id: 0},
