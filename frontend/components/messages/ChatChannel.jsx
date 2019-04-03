@@ -32,7 +32,7 @@ class ChatChannel extends React.Component {
       { channel: 'ChatChannel', id: this.props.channelId },
       {
         received: data => {
-          if (this.props.match.params.id == data.channel_id) {
+          if (this.props.match.params.id === data.channel_id) {
             switch(data.type) {
               case "msg": 
                 this.props.receiveMessage(data.message);
@@ -115,7 +115,6 @@ class ChatChannel extends React.Component {
   }
 
   render() {
-    console.log(this.state.page);
     const msgs = this.props.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.props.messages[i - 1].user_id;
       let id = i === 0 ? this.state.page : "";
