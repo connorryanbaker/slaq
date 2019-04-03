@@ -27,14 +27,6 @@ class ChatChannel extends React.Component {
   }
 
   configureChannelSubscription() {
-    // let subscribed = false;
-    // App.cable.subscriptions.subscriptions.forEach((e) => {
-    //   let identifier = JSON.parse(e.identifier);
-    //   if (identifier.channel == this.props.channelType && identifier.id == this.props.match.params.id) {
-    //     subscribed = true;
-    //   }
-    // });
-    // if (!subscribed) {
     if (App.cable.subscriptions['subscriptions'].length > 0) {
       App.cable.subscriptions.remove(App.cable.subscriptions['subscriptions'][0])
     };
@@ -42,7 +34,6 @@ class ChatChannel extends React.Component {
         { channel: 'ChatChannel', id: this.props.channelId },
         {
           received: data => {
-            debugger
             if (this.props.match.params.id == data.channel_id) {
               switch(data.type) {
                 case "msg": 
@@ -60,7 +51,6 @@ class ChatChannel extends React.Component {
                   this.props.removeMessage(data.message);
                   break
                 case "dm_msg":
-                  console.log("ey");
                   return;
               }
             }
@@ -93,20 +83,6 @@ class ChatChannel extends React.Component {
     } else {
       this.scrollToBottom();
     }
-  }
-
-  componentWillUnmount() {
-    let sub;
-    for (let i = 0; i < App.cable.subscriptions.subscriptions.length; i++) {
-      let someSub = App.cable.subscriptions.subscriptions[i];
-      let parsed = JSON.parse(someSub.identifier);
-      console.log(parsed);
-      if (parsed.channel == this.props.channelType && parsed.id == this.props.match.params.id) {
-        sub = App.cable.subscriptions.subscriptions[i];
-        break;
-      }
-    }
-    sub.unsubscribe();
   }
 
   fetchChannelData() {

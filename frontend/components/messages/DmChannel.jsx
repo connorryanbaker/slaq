@@ -7,8 +7,8 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { fetchChannels } from '../../actions/channel_actions';
 import { fetchDms } from '../../actions/dm_actions';
 import { fetchDmUsers } from '../../actions/session_actions';
-import { fetchDmMessages, fetchPaginatedDmMessages, 
-         receiveMessage, receiveMessages } from '../../actions/message_actions';
+import { fetchDmMessages, fetchPaginatedDmMessages, removeMessage, 
+         receiveMessage, receiveMessages, updateReduxMessage } from '../../actions/message_actions';
 import SideBar from './SideBar';
 import TopNavBar from './TopNavBar';
 
@@ -25,14 +25,6 @@ class DmChannel extends React.Component {
   }
 
   configureDmSubscription() {
-    // let subscribed = false;
-    // App.cable.subscriptions.subscriptions.forEach((e) => {
-    //   let identifier = JSON.parse(e.identifier);
-    //   if (identifier.channel == this.props.channelType && identifier.id == this.props.match.params.id) {
-    //     subscribed = true;
-    //   }
-    // });
-    // if (!subscribed) {
     if (App.cable.subscriptions['subscriptions'].length > 0) {
       App.cable.subscriptions.remove(App.cable.subscriptions['subscriptions'][0])
     };
@@ -41,11 +33,16 @@ class DmChannel extends React.Component {
         {
           received: data => {
             if (this.props.dmId == data.dm_id) {
-              debugger
               switch(data.type) {
                 case "dm_msg":
                   this.props.receiveMessage(data.message);
                   break; 
+                case "update_msg":
+                  this.props.updateMessage(data.message);
+                  break
+                case "remove_msg":
+                  this.props.removeMessage(data.message);
+                  break
                 default: 
                   return;
               }
@@ -88,21 +85,6 @@ class DmChannel extends React.Component {
     } else {
       this.scrollToBottom();
     }
-  }
-
-  componentWillUnmount() {
-    let idx;
-    for (var i = 0; i < App.cable.subscriptions.subscriptions.length; i++) {
-      let someSub = App.cable.subscriptions.subscriptions[i];
-      let parsed = JSON.parse(someSub.identifier);
-      if (parsed.channel == this.props.channelType && parsed.id == this.props.match.params.id) {
-        App.cable.subscriptions.remove(App.cable.subscriptions['subscriptions'][i])
-        break;
-      }
-    }
-    
-    console.log(App.cable.subscriptions.subscriptions);
-    return;
   }
 
   fetchDmData() {

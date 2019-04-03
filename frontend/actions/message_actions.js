@@ -41,7 +41,6 @@ export const fetchMessages = channelId => dispatch => {
 }
 
 export const fetchDmMessages = dmId => dispatch => {
-  debugger
   return MessageApiUtil.fetchDmMessages(dmId)
     .then(msgs => dispatch(receiveMessages(msgs)))
 }
