@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/session_actions';
 import Channels from './ChannelsContainer';
+import Dms from './DmsContainer';
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -35,9 +36,7 @@ class SideBar extends React.Component {
         <div className="sidebar-chats-wrapper">
           <Channels channels={this.props.channels} currentUser={this.props.currentUser} />
           <div className="sidebar-dms-wrapper">
-            <div className="sidebar-dms-header">
-              Direct Messages <i className="fas fa-plus-circle"></i>
-            </div>
+            <Dms />
           </div>
         </div>
       </div>
