@@ -21,7 +21,6 @@ class MessageHeader extends React.Component {
   }
 
   render() {
-    console.log(this.time);
     return (
       <div className="message-user-img-row">
         {this.props.img_url.length > 0 ? <img className="avatar-img" src={this.props.img_url} /> : ""}

@@ -70,7 +70,7 @@ class ChatChannel extends React.Component {
     this.configureChannelSubscription();
     return this.fetchChannelData()
       .then(() => {
-        document.getElementById("bottom").scrollIntoView({ behavior: "smooth" });
+        this.scrollToBottom();
       });
   }
     
@@ -80,6 +80,8 @@ class ChatChannel extends React.Component {
         .then(() => {
           this.configureChannelSubscription();
         });
+    } else {
+      this.scrollToBottom();
     }
   }
 
@@ -109,7 +111,7 @@ class ChatChannel extends React.Component {
   }
 
   scrollToBottom() {
-    this.bottom.scrollIntoView({ behavior: "smooth" });
+    window.scroll({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 
   render() {
