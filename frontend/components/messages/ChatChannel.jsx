@@ -8,6 +8,7 @@ import { fetchUsers } from '../../actions/session_actions';
 import { receiveMessages, receiveMessage, 
          fetchMessages, updateReduxMessage, removeMessage, fetchPaginatedMessages } from '../../actions/message_actions';
 import { fetchChannels } from '../../actions/channel_actions';
+import { fetchDms } from '../../actions/dm_actions';
 import SideBar from './SideBar';
 import TopNavBar from './TopNavBar';
 
@@ -89,6 +90,8 @@ class ChatChannel extends React.Component {
         this.props.fetchMessages(this.props.channelId);
       }).then(() => {
         this.props.fetchChannels()
+      }).then(() => {
+        this.props.fetchDms(this.props.currentUser.id)
       });
   }
 
@@ -154,6 +157,7 @@ const mdp = dispatch => ({
   updateMessage: message => dispatch(updateReduxMessage(message)),
   removeMessage: message => dispatch(removeMessage(message)),
   fetchPaginatedMessages: (channelId, page) => dispatch(fetchPaginatedMessages(channelId,page)),
+  fetchDms: userId => dispatch(fetchDms(userId)),
 });
 
 export default withRouter(connect(msp, mdp)(ChatChannel));

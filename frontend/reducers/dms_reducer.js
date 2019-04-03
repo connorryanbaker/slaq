@@ -1,0 +1,15 @@
+import { RECEIVE_DM, RECEIVE_DMS } from '../util/dm_util';
+
+const dmsReducer = (state = {}, action) => {
+  Object.freeze(state);
+  switch(action.type) {
+    case RECEIVE_DMS:
+      return action.dms;
+    case RECEIVE_DM:
+      return Object.assign({}, state, action.dm)
+    default:
+      return state;
+  }
+}
+
+export default dmsReducer;
