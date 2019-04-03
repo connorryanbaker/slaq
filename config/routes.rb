@@ -12,5 +12,9 @@ Rails.application.routes.draw do
       resources :messages, only: [:index]
       resources :users, only: [:index]
     end
+    resources :dms, only: [:show, :index, :create] do
+      resources :messages, only: [:index]
+      resources :users, only: [:index]
+    end
   end
 end

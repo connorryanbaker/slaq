@@ -4,7 +4,9 @@ class User < ApplicationRecord
   validates :name, :email, :password_digest, :session_token, presence: true 
   validates :email, :session_token, uniqueness: true
   validates :password, length: {minimum: 6, allow_nil: true}
-  has_many :messages
+  has_many :messages, dependent: :destroy
+  has_many :dm_memberships
+  has_many :dms, through: :dm_memberships
 
   def password=(password)
     @password = password 
