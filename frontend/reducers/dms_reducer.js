@@ -1,4 +1,4 @@
-import { RECEIVE_DM, RECEIVE_DMS } from '../util/dm_util';
+import { RECEIVE_DM, RECEIVE_DMS } from '../actions/dm_actions';
 
 const dmsReducer = (state = {}, action) => {
   Object.freeze(state);
