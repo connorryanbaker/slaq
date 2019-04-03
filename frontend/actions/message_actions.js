@@ -35,12 +35,13 @@ export const receiveNextPage = messages => ({
 
 export const fetchMessages = channelId => dispatch => {
   return MessageApiUtil.fetchMessages(channelId)
-    .then(msgs => {
-      return dispatch(receiveMessages(msgs))
-    });
+  .then(msgs => {
+    return dispatch(receiveMessages(msgs))
+  });
 }
 
 export const fetchDmMessages = dmId => dispatch => {
+  debugger
   return MessageApiUtil.fetchDmMessages(dmId)
     .then(msgs => dispatch(receiveMessages(msgs)))
 }

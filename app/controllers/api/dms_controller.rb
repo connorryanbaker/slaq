@@ -18,9 +18,7 @@ class Api::DmsController < ApplicationController
   end
 
   def index
-    user = User.find(params[:user_id])
-    user.id == current_user.id
-    @dms = user.id == current_user.id ? user.dms : current_user.dms
+    @dms = current_user.dms
     render :index
   end
 
