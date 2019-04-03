@@ -5,13 +5,15 @@ class DmChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
+    p "BYE!"
   end
 
   def speak(data)
+    p data
     id = data["message"]["messageable_id"]
     dm = Dm.find(id)
     msg = dm.messages.create(data["message"])
 
-    DmChannel.broadcast_to(dm, {type: "msg", message: msg, dm_id: dm.id })
+    DmChannel.broadcast_to(dm, {type: "dm_msg", message: msg, dm_id: dm.id })
   end 
 end

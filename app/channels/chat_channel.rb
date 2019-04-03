@@ -16,7 +16,7 @@ class ChatChannel < ApplicationCable::Channel
 
     load_user_into_channel(channel)
 
-    ChatChannel.broadcast_to(channel, {type: "msg", message: msg, channel_id: channel.id})
+    ChatChannel.broadcast_to(channel, {type: "msg", message: msg, channel_id: channel.id, channel_type: "Chat_Channel"})
   end
 
   def load_user_into_channel(channel)

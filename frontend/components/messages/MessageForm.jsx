@@ -8,7 +8,7 @@ class MessageForm extends React.Component {
     this.state = {
       content: "",
       user_id: this.props.user_id,
-      messageable_id: this.props.messageable_id
+      messageable_id: this.props.messageable_id,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
@@ -25,7 +25,16 @@ class MessageForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.content.length > 0) {
-      App.cable.subscriptions.subscriptions[0].speak({ message: this.state });
+      let sub;
+      for (let i = 0; i < App.cable.subscriptions.subscriptions.length; i++) {
+        let someSub = App.cable.subscriptions.subscriptions[i];
+        let parsed = JSON.parse(someSub.identifier);
+        if (parsed.channel == this.props.channelType && parsed.id == this.props.id) {
+          sub = App.cable.subscriptions.subscriptions[i];
+          break;
+        }
+      }
+      sub.speak({ message: this.state });
       this.setState({ content: "" });
     }
   }

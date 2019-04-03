@@ -27,18 +27,22 @@ class ChatChannel extends React.Component {
   }
 
   configureChannelSubscription() {
-    let subscribed = false;
-    App.cable.subscriptions.subscriptions.forEach((e) => {
-      let identifier = JSON.parse(e.identifier);
-      if (identifier.channel == this.props.channelType && identifier.id == this.props.match.params.id) {
-        subscribed = true;
-      }
-    });
-    if (!subscribed) {
+    // let subscribed = false;
+    // App.cable.subscriptions.subscriptions.forEach((e) => {
+    //   let identifier = JSON.parse(e.identifier);
+    //   if (identifier.channel == this.props.channelType && identifier.id == this.props.match.params.id) {
+    //     subscribed = true;
+    //   }
+    // });
+    // if (!subscribed) {
+    if (App.cable.subscriptions['subscriptions'].length > 0) {
+      App.cable.subscriptions.remove(App.cable.subscriptions['subscriptions'][0])
+    };
       App.cable.subscriptions.create(
         { channel: 'ChatChannel', id: this.props.channelId },
         {
           received: data => {
+            debugger
             if (this.props.match.params.id == data.channel_id) {
               switch(data.type) {
                 case "msg": 
@@ -55,14 +59,20 @@ class ChatChannel extends React.Component {
                 case "remove_msg":
                   this.props.removeMessage(data.message);
                   break
+                case "dm_msg":
+                  console.log("ey");
+                  return;
               }
             }
           },
           speak: function(data) {
             return this.perform("speak", data);
+          },
+          unsubscribe: function () {
+            return this.perform("unsubscribed");
           }
       });
-    }
+    // }
   }
   
   componentDidMount() {
@@ -78,10 +88,25 @@ class ChatChannel extends React.Component {
       this.fetchChannelData()
         .then(() => {
           this.configureChannelSubscription();
+          App.cable.subscriptions.remove(App.cable.subscriptions['subscriptions'][0])
         });
     } else {
       this.scrollToBottom();
     }
+  }
+
+  componentWillUnmount() {
+    let sub;
+    for (let i = 0; i < App.cable.subscriptions.subscriptions.length; i++) {
+      let someSub = App.cable.subscriptions.subscriptions[i];
+      let parsed = JSON.parse(someSub.identifier);
+      console.log(parsed);
+      if (parsed.channel == this.props.channelType && parsed.id == this.props.match.params.id) {
+        sub = App.cable.subscriptions.subscriptions[i];
+        break;
+      }
+    }
+    sub.unsubscribe();
   }
 
   fetchChannelData() {
@@ -132,7 +157,9 @@ class ChatChannel extends React.Component {
           {msgs}
           <div ref={(e) => { this.bottom = e }} />
         </ul>
-        <MessageForm user_id={this.props.currentUser.id}/>
+        <MessageForm user_id={this.props.currentUser.id} 
+                     channelType={this.props.channelType}
+                     id={this.props.channelId}/>
         <div id="bottom"/>
       </div>
     );
