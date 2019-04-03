@@ -16,7 +16,7 @@ class ChatChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 0
+      page: 1
     };
     this.bottom = React.createRef();
     this.firstMessage = React.createRef();
@@ -70,7 +70,7 @@ class ChatChannel extends React.Component {
     this.configureChannelSubscription();
     return this.fetchChannelData()
       .then(() => {
-        this.scrollToBottom();
+        document.getElementById("bottom").scrollIntoView({ behavior: "smooth" });
       });
   }
     
@@ -79,9 +79,7 @@ class ChatChannel extends React.Component {
       this.fetchChannelData()
         .then(() => {
           this.configureChannelSubscription();
-        }).then(() => {
-          this.scrollToBottom();
-        })
+        });
     }
   }
 
@@ -99,8 +97,15 @@ class ChatChannel extends React.Component {
       .then(() => {
         this.setState({
           page: this.state.page + 1
-        })
-    });
+        },() => {
+          if (this.state.page > 2) {
+            window.scroll({
+              top: 1175,
+              behavior: 'auto'
+            });
+          }
+        });
+      });
   }
 
   scrollToBottom() {
@@ -126,7 +131,7 @@ class ChatChannel extends React.Component {
           <div ref={(e) => { this.bottom = e }} />
         </ul>
         <MessageForm user_id={this.props.currentUser.id}/>
-        <div ref={this.bottom}/>
+        <div id="bottom"/>
       </div>
     );
   }
