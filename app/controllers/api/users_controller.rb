@@ -15,9 +15,7 @@ class Api::UsersController < ApplicationController
   def show; end 
 
   def index
-    # eventually this will take a channel as an argument and grab the channel users
-    # for now we get them all
-    @users = Channel.find(params[:channel_id]).users
+    @users = params[:channel_id] ? Channel.find(params[:channel_id]).users : Dm.find(params[:dm_id]).users
     render template: 'api/users/index'
   end
 

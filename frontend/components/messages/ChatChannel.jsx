@@ -18,8 +18,6 @@ class ChatChannel extends React.Component {
     this.state = {
       page: 1
     };
-    this.bottom = React.createRef();
-    this.firstMessage = React.createRef();
 
     this.configureChannelSubscription = this.configureChannelSubscription.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
@@ -32,7 +30,7 @@ class ChatChannel extends React.Component {
       { channel: 'ChatChannel', id: this.props.channelId },
       {
         received: data => {
-          if (this.props.match.params.id === data.channel_id) {
+          if (this.props.match.params.id == data.channel_id) {
             switch(data.type) {
               case "msg": 
                 this.props.receiveMessage(data.message);

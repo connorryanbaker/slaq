@@ -21,9 +21,16 @@ export const destroySession = () => {
   });
 }
 
-export const fetchUsers = (channelId) => {
+export const fetchUsers = channelId => {
   return $.ajax({
     method: 'GET',
     url: `api/channels/${channelId}/users`
+  });
+}
+
+export const fetchDmUsers = dmId => {
+  return $.ajax({
+    method: 'GET',
+    url: `api/dms/${dmId}/users`
   });
 }

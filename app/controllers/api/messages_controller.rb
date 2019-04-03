@@ -23,7 +23,8 @@ class Api::MessagesController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @messages = Message.where(messageable_id: params[:channel_id]).order(created_at: :desc).page(page)
+    messageable_id = params[:channel_id] || params[:dm_id]
+    @messages = Message.where(messageable_id: messageable_id).order(created_at: :desc).page(page)
     render template: 'api/messages/index'
   end
 
