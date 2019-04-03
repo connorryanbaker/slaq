@@ -11,6 +11,8 @@ class MessageHeader extends React.Component {
     let extractedTime = time.split("T")[1].slice(0,5);
     if (extractedTime[0] == "0") {
       return extractedTime.slice(1).concat(" AM");
+    } else if (parseInt(extractedTime.slice(0,2)) < 12) {
+      return extractedTime.concat(" AM");
     } else {
       if (parseInt(extractedTime.slice(0, 2)) > 12) {
         return parseInt(extractedTime.slice(0, 2) - 12).toString().concat(extractedTime.slice(2)).concat(" PM")

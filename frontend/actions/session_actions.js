@@ -37,7 +37,12 @@ export const logoutUser = () => ({
 
 export const fetchUsers = (channelId) => dispatch => {
   return SessionApiUtil.fetchUsers(channelId)
-    .then((users => dispatch(receiveUsers(users))));
+    .then(users => dispatch(receiveUsers(users)));
+}
+
+export const fetchDmUsers = dmId => dispatch => {
+  return SessionApiUtil.fetchUsers(dmId)
+    .then(users => dispatch(receiveUsers(users)))
 }
 
 export const signUp = user => dispatch => {

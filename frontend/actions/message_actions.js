@@ -33,11 +33,16 @@ export const receiveNextPage = messages => ({
   messages
 });
 
-export const fetchMessages = (channelId) => dispatch => {
+export const fetchMessages = channelId => dispatch => {
   return MessageApiUtil.fetchMessages(channelId)
     .then(msgs => {
       return dispatch(receiveMessages(msgs))
     });
+}
+
+export const fetchDmMessages = dmId => dispatch => {
+  return MessageApiUtil.fetchDmMessages(dmId)
+    .then(msgs => dispatch(receiveMessages(msgs)))
 }
 
 export const fetchPaginatedMessages = (channelId, page) => dispatch => {
@@ -45,6 +50,11 @@ export const fetchPaginatedMessages = (channelId, page) => dispatch => {
     .then(msgs => {
       return dispatch(receiveNextPage(msgs))
     });
+}
+
+export const fetchPaginatedDmMessages = (dmId, page) => dispatch => {
+  return MessageApiUtil.fetchPaginatedDmMessages(dmId, page)
+    .then(msgs => dispatch(receiveNextPage(msgs)))
 }
 
 export const updateMessage = msg => dispatch => {
