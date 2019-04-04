@@ -53,7 +53,8 @@ class Message extends React.Component {
     return <li key={this.props.key} className={this.state.edit ? "message-list-item edit-msg" : "message-list-item"} onMouseOver={this.hover} onMouseLeave={this.noHover}>
       {this.props.lastUserId === this.props.message.user_id ? "" : <MessageHeader img_url={this.props.img_url} 
                                                                         message={this.props.message} 
-                                                                        username={this.props.username}  />}
+                                                                        username={this.props.username}
+                                                                        user_id={this.props.user_id}  />}
       
       {this.state.edit ? <EditMessage message={this.props.message}
                                       updateEdit={this.updateEdit}

@@ -5,6 +5,9 @@ class MessageHeader extends React.Component {
     super(props)
     this.parseTime = this.parseTime.bind(this);
     this.time = this.parseTime(this.props.message.created_at)
+    this.state = {
+      display: false
+    }
   }
 
   parseTime(time) {
@@ -22,6 +25,12 @@ class MessageHeader extends React.Component {
     }
   }
 
+  updateDisplay() {
+    this.setState({
+      display: !this.state.display
+    });
+  }
+
   render() {
     return (
       <div className="message-user-img-row">
@@ -31,6 +40,11 @@ class MessageHeader extends React.Component {
             <span className="msg-user-time">{this.time}</span>
           </div>
         </div>
+        <UserThumbnail username={this.props.username}
+                       user_id={this.props.user_id}
+                       img_url={this.props.img_url}
+                       display={this.state.display}
+                       updateDisplay={this.updateDisplay} />
       </div>
     )
 

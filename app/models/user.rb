@@ -7,6 +7,11 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :dm_memberships
   has_many :dms, through: :dm_memberships
+  has_many :dming, through: :dms, source: :users
+
+  def users_dming
+    self.dming.reject {|user| user.id == self.id}
+  end
 
   def password=(password)
     @password = password 
