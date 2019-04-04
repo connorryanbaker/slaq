@@ -22,7 +22,6 @@ class UserThumbnail extends React.Component {
   }
 
   render() {
-    debugger
     const dmLink = <div onClick={this.setupDm}>Direct Message</div>;
     const currentUser = this.props.currentUserId === this.props.user_id;
     const component = !this.props.display ? "" : (<div className="user-thumbnail-wrapper" onClick={this.props.updateDisplay}>

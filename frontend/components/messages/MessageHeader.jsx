@@ -33,7 +33,6 @@ class MessageHeader extends React.Component {
   }
 
   render() {
-    debugger
     return (
       <div className="message-user-img-row" onClick={this.updateDisplay}>
         {this.props.img_url.length > 0 ? <img className="avatar-img" src={this.props.img_url} /> : ""}
