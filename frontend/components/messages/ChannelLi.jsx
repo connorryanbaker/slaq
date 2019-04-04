@@ -21,8 +21,7 @@ class ChannelLi extends React.Component {
 
   handleDelete() {
     this.props.deleteChannel(this.props.channel.id).then(() => {
-      const redirectId = Object.values(this.props.channels)[0].id
-      this.props.history.push(`/messages/${redirectId}`);
+      return this.props.history.push(`/messages/1`);
     });
   }
 

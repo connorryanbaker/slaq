@@ -75,11 +75,8 @@ class ChatChannel extends React.Component {
     
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id != this.props.match.params.id) {
-      this.fetchChannelData()
-        .then(() => {
-          this.configureChannelSubscription();
-          App.cable.subscriptions.remove(App.cable.subscriptions['subscriptions'][0])
-        });
+      this.configureChannelSubscription();
+      this.fetchChannelData();
     } else {
       this.scrollToBottom();
     }
