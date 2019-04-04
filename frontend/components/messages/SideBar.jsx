@@ -11,7 +11,6 @@ class SideBar extends React.Component {
   }
 
   render() {
-    debugger
     return(
       <div className="sidebar-container">
         <div className="sidebar-channelName-wrapper">

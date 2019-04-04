@@ -86,7 +86,6 @@ class ChatChannel extends React.Component {
   }
 
   fetchChannelData() {
-    debugger
     return this.props.fetchUsers(this.props.channelId)
       .then(() => {
         this.props.fetchMessages(this.props.channelId);

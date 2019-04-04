@@ -34,7 +34,7 @@ class ChannelsContainer extends React.Component {
           </ul>
           <div>
             {this.state.edit ? <AddChannelForm updateEdit={this.updateEdit} /> : 
-              <div className="add-channel" onClick={this.updateEdit}><i className="fas fa-plus"></i>Add Channel</div>}
+              <div className="add-channel" onClick={this.updateEdit}><i className="fas fa-plus"></i>Add a Channel</div>}
           </div>
         </div>
       </div>

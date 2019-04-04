@@ -13,9 +13,11 @@ class UserThumbnail extends React.Component {
     this.props.createDm(this.props.currentUserId, this.props.user_id)
       .then(() => {
         let sorted = this.props.dms.sort((a, b) => a.id - b.id);
-        console.log(sorted);
         let lastInsertId = sorted.slice(-1)[0].id;
         this.props.history.push(`/dms/${lastInsertId}`);
+      }, () => {
+        let dm = this.props.dms.find(dm => dm.users.includes(this.props.user_id));
+        this.props.history.push(`/dms/${dm.id}`);
       });
   }
 
@@ -24,14 +26,13 @@ class UserThumbnail extends React.Component {
     const dmLink = <div onClick={this.setupDm}>Direct Message</div>;
     const currentUser = this.props.currentUserId === this.props.user_id;
     return (
-      <div className={klass}>
+      <div className={klass} onClick={this.props.updateDisplay}>
         <div>
-          <div onClick={this.props.updateDisplay}>X</div>
-          <div>
-            <img src={this.props.img_url} />
+          <img className='popup-avatar' src={this.props.img_url} />
+          <div className="thumbnail-content">
             <h1>{this.props.username}</h1>
+            { currentUser ? "" : dmLink }
           </div>
-          { currentUser ? "" : dmLink }
         </div>
       </div>
     )

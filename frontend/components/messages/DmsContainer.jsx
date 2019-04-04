@@ -9,12 +9,16 @@ class DmsContainer extends React.Component {
       return <DmLi dm={el} key={i} currentUser={this.props.currentUser} />
     });
     return (
+      <>
       <div className="sidebar-dms-header">
         Direct Messages <i className="fas fa-plus-circle"></i>
+      </div>
+      <div className="sidebar-channel-name">
         <ul className="channels-list">
           {dmLis}
         </ul>
       </div>
+      </>
     )
   }
 }
