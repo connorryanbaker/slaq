@@ -1,5 +1,7 @@
 import React from 'react';
 import UserThumbnail from './UserThumbnail';
+import { connect } from 'react-redux';
+
 class MessageHeader extends React.Component {
   constructor(props) {
     super(props)
@@ -44,7 +46,7 @@ class MessageHeader extends React.Component {
   updateDisplay() {
     this.setState({
       display: !this.state.display
-    });
+    })
   }
 
   render() {
@@ -60,10 +62,12 @@ class MessageHeader extends React.Component {
                        user_id={this.props.user_id}
                        img_url={this.props.img_url}
                        display={this.state.display}
-                       removeDisplay={this.removeDisplay}/>
+                       removeDisplay={this.updateDisplay}/>
       </div>
     )
 
   }
 }
+
+
 export default MessageHeader;

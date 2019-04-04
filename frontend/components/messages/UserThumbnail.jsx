@@ -41,7 +41,7 @@ class UserThumbnail extends React.Component {
 
 const msp = state => ({
   currentUserId: state.session.currentUserId,
-  dms: state.entities.dms ? Object.values(state.entities.dms) : []
+  dms: state.entities.dms ? Object.values(state.entities.dms) : [],
 });
 
 const mdp = dispatch => ({
