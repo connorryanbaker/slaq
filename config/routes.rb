@@ -16,5 +16,7 @@ Rails.application.routes.draw do
       resources :messages, only: [:index]
       resources :users, only: [:index]
     end
+
+    get 'users/:id/dms', to: 'users#dms'
   end
 end

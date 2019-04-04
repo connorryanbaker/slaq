@@ -17,3 +17,9 @@ export const createDm = (creatorId, receiverId) => {
   });
 }
 
+export const mostRecentUserDm = creatorId => {
+  return $.ajax({
+    url: `api/users/${creatorId}/dms`,
+    method: 'GET'
+  });
+}

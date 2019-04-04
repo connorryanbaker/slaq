@@ -9,9 +9,15 @@ class MessageHeader extends React.Component {
       display: false
     }
     this.updateDisplay = this.updateDisplay.bind(this);
+    this.timeNow = this.timeNow.bind(this);
   }
 
+
+
   parseTime(time) {
+    if (!time) {
+      return this.timeNow();
+    }
     let extractedTime = time.split("T")[1].slice(0,5);
     if (extractedTime[0] == "0") {
       return extractedTime.slice(1).concat(" AM");
@@ -24,6 +30,15 @@ class MessageHeader extends React.Component {
         return extractedTime.concat(" PM");
       }
     }
+  }
+
+  timeNow() {
+    let d = new Date();
+    let hour = d.getHours() > 12 ? d.getHours() - 12 : d.getHours();
+    let minutes = d.getMinutes();
+    let seconds = d.getSeconds();
+
+    return `${hour}:${minutes}:${seconds}`;
   }
 
   updateDisplay() {

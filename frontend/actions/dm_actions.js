@@ -27,4 +27,6 @@ export const createDm = (creatorId, receiverId) => dispatch => {
     .then(dm => dispatch(receiveDm))
 }
 
-
+export const mostRecentUserDm = creatorId => dispatch => {
+  return DmApiUtil.mostRecentUserDm(creatorId);
+}

@@ -19,6 +19,12 @@ class Api::UsersController < ApplicationController
     render template: 'api/users/index'
   end
 
+  def dms
+    @user = User.find(params[:id])
+    dm = @user.dms.last
+    render json: dm
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :email, :password)

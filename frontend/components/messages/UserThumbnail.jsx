@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { createDm } from '../../actions/dm_actions';
+import { withRouter, Redirect } from 'react-router-dom';
+import { createDm, mostRecentUserDm  } from '../../actions/dm_actions';
 
 class UserThumbnail extends React.Component {
   constructor(props) {
@@ -12,9 +12,11 @@ class UserThumbnail extends React.Component {
   setupDm() {
     this.props.createDm(this.props.currentUserId, this.props.user_id)
       .then(() => {
-        let sorted = this.props.dms.sort((a, b) => a.id - b.id);
-        let lastInsertId = sorted.slice(-1)[0].id;
-        this.props.history.push(`/dms/${lastInsertId}`);
+        this.props.mostRecentUserDm(this.props.currentUserId)
+          .then(dm => {
+            let id = dm.id;
+            this.props.history.push(`/dms/${id}`);
+          })
       }, () => {
         let dm = this.props.dms.find(dm => dm.users.includes(this.props.user_id));
         this.props.history.push(`/dms/${dm.id}`);
@@ -43,7 +45,8 @@ const msp = state => ({
 });
 
 const mdp = dispatch => ({
-  createDm: (creatorId,receiverId) => dispatch(createDm(creatorId,receiverId))
+  createDm: (creatorId,receiverId) => dispatch(createDm(creatorId,receiverId)),
+  mostRecentUserDm: creatorId => dispatch(mostRecentUserDm(creatorId))
 })
 
 export default withRouter(connect(msp, mdp)(UserThumbnail));
