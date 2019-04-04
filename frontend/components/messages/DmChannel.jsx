@@ -79,7 +79,6 @@ class DmChannel extends React.Component {
             this.props.history.puhs('/messages/1');
           } else {
             this.configureDmSubscription();
-            App.cable.subscriptions.remove(App.cable.subscriptions['subscriptions'][0])
           }
         });
     } else {
