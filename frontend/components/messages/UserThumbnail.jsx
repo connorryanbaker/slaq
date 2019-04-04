@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createDm } from '../../actions/dm_actions';
 
 class UserThumbnail extends React.Component {
@@ -9,7 +10,13 @@ class UserThumbnail extends React.Component {
   }
 
   setupDm() {
-    this.props.createDm(this.props.currentUserId, this.props.user_id);
+    this.props.createDm(this.props.currentUserId, this.props.user_id)
+      .then(() => {
+        let sorted = this.props.dms.sort((a, b) => a.id - b.id);
+        console.log(sorted);
+        let lastInsertId = sorted.slice(-1)[0].id;
+        this.props.history.push(`/dms/${lastInsertId}`);
+      });
   }
 
   render() {
@@ -32,11 +39,12 @@ class UserThumbnail extends React.Component {
 }
 
 const msp = state => ({
-  currentUserId: state.session.currentUserId
+  currentUserId: state.session.currentUserId,
+  dms: state.entities.dms ? Object.values(state.entities.dms) : []
 });
 
 const mdp = dispatch => ({
   createDm: (creatorId,receiverId) => dispatch(createDm(creatorId,receiverId))
 })
 
-export default connect(msp, mdp)(UserThumbnail);
+export default withRouter(connect(msp, mdp)(UserThumbnail));
