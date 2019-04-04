@@ -41,7 +41,7 @@ export const fetchUsers = (channelId) => dispatch => {
 }
 
 export const fetchDmUsers = dmId => dispatch => {
-  return SessionApiUtil.fetchUsers(dmId)
+  return SessionApiUtil.fetchDmUsers(dmId)
     .then(users => dispatch(receiveUsers(users)))
 }
 

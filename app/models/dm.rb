@@ -4,4 +4,11 @@ class Dm < ApplicationRecord
   has_many :messages, as: :messageable, dependent: :destroy
   has_many :dm_memberships, dependent: :destroy
   has_many :users, through: :dm_memberships
+
+  def no_preexisting_conversation?(user)
+    creator.dms.each do |dm|
+      return false if user.dms.include?(dm)
+    end 
+    true 
+  end
 end

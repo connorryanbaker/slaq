@@ -490,3 +490,14 @@
 .fa-plus-circle {
   margin-left: 25px;
 }
+
+/* user thumbnail */
+
+.hidden-user-thumbnail {
+  display: none;
+}
+
+.user-thumbnail {
+  display: block;
+  z-index: 5;
+}

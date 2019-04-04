@@ -1,5 +1,5 @@
 import React from 'react';
-
+import UserThumbnail from './UserThumbnail';
 class MessageHeader extends React.Component {
   constructor(props) {
     super(props)
@@ -8,6 +8,7 @@ class MessageHeader extends React.Component {
     this.state = {
       display: false
     }
+    this.updateDisplay = this.updateDisplay.bind(this);
   }
 
   parseTime(time) {
@@ -33,7 +34,7 @@ class MessageHeader extends React.Component {
 
   render() {
     return (
-      <div className="message-user-img-row">
+      <div className="message-user-img-row" onClick={this.updateDisplay}>
         {this.props.img_url.length > 0 ? <img className="avatar-img" src={this.props.img_url} /> : ""}
         <div className="msg-user-container">
           <div className="name-time"><b className="msg-username">{this.props.username}</b>

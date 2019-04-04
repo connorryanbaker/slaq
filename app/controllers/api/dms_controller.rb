@@ -7,10 +7,10 @@ class Api::DmsController < ApplicationController
   end
 
   def create
-    creator, receiver = User.find(@dm.creator_id), User.find(params[:receiver_id])
+    creator, receiver = User.find(params[:creator_id]), User.find(params[:receiver_id])
     
     @dm = Dm.new(creator_id: params[:creator_id])
-    if @dm.save 
+    if @dm.no_preexisting_conversation?(receiver) && @dm.save 
       @dm.users << [creator, receiver]
       render :show 
     else  
