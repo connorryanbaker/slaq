@@ -22,20 +22,19 @@ class UserThumbnail extends React.Component {
   }
 
   render() {
-    const klass = this.props.display == false ? "hidden-user-thumbnail" : "user-thumbnail";
+    debugger
     const dmLink = <div onClick={this.setupDm}>Direct Message</div>;
     const currentUser = this.props.currentUserId === this.props.user_id;
-    return (
-      <div className={klass} onClick={this.props.updateDisplay}>
-        <div>
-          <img className='popup-avatar' src={this.props.img_url} />
-          <div className="thumbnail-content">
-            <h1>{this.props.username}</h1>
-            { currentUser ? "" : dmLink }
-          </div>
-        </div>
-      </div>
-    )
+    const component = !this.props.display ? "" : (<div className="user-thumbnail-wrapper" onClick={this.props.updateDisplay}>
+                                                    <div className="user-thumbnail"> 
+                                                      <img className='popup-avatar' src={this.props.img_url} />
+                                                      <div className="thumbnail-content">
+                                                        <h1 className="thumbnail-heading">{this.props.username}</h1>
+                                                        {currentUser ? "" : dmLink}
+                                                      </div>
+                                                    </div>
+                                                  </div>);
+    return component;
   }
 }
 

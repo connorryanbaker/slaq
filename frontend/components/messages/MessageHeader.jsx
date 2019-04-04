@@ -33,6 +33,7 @@ class MessageHeader extends React.Component {
   }
 
   render() {
+    debugger
     return (
       <div className="message-user-img-row" onClick={this.updateDisplay}>
         {this.props.img_url.length > 0 ? <img className="avatar-img" src={this.props.img_url} /> : ""}
@@ -45,7 +46,7 @@ class MessageHeader extends React.Component {
                        user_id={this.props.user_id}
                        img_url={this.props.img_url}
                        display={this.state.display}
-                       updateDisplay={this.updateDisplay} />
+                       removeDisplay={this.removeDisplay}/>
       </div>
     )
 
