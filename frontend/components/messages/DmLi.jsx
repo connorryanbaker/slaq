@@ -9,7 +9,7 @@ class DmLi extends React.Component {
   render() {
     return (<li>
               <Link to={`/dms/${this.props.dm.id}`}>
-                {this.props.dm.names.join("")}
+                {this.props.dm.name.join("")}
               </Link>
             </li>);
   }

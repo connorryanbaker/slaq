@@ -88,7 +88,6 @@ class DmChannel extends React.Component {
   }
 
   fetchDmData() {
-    debugger
     return this.props.fetchDmUsers(this.props.dmId)
       .then(() => this.props.fetchDmMessages(this.props.dmId))
       .then(() => this.props.fetchChannels())
@@ -116,7 +115,6 @@ class DmChannel extends React.Component {
   }
 
   render() {
-    debugger
     const msgs = this.props.messages.map((msg, i) => {
       let lastUserId = i === 0 ? null : this.props.messages[i - 1].user_id;
       let id = i === 0 ? this.state.page : "";
