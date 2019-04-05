@@ -50,7 +50,7 @@ In addition to streaming any messages added to the chat, slaq features live mess
 channel = Channel.find(@message.messageable_id)
 ChatChannel.broadcast_to(channel, {type: 'update_msg', message: @message, channel_id: channel.id})
 ```
-passing along a data-type of "update_msg"/"delete_msg" to trigger a Redux action updating/deleting the particular message.
+passing along a data-type of "update_msg"/"remove_msg" to trigger a Redux action updating/deleting the particular message.
 ``` javascript
 App.cable.subscriptions.create(
         { channel: 'ChatChannel', id: this.props.channelId },
@@ -76,3 +76,8 @@ App.cable.subscriptions.create(
             }
           }
 ```
+Messages are associated with Channels or Dms via the polymorphic association 'messageable'.
+
+#### Future Updates
+* Live notifications
+* "Appearances" (that little green dot indicating a user is online")
