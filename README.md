@@ -25,6 +25,7 @@ def subscribed
   load_user_into_channel(channel)
   stream_for channel
 end
+```
 
 Messages are loaded 25 at a time with an additional 25 being fetched once the user scrolls to the top of the page. This 'infinite-scroll' feature was implemented with the help of the Kaminari gem and the Waypoint react library.
 ``` javascript
@@ -44,4 +45,34 @@ Messages are loaded 25 at a time with an additional 25 being fetched once the us
       });
   }
 ```
-
+In addition to streaming any messages added to the chat, slaq features live message-updates/message-deletes for any channel subscribers. This was implemented by calling Channel#broadcast_to in the MessagesController, 
+``` ruby
+channel = Channel.find(@message.messageable_id)
+ChatChannel.broadcast_to(channel, {type: 'update_msg', message: @message, channel_id: channel.id})
+```
+passing along a data-type of "update_msg"/"delete_msg" to trigger a Redux action updating/deleting the particular message.
+``` javascript
+App.cable.subscriptions.create(
+        { channel: 'ChatChannel', id: this.props.channelId },
+        {
+          received: data => {
+            if (this.props.match.params.id == data.channel_id) {
+              switch(data.type) {
+                case "msg": 
+                  this.props.receiveMessage(data.message);
+                  break
+                case "msgs":
+                  if (data.current_user_id === this.props.currentUser.id) {
+                    this.props.receiveMessages(data.messages);
+                  }
+                  break
+                case "update_msg":
+                  this.props.updateMessage(data.message);
+                  break
+                case "remove_msg":
+                  this.props.removeMessage(data.message);
+                  break
+              }
+            }
+          }
+```
