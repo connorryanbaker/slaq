@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createDm, mostRecentUserDm } from '../../actions/dm_actions';
 import DmLi from './DmLi';
 
 class DmsContainer extends React.Component {
@@ -9,13 +10,32 @@ class DmsContainer extends React.Component {
     this.state = {
       display: false
     }
+    this.setupDm = this.setupDm.bind(this);
     this.showDmUsers = this.showDmUsers.bind(this);
   }
 
+  setupDm(id) {
+    return () => {
+      this.props.createDm(this.props.currentUser.id, id)
+        .then(() => {
+          this.props.mostRecentUserDm(this.props.currentUser.id)
+            .then(dm => {
+              let dmId = dm.id;
+              this.props.history.push(`/dms/${dmId}`);
+            })
+        }, () => {
+          let dm = this.props.dms.find(dm => dm.users.includes(id));
+          this.props.history.push(`/dms/${dm.id}`);
+        });
+    }
+  }
+
   showDmUsers() {
-    this.setState({
-      display: !this.state.display
-    });
+    if (this.props.match.path.match(/messages/)) {
+      this.setState({
+        display: !this.state.display
+      });
+    }
   }
 
   render () {
@@ -23,14 +43,14 @@ class DmsContainer extends React.Component {
       return <DmLi dm={el} key={i} currentUser={this.props.currentUser} />
     });
     const users = this.props.users.map((el, i) => {
-      return <li key={i} className="channel-li dm-link">{el.name}</li>
+      return <li key={i} className="channel-li dm-link" onClick={this.setupDm(el.id)}>{el.name}</li>
     });
 
     const klass = this.state.display ? "dm-users" : "hidden-dms";
     return (
       <>
       <div className="sidebar-dms-header" onClick={this.showDmUsers}>
-        Direct Messages <i className="fas fa-plus-circle"></i>
+        Direct Messages <i className="fas fa-plus-circle" onClick={this.showDmUsers}></i>
       </div>
       <div className="sidebar-channel-name">
         <ul className="channels-list dm-list">
@@ -48,5 +68,9 @@ const msp = state => ({
   currentUser: Object.values(state.entities.users).length > 0 && state.session.currentUserId ? 
                 state.entities.users[state.session.currentUserId] : { name: ""}
 });
+const mdp = dispatch => ({
+  createDm: (creatorId, receiverId) => dispatch(createDm(creatorId, receiverId)),
+  mostRecentUserDm: creatorId => dispatch(mostRecentUserDm(creatorId))
+})
 
-export default withRouter(connect(msp, null)(DmsContainer));
+export default withRouter(connect(msp, mdp)(DmsContainer));
