@@ -8,10 +8,40 @@ Check out the [live site!](https://slaqq.herokuapp.com/#/)
 
 ### Technologies
 
-slaq was created with React/Redux on the client side and Ruby on Rails/Postgresql server side, using Rails' ActionCable websocket framework to implement live chatting and updates.
-
-### Features
+slaq was created with React/Redux on the client side and Ruby on Rails/Postgresql server side, using the Rails ActionCable websocket framework to implement live chatting and updates.
 
 ![slaq home screen](https://github.com/connorryanbaker/readme_imgs/blob/master/splashcropped.png)
 
 ![slaq chat screen](https://github.com/connorryanbaker/readme_imgs/blob/master/chat.png)
+
+### Features
+
+Once logged in and connected to any channel, client-side JS will configure a subscription, opening a websocket connection and streaming all messages broadcast to that particular channel.
+
+``` ruby
+class ChatChannel < ApplicationCable::Channel
+def subscribed
+  channel = Channel.find(params[:id])
+  load_user_into_channel(channel)
+  stream_for channel
+end
+
+Messages are loaded 25 at a time with an additional 25 being fetched once the user scrolls to the top of the page. This 'infinite-scroll' feature was implemented with the help of the Kaminari gem and the Waypoint react library.
+``` javascript
+ fetchNextPage() {
+    this.props.fetchPaginatedMessages(this.props.channelId, this.state.page)
+      .then(() => {
+        this.setState({
+          page: this.state.page + 1
+        },() => {
+          if (this.state.page > 2) {
+            window.scroll({
+              top: 1175,
+              behavior: 'auto'
+            });
+          }
+        });
+      });
+  }
+```
+
