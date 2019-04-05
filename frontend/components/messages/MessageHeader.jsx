@@ -1,6 +1,4 @@
 import React from 'react';
-import UserThumbnail from './UserThumbnail';
-import { connect } from 'react-redux';
 
 class MessageHeader extends React.Component {
   constructor(props) {
@@ -58,11 +56,6 @@ class MessageHeader extends React.Component {
             <span className="msg-user-time">{this.time}</span>
           </div>
         </div>
-        <UserThumbnail username={this.props.username}
-                       user_id={this.props.user_id}
-                       img_url={this.props.img_url}
-                       display={this.state.display}
-                       removeDisplay={this.updateDisplay}/>
       </div>
     )
 

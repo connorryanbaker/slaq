@@ -33,7 +33,7 @@ class DmsContainer extends React.Component {
         Direct Messages <i className="fas fa-plus-circle"></i>
       </div>
       <div className="sidebar-channel-name">
-        <ul className="channels-list">
+        <ul className="channels-list dm-list">
           {this.state.display? users : dmLis}
         </ul>
       </div>

@@ -277,11 +277,12 @@
   font-size: 1em;
   transition: 300ms;
   padding: 3px 3px 3px 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-channel-name:hover {
   color: white;
-
 }
 
 .channel-li {
@@ -569,4 +570,9 @@
 
 .dm-user-list {
   list-style-type: none;
+}
+
+.dm-list {
+  margin-top: 5px;
+  overflow-y: auto;
 }
