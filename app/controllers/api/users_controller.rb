@@ -16,6 +16,7 @@ class Api::UsersController < ApplicationController
 
   def index
     @users = params[:channel_id] ? Channel.find(params[:channel_id]).users : Dm.find(params[:dm_id]).users
+    @users << current_user unless @users.include?(current_user)
     render template: 'api/users/index'
   end
 
