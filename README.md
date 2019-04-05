@@ -1,7 +1,7 @@
-# README
+# slaq
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+slaq is a live chat application based on Slack. On slaq, users can chat live over multiple separate channels or privately in direct messages.
+Check out the [live site!](https://slaqq.herokuapp.com/#/)
 
 Things you may want to cover:
 
