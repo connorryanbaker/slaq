@@ -57,13 +57,25 @@ class MessageForm extends React.Component {
               onChange={this.update("content")}
               className="msg-bar"
               placeholder={`Message #${this.props.channelName}`} />
+        <div className="msg-bar-right">
+          <i class="fas fa-at"></i>
+          <i class="far fa-smile"></i>
+        </div>
       </div>
     </form>
     );
   }
 }
-const msp = (state, ownProps) => ({
-  channelName: state.entities.channels[ownProps.match.params.id] ? state.entities.channels[ownProps.match.params.id].name : "",
+const msp = (state, ownProps) => {
+  let name;
+  if (ownProps.channelType == 'ChatChannel') {
+    name = state.entities.channels[ownProps.match.params.id] ? state.entities.channels[ownProps.match.params.id].name : ""
+  } else {
+    name = state.entities.dms[ownProps.match.params.id] ? state.entities.dms[ownProps.match.params.id].name[0] : ""
+  }
+  return {
+  channelName: name,
   messageable_id: ownProps.match.params.id
-});
+  }
+};
 export default withRouter(connect(msp, null)(MessageForm));

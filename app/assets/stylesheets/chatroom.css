@@ -117,6 +117,18 @@
   display: flex;
 }
 
+.msg-bar-right {
+  display: flex;
+  align-items: center;
+  color: rgb(197,183,198);
+  justify-content: space-evenly;
+}
+
+.msg-bar-right > i {
+  margin: 5px;
+  font-size: 18px;
+}
+
 
 .msg-plus-icon {
   width: 50px;
