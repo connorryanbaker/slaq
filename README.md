@@ -80,4 +80,4 @@ Messages are associated with Channels or Dms via the polymorphic association 'me
 
 #### Future Updates
 * Live notifications
-* "Appearances" (that little green dot indicating a user is online")
+* "Appearances" (that little green dot indicating a user is online)
