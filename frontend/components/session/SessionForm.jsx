@@ -28,7 +28,7 @@ class SessionForm extends React.Component {
 
 
     this.props.action(this.state).then(() => {
-      this.props.history.push('/messages/1');
+      this.props.history.push('/messages/1')
     }, (e) => {
       errorFn(formType);
     });
